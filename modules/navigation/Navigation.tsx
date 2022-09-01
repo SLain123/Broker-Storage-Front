@@ -12,17 +12,27 @@ import MoreIcon from 'assets/icons/more.svg';
 
 const Tab = createBottomTabNavigator();
 
+const colors = {
+    primary: 'black',
+    background: 'black',
+    card: 'black',
+    text: 'grey',
+    border: '#2756B1',
+    notification: 'white',
+};
+
 const Navigation: FC = () => {
     return (
-        <NavigationContainer>
+        <NavigationContainer theme={{ dark: true, colors }}>
             <Tab.Navigator
                 screenOptions={{
                     tabBarActiveTintColor: '#2756B1',
                     tabBarStyle: {
-                        backgroundColor: 'black',
                         borderTopWidth: 2,
                         borderTopColor: '#2756B1',
+                        height: 55,
                     },
+                    headerShown: false,
                 }}
             >
                 <Tab.Screen

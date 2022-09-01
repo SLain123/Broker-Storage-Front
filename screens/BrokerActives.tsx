@@ -1,7 +1,11 @@
-import { Text } from 'react-native';
+import { Text, SafeAreaView } from 'react-native';
 
 const BrokerActives = () => {
-    return <Text>First</Text>;
+    return (
+        <SafeAreaView>
+            <Text style={{ color: 'white' }}>First</Text>
+        </SafeAreaView>
+    );
 };
 
 export { BrokerActives };
