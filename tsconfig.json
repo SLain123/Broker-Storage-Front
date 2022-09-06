@@ -7,7 +7,9 @@
             "assets/*": ["./assets/*"],
             "modules/*": ["./modules/*"],
             "types/*": ["./types/*"],
-            "components/*": ["./components/*"]
+            "components/*": ["./components/*"],
+            "api/*": ["./redux/api/*"],
+            "utils/*": ["./utils/*"]
         }
     },
     "extends": "expo/tsconfig.base"

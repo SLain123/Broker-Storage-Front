@@ -7,15 +7,23 @@ import {
     TextInput,
     TouchableOpacity,
     RefreshControl,
+    ActivityIndicator,
 } from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import SelectDropdown from 'react-native-select-dropdown';
+import { useMakeRegisterMutation } from 'api/registerApi';
+import { IRegResponse } from 'types/registerTypes';
 
 const countries = ['Egypt', 'Canada', 'Australia', 'Ireland'];
 
 const Register: FC = () => {
     const dropdownRef = useRef<SelectDropdown>(null);
+    const [makeRegister, { isSuccess, isLoading, data, error }] =
+        useMakeRegisterMutation();
+
+    const isDisabled = isLoading || isSuccess;
+
     const initialValues = {
         email: '',
         password: '',
@@ -58,7 +66,13 @@ const Register: FC = () => {
     } = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: (values) => console.log(values),
+        onSubmit: ({ email, password, nickName, defaultCurrencyId }) =>
+            makeRegister({
+                email,
+                password,
+                nickName,
+                defaultCurrencyId: '62dff8518fc3477394f09ee1',
+            }),
     });
 
     const changeCurrency = (currency: any) => {
@@ -68,6 +82,21 @@ const Register: FC = () => {
     const resetAllForm = () => {
         resetForm();
         dropdownRef.current.reset();
+    };
+
+    const getStatusBlock = () => {
+        if (data?.message) {
+            return <Text style={styles.success}>{data.message}</Text>;
+        }
+        const err = error as IRegResponse;
+        if (error) {
+            return err?.data?.errors ? (
+                <Text style={styles.error}>{err?.data.errors[0].msg}</Text>
+            ) : (
+                <Text style={styles.error}>Something was wrong</Text>
+            );
+        }
+        return null;
     };
 
     return (
@@ -87,6 +116,7 @@ const Register: FC = () => {
                     onBlur={handleBlur('email')}
                     value={values.email}
                     keyboardType='email-address'
+                    editable={!isDisabled}
                 />
             </View>
             <Text style={styles.error}>{touched.email && errors.email}</Text>
@@ -100,6 +130,7 @@ const Register: FC = () => {
                     onBlur={handleBlur('password')}
                     value={values.password}
                     secureTextEntry
+                    editable={!isDisabled}
                 />
             </View>
             <Text style={styles.error}>
@@ -115,6 +146,7 @@ const Register: FC = () => {
                     onBlur={handleBlur('confirmPassword')}
                     value={values.confirmPassword}
                     secureTextEntry
+                    editable={!isDisabled}
                 />
             </View>
             <Text style={styles.error}>
@@ -129,6 +161,7 @@ const Register: FC = () => {
                     onChangeText={handleChange('nickName')}
                     onBlur={handleBlur('nickName')}
                     value={values.nickName}
+                    editable={!isDisabled}
                 />
             </View>
             <Text style={styles.error}>
@@ -148,16 +181,23 @@ const Register: FC = () => {
                 rowTextStyle={styles.dropdownText}
                 selectedRowTextStyle={styles.dropdownActiveText}
                 dropdownOverlayColor='white'
+                disabled={isDisabled}
             />
             <Text style={styles.error}>
                 {touched.defaultCurrencyId && errors.defaultCurrencyId}
             </Text>
 
+            {getStatusBlock()}
             <TouchableOpacity
                 onPress={handleSubmit as any}
                 style={styles.sendBtn}
+                disabled={isDisabled}
             >
-                <Text style={styles.sendText}>Sign up</Text>
+                {isLoading ? (
+                    <ActivityIndicator size='small' color='black' />
+                ) : (
+                    <Text style={styles.sendText}>Sign up</Text>
+                )}
             </TouchableOpacity>
         </ScrollView>
     );
@@ -187,6 +227,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     error: { color: 'red', padding: 6 },
+    success: { color: 'green', padding: 6 },
     sendBtn: {
         backgroundColor: 'white',
         marginHorizontal: 15,
