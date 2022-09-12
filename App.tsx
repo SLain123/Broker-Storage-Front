@@ -1,5 +1,5 @@
 import { Navigation } from 'modules/navigation/Navigation';
-import { Register } from 'screens/Register';
+import { NoAuthNavigation } from 'modules/navigation/NoAuthNavigation';
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
 
@@ -8,7 +8,7 @@ export default function App() {
 
     return (
         <Provider store={store}>
-            {isAuth ? <Navigation /> : <Register />}
+            {isAuth ? <Navigation /> : <NoAuthNavigation />}
         </Provider>
     );
 }
