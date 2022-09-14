@@ -5,8 +5,8 @@ import * as Yup from 'yup';
 import SelectDropdown from 'react-native-select-dropdown';
 
 import { IInitialValues } from './RegisterType';
-import { CurrencySelect, StatusBlock } from './components';
-import { useMakeRegisterMutation } from 'api/registerApi';
+import { CurrencySelect, RegStatusBlock } from './components';
+import { useMakeRegisterMutation } from 'api/authApi';
 import { FormInput } from 'components/form-input/FormInput';
 import { FormBtn } from 'components/form-btn/FormBtn';
 
@@ -115,7 +115,7 @@ const RegisterModule = ({ navigation }) => {
                 dropdownRef={dropdownRef}
             />
 
-            <StatusBlock data={data} error={error} />
+            <RegStatusBlock data={data} error={error} />
             <FormBtn
                 onPress={handleSubmit as any}
                 isDisabled={isDisabled}

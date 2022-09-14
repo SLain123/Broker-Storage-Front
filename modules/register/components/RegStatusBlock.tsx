@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { Text, StyleSheet } from 'react-native';
 
-import { IRegResponse } from 'types/registerTypes';
+import { IRegResponse } from 'types/authTypes';
 import { IStatusBlock } from '../RegisterType';
 
-const StatusBlock: FC<IStatusBlock> = ({ data, error }) => {
+const RegStatusBlock: FC<IStatusBlock> = ({ data, error }) => {
     if (data?.message) {
         return <Text style={styles.success}>{data.message}</Text>;
     }
@@ -24,4 +24,4 @@ const styles = StyleSheet.create({
     success: { color: 'green', padding: 6 },
 });
 
-export { StatusBlock };
+export { RegStatusBlock };

@@ -4,9 +4,9 @@ import {
     BaseQueryFn,
     FetchArgs,
 } from '@reduxjs/toolkit/query/react';
-import { IRegRequiest, IRegResponse } from 'types/registerTypes';
+import { IRegRequiest, IRegResponse } from 'types/authTypes';
 
-export const registerApi = createApi({
+export const authApi = createApi({
     reducerPath: 'register',
     baseQuery: fetchBaseQuery({
         baseUrl: 'https://unified-broker.herokuapp.com/api/',
@@ -23,4 +23,4 @@ export const registerApi = createApi({
     }),
 });
 
-export const { useMakeRegisterMutation } = registerApi;
+export const { useMakeRegisterMutation } = authApi;

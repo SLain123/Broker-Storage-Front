@@ -1,6 +1,6 @@
 import { FormikConfig } from 'formik';
 import { SerializedError } from '@reduxjs/toolkit';
-import { IRegResponse } from 'types/registerTypes';
+import { IRegResponse } from 'types/authTypes';
 
 export interface IInitialValues {
     email: string;

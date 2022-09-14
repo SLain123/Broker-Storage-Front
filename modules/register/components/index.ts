@@ -1,2 +1,2 @@
-export { StatusBlock } from './StatusBlock';
+export { RegStatusBlock } from './RegStatusBlock';
 export { CurrencySelect } from './CurrencySelect';

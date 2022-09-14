@@ -1,15 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { registerApi } from 'api/registerApi';
+import { authApi } from 'api/authApi';
 import { currencyApi } from 'api/currencyApi';
 
 export const store = configureStore({
     reducer: {
-        [registerApi.reducerPath]: registerApi.reducer,
+        [authApi.reducerPath]: authApi.reducer,
         [currencyApi.reducerPath]: currencyApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(
-            registerApi.middleware,
+            authApi.middleware,
             currencyApi.middleware,
         ),
 });
