@@ -7,8 +7,7 @@ import SelectDropdown from 'react-native-select-dropdown';
 import { IInitialValues } from './RegisterType';
 import { CurrencySelect, RegStatusBlock } from './components';
 import { useMakeRegisterMutation } from 'api/authApi';
-import { FormInput } from 'components/form-input/FormInput';
-import { FormBtn } from 'components/form-btn/FormBtn';
+import { FormBtn, FormInput, FormLink } from 'components/ui';
 
 const RegisterModule = ({ navigation }) => {
     const dropdownRef = useRef<SelectDropdown>(null);
@@ -67,11 +66,7 @@ const RegisterModule = ({ navigation }) => {
 
     useEffect(() => {
         isSuccess &&
-            setTimeout(
-                () => navigation.navigate('Login', { test: 'test' }),
-                3000,
-                [isSuccess],
-            );
+            setTimeout(() => navigation.navigate('Login'), 2000, [isSuccess]);
     });
 
     return (
@@ -115,6 +110,10 @@ const RegisterModule = ({ navigation }) => {
                 dropdownRef={dropdownRef}
             />
 
+            <FormLink
+                textList={['Already have an account?', 'Sign in here']}
+                onPress={() => navigation.navigate('Login')}
+            />
             <RegStatusBlock data={data} error={error} />
             <FormBtn
                 onPress={handleSubmit as any}

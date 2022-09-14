@@ -16,7 +16,7 @@ export interface ICurrencySelect {
     isDisabled: boolean;
 }
 
-export interface IStatusBlock {
+export interface IRegStatusBlock {
     data: IRegResponse;
     error: IRegResponse | SerializedError;
 }

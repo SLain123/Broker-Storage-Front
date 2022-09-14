@@ -1,11 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { authApi } from 'api/authApi';
 import { currencyApi } from 'api/currencyApi';
+import { authSlice } from 'slice/authSlice';
 
 export const store = configureStore({
     reducer: {
         [authApi.reducerPath]: authApi.reducer,
         [currencyApi.reducerPath]: currencyApi.reducer,
+        //slice
+        [authSlice.name]: authSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(

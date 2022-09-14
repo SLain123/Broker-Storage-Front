@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import { Text, StyleSheet } from 'react-native';
 
-import { IRegResponse } from 'types/authTypes';
-import { IRegStatusBlock } from '../RegisterType';
+import { ILoginResponse } from 'types/authTypes';
+import { ILoginStatusBlock } from './LoginType';
 
-const RegStatusBlock: FC<IRegStatusBlock> = ({ data, error }) => {
+const LoginStatusBlock: FC<ILoginStatusBlock> = ({ data, error }) => {
     if (data?.message) {
         return <Text style={styles.success}>{data.message}</Text>;
     }
-    const err = error as IRegResponse;
+    const err = error as ILoginResponse;
     if (error) {
         return err?.data?.errors ? (
             <Text style={styles.error}>{err?.data.errors[0].msg}</Text>
@@ -24,4 +24,4 @@ const styles = StyleSheet.create({
     success: { color: 'green', padding: 6 },
 });
 
-export { RegStatusBlock };
+export { LoginStatusBlock };

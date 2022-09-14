@@ -4,13 +4,23 @@ import {
     BaseQueryFn,
     FetchArgs,
 } from '@reduxjs/toolkit/query/react';
-import { IRegRequiest, IRegResponse } from 'types/authTypes';
+import {
+    IRegRequiest,
+    IRegResponse,
+    ILoginResponse,
+    ILoginRequiest,
+} from 'types/authTypes';
 
 export const authApi = createApi({
-    reducerPath: 'register',
+    reducerPath: 'authApi',
     baseQuery: fetchBaseQuery({
         baseUrl: 'https://unified-broker.herokuapp.com/api/',
-    }) as BaseQueryFn<string | FetchArgs, unknown, IRegResponse, IRegResponse>,
+    }) as BaseQueryFn<
+        string | FetchArgs,
+        unknown,
+        IRegResponse,
+        ILoginResponse
+    >,
     tagTypes: ['Register'],
     endpoints: (builder) => ({
         makeRegister: builder.mutation<IRegResponse, IRegRequiest>({
@@ -20,7 +30,14 @@ export const authApi = createApi({
                 body: { email, password, nickName, defaultCurrencyId },
             }),
         }),
+        makeLogin: builder.mutation<ILoginResponse, ILoginRequiest>({
+            query: ({ email, password }) => ({
+                url: 'auth/login',
+                method: 'POST',
+                body: { email, password },
+            }),
+        }),
     }),
 });
 
-export const { useMakeRegisterMutation } = authApi;
+export const { useMakeRegisterMutation, useMakeLoginMutation } = authApi;

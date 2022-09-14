@@ -9,6 +9,7 @@
             "types/*": ["./types/*"],
             "components/*": ["./components/*"],
             "api/*": ["./redux/api/*"],
+            "slice/*": ["./redux/slice/*"],
             "utils/*": ["./utils/*"]
         }
     },
