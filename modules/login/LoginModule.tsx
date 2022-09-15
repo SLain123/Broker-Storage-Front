@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { ScrollView, StyleSheet, Text, RefreshControl } from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -7,6 +7,7 @@ import { IInitialValues } from './LoginType';
 import { LoginStatusBlock } from './LoginStatusBlock';
 import { useMakeLoginMutation } from 'api/authApi';
 import { FormInput, FormLink, FormBtn } from 'components/ui';
+import { saveToStore } from 'utils/secureStoreFuncs';
 
 const LoginModule = ({ navigation }) => {
     const [makeLogin, { isSuccess, isLoading, data, error }] =
@@ -34,7 +35,7 @@ const LoginModule = ({ navigation }) => {
             makeLogin({
                 email,
                 password,
-            }).then((result) => console.log(result));
+            });
         },
     });
     const { handleSubmit, resetForm } = formik;
@@ -43,14 +44,12 @@ const LoginModule = ({ navigation }) => {
         resetForm();
     };
 
-    // useEffect(() => {
-    //     isSuccess &&
-    //         setTimeout(
-    //             () => navigation.navigate('Login', { test: 'test' }),
-    //             3000,
-    //             [isSuccess],
-    //         );
-    // });
+    useEffect(() => {
+        if (isSuccess) {
+            saveToStore('token', data.token);
+            saveToStore('userId', data.userId);
+        }
+    }, [isSuccess]);
 
     return (
         <ScrollView

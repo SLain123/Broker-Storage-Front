@@ -15,12 +15,7 @@ export const authApi = createApi({
     reducerPath: 'authApi',
     baseQuery: fetchBaseQuery({
         baseUrl: 'https://unified-broker.herokuapp.com/api/',
-    }) as BaseQueryFn<
-        string | FetchArgs,
-        unknown,
-        IRegResponse,
-        ILoginResponse
-    >,
+    }) as BaseQueryFn<string | FetchArgs, unknown, IRegResponse, unknown>,
     tagTypes: ['Register'],
     endpoints: (builder) => ({
         makeRegister: builder.mutation<IRegResponse, IRegRequiest>({

@@ -65,9 +65,8 @@ const RegisterModule = ({ navigation }) => {
     };
 
     useEffect(() => {
-        isSuccess &&
-            setTimeout(() => navigation.navigate('Login'), 2000, [isSuccess]);
-    });
+        isSuccess && setTimeout(() => navigation.navigate('Login'), 2000);
+    }, [isSuccess]);
 
     return (
         <ScrollView

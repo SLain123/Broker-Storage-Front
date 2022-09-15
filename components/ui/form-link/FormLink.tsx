@@ -9,8 +9,10 @@ export interface IFormLink {
 const FormLink: FC<IFormLink> = ({ textList, onPress }) => {
     return (
         <TouchableOpacity onPress={onPress} style={styles.btn}>
-            {textList.map((text) => (
-                <Text style={styles.text}>{text}</Text>
+            {textList.map((text, indx) => (
+                <Text key={indx} style={styles.text}>
+                    {text}
+                </Text>
             ))}
         </TouchableOpacity>
     );

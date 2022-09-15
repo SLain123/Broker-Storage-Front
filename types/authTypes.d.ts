@@ -18,15 +18,15 @@ export interface ILoginRequiest {
 }
 
 export interface IUserData {
-    token: string;
-    userId: string;
+    token?: string;
+    userId?: string;
 }
 
 export interface IAuthStore extends IUserData {
     isAuth: boolean | 'not_verified';
 }
 
-export interface ILoginResponse extends Partial<IUserData> {
+export interface ILoginResponse extends IUserData {
     message?: string;
     data?: IResponseError;
 }

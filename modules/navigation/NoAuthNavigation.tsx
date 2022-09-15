@@ -13,8 +13,8 @@ const NoAuthNavigation = () => {
                     headerShown: false,
                 }}
             >
-                <Stack.Screen name='Register' component={RegisterModule} />
                 <Stack.Screen name='Login' component={LoginModule} />
+                <Stack.Screen name='Register' component={RegisterModule} />
             </Stack.Navigator>
         </NavigationContainer>
     );

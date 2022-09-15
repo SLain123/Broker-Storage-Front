@@ -28,7 +28,9 @@ const FormBtn: FC<IFormBtn> = ({
             {isLoading ? (
                 <ActivityIndicator size='small' color='black' />
             ) : (
-                <Text style={styles.sendText}>{btnText}</Text>
+                <Text style={isDisabled ? styles.disabled : styles.sendText}>
+                    {btnText}
+                </Text>
             )}
         </TouchableOpacity>
     );
@@ -46,6 +48,7 @@ const styles = StyleSheet.create({
         width: '80%',
     },
     sendText: { color: 'black', fontWeight: 'bold' },
+    disabled: { color: 'grey', fontWeight: 'bold' },
 });
 
 export { FormBtn };
