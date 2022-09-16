@@ -22,11 +22,17 @@ export interface IUserData {
     userId?: string;
 }
 
-export interface IAuthStore extends IUserData {
+export interface IAuthStore {
     isAuth: boolean | 'not_verified';
 }
 
 export interface ILoginResponse extends IUserData {
     message?: string;
+    data?: IResponseError;
+}
+
+export interface IValidationCheckResponse {
+    message?: string;
+    validate?: boolean;
     data?: IResponseError;
 }

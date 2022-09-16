@@ -1,71 +1,19 @@
 import { FC } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { BrokerActives } from 'screens/BrokerActives';
-import { OtherActives } from 'screens/OtherActives';
-
-import BrokerIcon from 'assets/icons/bag.svg';
-import ActivesIcon from 'assets/icons/newspaper.svg';
-import StatIcon from 'assets/icons/stat.svg';
-import MoreIcon from 'assets/icons/more.svg';
-
-const Tab = createBottomTabNavigator();
-
-const colors = {
-    primary: 'black',
-    background: 'black',
-    card: 'black',
-    text: 'grey',
-    border: '#2756B1',
-    notification: 'white',
-};
+import { useAppSelector } from 'hooks';
+import { getAuthStatus } from 'slice/authSlice';
+import { AuthNav } from './AuthNav';
+import { NoAuthNav } from './NoAuthNav';
+import { BlanketSpinner } from 'components/ui';
 
 const Navigation: FC = () => {
-    return (
-        <NavigationContainer theme={{ dark: true, colors }}>
-            <Tab.Navigator
-                screenOptions={{
-                    tabBarActiveTintColor: '#2756B1',
-                    tabBarStyle: {
-                        borderTopWidth: 2,
-                        borderTopColor: '#2756B1',
-                        height: 55,
-                    },
-                    headerShown: false,
-                }}
-            >
-                <Tab.Screen
-                    name='Broker Actives'
-                    component={BrokerActives}
-                    options={{
-                        tabBarIcon: () => <BrokerIcon width={50} />,
-                    }}
-                />
-                <Tab.Screen
-                    name='Other Actives'
-                    component={OtherActives}
-                    options={{
-                        tabBarIcon: () => <ActivesIcon width={50} />,
-                    }}
-                />
-                <Tab.Screen
-                    name='Statistics'
-                    component={BrokerActives}
-                    options={{
-                        tabBarIcon: () => <StatIcon width={50} />,
-                    }}
-                />
-                <Tab.Screen
-                    name='More'
-                    component={OtherActives}
-                    options={{
-                        tabBarIcon: () => <MoreIcon width={50} />,
-                    }}
-                />
-            </Tab.Navigator>
-        </NavigationContainer>
-    );
+    const isAuth = useAppSelector(getAuthStatus);
+
+    if (isAuth === 'not_verified') {
+        return <BlanketSpinner />;
+    }
+
+    return isAuth ? <AuthNav /> : <NoAuthNav />;
 };
 
 export { Navigation };

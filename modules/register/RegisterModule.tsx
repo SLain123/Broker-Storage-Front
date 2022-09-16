@@ -65,7 +65,7 @@ const RegisterModule = ({ navigation }) => {
     };
 
     useEffect(() => {
-        isSuccess && setTimeout(() => navigation.navigate('Login'), 2000);
+        isSuccess && setTimeout(() => navigation.navigate('Login'), 1500);
     }, [isSuccess]);
 
     return (

@@ -1,11 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-import { IAuthStore, ILoginResponse } from 'types/authTypes';
+import { IAuthStore } from 'types/authTypes';
 
 const initialState: IAuthStore = {
-    token: '',
-    userId: '',
     isAuth: 'not_verified',
 };
 
@@ -13,12 +11,12 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState: initialState,
     reducers: {
-        setAuthData: (_state, action: PayloadAction<ILoginResponse>) => {
-            return { ...action.payload, isAuth: true };
+        setAuthStatus: (_state, action: PayloadAction<boolean>) => {
+            return { isAuth: action.payload };
         },
     },
 });
 
-export const { setAuthData } = authSlice.actions;
+export const { setAuthStatus } = authSlice.actions;
 
-export const getAuthData = (state: RootState) => state.auth;
+export const getAuthStatus = (state: RootState) => state.auth.isAuth;

@@ -1,14 +1,14 @@
+import React from 'react';
 import { Navigation } from 'modules/navigation/Navigation';
-import { NoAuthNavigation } from 'modules/navigation/NoAuthNavigation';
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
+import { AuthModule } from 'modules/auth/AuthModule';
 
 export default function App() {
-    const isAuth = false;
-
     return (
         <Provider store={store}>
-            {isAuth ? <Navigation /> : <NoAuthNavigation />}
+            <AuthModule />
+            <Navigation />
         </Provider>
     );
 }

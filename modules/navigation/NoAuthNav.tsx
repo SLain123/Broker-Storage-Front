@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator();
 
-const NoAuthNavigation = () => {
+const NoAuthNav = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator
@@ -20,4 +20,4 @@ const NoAuthNavigation = () => {
     );
 };
 
-export { NoAuthNavigation };
+export { NoAuthNav };

@@ -8,8 +8,11 @@ import { LoginStatusBlock } from './LoginStatusBlock';
 import { useMakeLoginMutation } from 'api/authApi';
 import { FormInput, FormLink, FormBtn } from 'components/ui';
 import { saveToStore } from 'utils/secureStoreFuncs';
+import { useAppDispatch } from 'hooks';
+import { setAuthStatus } from 'slice/authSlice';
 
 const LoginModule = ({ navigation }) => {
+    const dispatch = useAppDispatch();
     const [makeLogin, { isSuccess, isLoading, data, error }] =
         useMakeLoginMutation();
 
@@ -48,6 +51,9 @@ const LoginModule = ({ navigation }) => {
         if (isSuccess) {
             saveToStore('token', data.token);
             saveToStore('userId', data.userId);
+            setTimeout(() => {
+                dispatch(setAuthStatus(true));
+            }, 1500);
         }
     }, [isSuccess]);
 

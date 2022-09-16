@@ -9,14 +9,23 @@ import {
     IRegResponse,
     ILoginResponse,
     ILoginRequiest,
+    IValidationCheckResponse,
 } from 'types/authTypes';
+import { getValueFromStore } from 'utils/secureStoreFuncs';
 
 export const authApi = createApi({
     reducerPath: 'authApi',
     baseQuery: fetchBaseQuery({
         baseUrl: 'https://unified-broker.herokuapp.com/api/',
+        prepareHeaders: async (headers) => {
+            const token = await getValueFromStore('token');
+            token && headers.set('Authorization', `Bearer ${token}`);
+
+            return headers;
+        },
     }) as BaseQueryFn<string | FetchArgs, unknown, IRegResponse, unknown>,
-    tagTypes: ['Register'],
+
+    tagTypes: ['Auth'],
     endpoints: (builder) => ({
         makeRegister: builder.mutation<IRegResponse, IRegRequiest>({
             query: ({ email, password, nickName, defaultCurrencyId }) => ({
@@ -32,7 +41,17 @@ export const authApi = createApi({
                 body: { email, password },
             }),
         }),
+        checkAuth: builder.query<IValidationCheckResponse, void>({
+            query: () => ({
+                url: 'auth/check',
+                method: 'GET',
+            }),
+        }),
     }),
 });
 
-export const { useMakeRegisterMutation, useMakeLoginMutation } = authApi;
+export const {
+    useMakeRegisterMutation,
+    useMakeLoginMutation,
+    useCheckAuthQuery,
+} = authApi;
