@@ -5,6 +5,6 @@ export interface ICurrency {
 }
 
 export interface ICurrencyResponse {
-    message: string;
-    currencies: ICurrency[];
+    message?: string;
+    currencies?: ICurrency[];
 }

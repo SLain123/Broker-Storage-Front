@@ -1,12 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { authApi } from 'api/authApi';
 import { currencyApi } from 'api/currencyApi';
+import { profileApi } from 'api/profileApi';
+
 import { authSlice } from 'slice/authSlice';
 
 export const store = configureStore({
     reducer: {
         [authApi.reducerPath]: authApi.reducer,
         [currencyApi.reducerPath]: currencyApi.reducer,
+        [profileApi.reducerPath]: profileApi.reducer,
         //slice
         [authSlice.name]: authSlice.reducer,
     },
@@ -14,6 +17,7 @@ export const store = configureStore({
         getDefaultMiddleware().concat(
             authApi.middleware,
             currencyApi.middleware,
+            profileApi.middleware,
         ),
 });
 

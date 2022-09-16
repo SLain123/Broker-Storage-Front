@@ -4,11 +4,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { BrokerActives } from 'screens/BrokerActives';
 import { OtherActives } from 'screens/OtherActives';
+import { Profile } from 'screens/Profile';
 
 import BrokerIcon from 'assets/icons/bag.svg';
 import ActivesIcon from 'assets/icons/newspaper.svg';
 import StatIcon from 'assets/icons/stat.svg';
-import MoreIcon from 'assets/icons/more.svg';
+import ProfileIcon from 'assets/icons/profile.svg';
 
 const Tab = createBottomTabNavigator();
 
@@ -48,10 +49,10 @@ const AuthNav = () => {
                     }}
                 />
                 <Tab.Screen
-                    name='More'
-                    component={OtherActives}
+                    name='Profile'
+                    component={Profile}
                     options={{
-                        tabBarIcon: () => <MoreIcon width={50} />,
+                        tabBarIcon: () => <ProfileIcon width={50} />,
                     }}
                 />
             </Tab.Navigator>
