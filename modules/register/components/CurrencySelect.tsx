@@ -2,6 +2,7 @@ import React, { FC, useMemo } from 'react';
 import { ActivityIndicator, StyleSheet, Text } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 
+import { RequestErrorModal } from 'components/modals';
 import { ICurrencySelect } from '../RegisterType';
 import { useGetCurrencyListQuery } from 'api/currencyApi';
 
@@ -58,6 +59,10 @@ const CurrencySelect: FC<ICurrencySelect> = ({
                 {formik.touched.defaultCurrencyId &&
                     formik.errors.defaultCurrencyId}
             </Text>
+            <RequestErrorModal
+                visible={isError}
+                message="Currency wasn't download from the server. Please, try to reboot the app."
+            />
         </>
     );
 };
