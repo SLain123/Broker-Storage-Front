@@ -10,7 +10,16 @@ export interface IUserData {
     brokerAccounts: IBroker[];
 }
 
+export interface IUserRequiest {
+    nickName: string;
+    defaultCurrencyId: string;
+}
+
 export interface IGetProfileResponse {
     message?: string;
-    user?: IUserData
+    user?: IUserData;
+}
+
+export interface IChangeUserResponse {
+    message?: string;
 }

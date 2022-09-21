@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, FC } from 'react';
 import { ScrollView, StyleSheet, Text, RefreshControl } from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -8,8 +8,9 @@ import { IInitialValues } from './RegisterType';
 import { CurrencySelect, RegStatusBlock } from './components';
 import { useMakeRegisterMutation } from 'api/authApi';
 import { FormBtn, FormInput, FormLink } from 'components/ui';
+import { IScreenProps } from 'types/commonTypes';
 
-const RegisterModule = ({ navigation }) => {
+const RegisterModule: FC<IScreenProps> = ({ navigation }) => {
     const dropdownRef = useRef<SelectDropdown>(null);
     const [makeRegister, { isSuccess, isLoading, data, error }] =
         useMakeRegisterMutation();

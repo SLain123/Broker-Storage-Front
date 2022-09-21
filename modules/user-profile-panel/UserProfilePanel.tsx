@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { StyleSheet, ScrollView, RefreshControl } from 'react-native';
 
 import { useGetUserProfileQuery } from 'api/profileApi';
 import { BlanketSpinner, InteractiveStringLink } from 'components/ui';
@@ -8,13 +8,14 @@ import { BrokerAccountList } from './components/BrokerAccountList';
 import { saveToStore } from 'utils/secureStoreFuncs';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { setAuthStatus, getAuthStatus } from 'slice/authSlice';
+import { IScreenProps } from 'types/commonTypes';
 
 import At from 'assets/icons/at.svg';
 import Person from 'assets/icons/person.svg';
 import Currency from 'assets/icons/currency.svg';
 import Exit from 'assets/icons/exit.svg';
 
-const UserProfilePanel: FC = () => {
+const UserProfilePanel: FC<IScreenProps> = ({ navigation }) => {
     const dispatch = useAppDispatch();
     const { data, isLoading, isError, refetch } = useGetUserProfileQuery();
     const isAuth = useAppSelector(getAuthStatus);
@@ -42,14 +43,19 @@ const UserProfilePanel: FC = () => {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <ScrollView
+            contentContainerStyle={styles.container}
+            refreshControl={
+                <RefreshControl refreshing={false} onRefresh={refetch} />
+            }
+        >
             <InteractiveStringLink
                 icon={<At width={32} height={32} />}
                 title={data.user.email}
                 disabled
             />
             <InteractiveStringLink
-                onPress={() => console.log('press!')}
+                onPress={() => navigation.navigate('Edit Nick')}
                 icon={<Person width={32} height={32} />}
                 title={data.user.nickName}
                 desc='You can change your nick here'
@@ -67,12 +73,12 @@ const UserProfilePanel: FC = () => {
                 title='Exit from Account'
                 desc='You will EXIT from your account press here'
             />
-        </SafeAreaView>
+        </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
-    container: { padding: 12, marginTop: 32 },
+    container: { padding: 12 },
 });
 
 export { UserProfilePanel };

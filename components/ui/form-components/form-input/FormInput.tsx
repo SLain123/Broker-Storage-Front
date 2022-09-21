@@ -19,7 +19,7 @@ export interface IFormInput {
 
 const FormInput: FC<IFormInput> = ({
     formik,
-    isDisabled = false,
+    isDisabled = true,
     field,
     placeholder = '',
     secureTextEntry = false,
