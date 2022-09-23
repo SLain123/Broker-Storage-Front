@@ -3,12 +3,16 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 import { IBroker } from 'types/brokerTypes';
 import { BrokerAccountItem } from './BrokerAccountItem';
+import { IScreenProps } from 'types/commonTypes';
 
-export interface IBrokerAccountList {
+export interface IBrokerAccountList extends IScreenProps {
     brokerAccounts: IBroker[];
 }
 
-const BrokerAccountList: FC<IBrokerAccountList> = ({ brokerAccounts }) => {
+const BrokerAccountList: FC<IBrokerAccountList> = ({
+    brokerAccounts,
+    navigation,
+}) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Your brokers:</Text>
@@ -35,7 +39,11 @@ const BrokerAccountList: FC<IBrokerAccountList> = ({ brokerAccounts }) => {
                 </Text>
             )}
 
-            <TouchableOpacity style={styles.addBtn} activeOpacity={0.5}>
+            <TouchableOpacity
+                style={styles.addBtn}
+                activeOpacity={0.5}
+                onPress={() => navigation.navigate('Create Broker')}
+            >
                 <Text style={styles.addText}>Add New Broker</Text>
             </TouchableOpacity>
         </View>

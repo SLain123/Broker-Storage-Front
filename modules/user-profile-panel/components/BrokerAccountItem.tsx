@@ -49,6 +49,8 @@ const styles = StyleSheet.create({
     title: {
         color: 'white',
         fontSize: 16,
+        maxWidth: '60%',
+        height: 20,
     },
     cash: {
         color: '#2756B1',

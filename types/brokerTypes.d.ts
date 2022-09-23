@@ -10,3 +10,14 @@ export interface IBroker {
     sumBalance: number;
     status: StatusType;
 }
+
+export interface ICreateBrokerReq {
+    title: string;
+    currencyId: string;
+    cash: number;
+}
+
+export interface ICreateBrokerRes {
+    message?: string;
+    data?: IBroker;
+}

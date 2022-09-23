@@ -17,4 +17,5 @@ export interface ICurrencySelect {
     formik: FormikConfig;
     isDisabled?: boolean;
     defaultBtnText?: string;
+    formikFieldName?: string;
 }

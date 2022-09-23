@@ -11,6 +11,7 @@ const CurrencySelect: FC<ICurrencySelect> = ({
     formik,
     isDisabled = false,
     defaultBtnText,
+    formikFieldName = 'defaultCurrencyId',
 }) => {
     const {
         data: currencyList,
@@ -30,7 +31,7 @@ const CurrencySelect: FC<ICurrencySelect> = ({
 
     const changeCurrency = (index: number) => {
         formik.setFieldValue(
-            'defaultCurrencyId',
+            formikFieldName,
             currencyList.currencies[index]._id,
         );
     };

@@ -66,7 +66,10 @@ const UserProfilePanel: FC<IScreenProps> = ({ navigation }) => {
                 title={`${data.user.defaultCurrency.title} ${data.user.defaultCurrency.ticker}`}
                 desc='You can change your default currency'
             />
-            <BrokerAccountList brokerAccounts={data.user.brokerAccounts} />
+            <BrokerAccountList
+                brokerAccounts={data.user.brokerAccounts}
+                navigation={navigation}
+            />
             <InteractiveStringLink
                 onPress={exitFromAccount}
                 icon={<Exit width={32} height={32} />}

@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { authApi } from 'api/authApi';
 import { currencyApi } from 'api/currencyApi';
 import { profileApi } from 'api/profileApi';
+import { brokerApi } from 'api/brokerApi';
 
 import { authSlice } from 'slice/authSlice';
 
@@ -10,6 +11,7 @@ export const store = configureStore({
         [authApi.reducerPath]: authApi.reducer,
         [currencyApi.reducerPath]: currencyApi.reducer,
         [profileApi.reducerPath]: profileApi.reducer,
+        [brokerApi.reducerPath]: brokerApi.reducer,
         //slice
         [authSlice.name]: authSlice.reducer,
     },
@@ -18,6 +20,7 @@ export const store = configureStore({
             authApi.middleware,
             currencyApi.middleware,
             profileApi.middleware,
+            brokerApi.middleware,
         ),
 });
 
