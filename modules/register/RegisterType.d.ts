@@ -1,4 +1,3 @@
-import { FormikConfig } from 'formik';
 import { SerializedError } from '@reduxjs/toolkit';
 import { IRegResponse } from 'types/authTypes';
 
@@ -8,12 +7,6 @@ export interface IInitialValues {
     confirmPassword: string;
     nickName: string;
     defaultCurrencyId: string;
-}
-
-export interface ICurrencySelect {
-    dropdownRef: React.MutableRefObject<SelectDropdown>;
-    formik: FormikConfig;
-    isDisabled: boolean;
 }
 
 export interface IRegStatusBlock {

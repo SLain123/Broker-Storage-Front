@@ -3,13 +3,14 @@ import { ActivityIndicator, StyleSheet, Text } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 
 import { RequestErrorModal } from 'components/modals';
-import { ICurrencySelect } from '../RegisterType';
 import { useGetCurrencyListQuery } from 'api/currencyApi';
+import { ICurrencySelect } from 'types/commonTypes';
 
 const CurrencySelect: FC<ICurrencySelect> = ({
     dropdownRef,
     formik,
-    isDisabled,
+    isDisabled = false,
+    defaultBtnText,
 }) => {
     const {
         data: currencyList,
@@ -45,7 +46,9 @@ const CurrencySelect: FC<ICurrencySelect> = ({
                     changeCurrency(index);
                 }}
                 rowTextForSelection={(item) => item}
-                defaultButtonText='Select default currency'
+                defaultButtonText={
+                    defaultBtnText ? defaultBtnText : 'Select default currency'
+                }
                 buttonTextAfterSelection={(selectedItem) => selectedItem}
                 buttonStyle={styles.selectBody}
                 buttonTextStyle={styles.selectText}

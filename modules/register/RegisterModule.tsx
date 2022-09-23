@@ -5,9 +5,9 @@ import * as Yup from 'yup';
 import SelectDropdown from 'react-native-select-dropdown';
 
 import { IInitialValues } from './RegisterType';
-import { CurrencySelect, RegStatusBlock } from './components';
+import { RegStatusBlock } from './RegStatusBlock';
 import { useMakeRegisterMutation } from 'api/authApi';
-import { FormBtn, FormInput, FormLink } from 'components/ui';
+import { FormBtn, FormInput, FormLink, CurrencySelect } from 'components/ui';
 import { IScreenProps } from 'types/commonTypes';
 
 const RegisterModule: FC<IScreenProps> = ({ navigation }) => {

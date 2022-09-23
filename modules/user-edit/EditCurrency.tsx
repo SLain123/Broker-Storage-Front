@@ -1,9 +1,10 @@
-import React, { FC, useEffect } from 'react';
-import { ScrollView, StyleSheet, Text, RefreshControl } from 'react-native';
+import React, { FC, useEffect, useRef } from 'react';
+import { ScrollView, StyleSheet, RefreshControl } from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import SelectDropdown from 'react-native-select-dropdown';
 
-import { FormInput, FormBtn } from 'components/ui';
+import { FormBtn, CurrencySelect } from 'components/ui';
 import {
     useGetUserProfileQuery,
     useChangeUserDataMutation,
@@ -11,31 +12,37 @@ import {
 import { IScreenProps } from 'types/commonTypes';
 import { RequestErrorModal } from 'components/modals';
 
-const EditNick: FC<IScreenProps> = ({ navigation }) => {
+const EditCurrency: FC<IScreenProps> = ({ navigation }) => {
     const { data, refetch } = useGetUserProfileQuery();
     const [changeUserData, { isSuccess, isError, isLoading: isLoadChanging }] =
         useChangeUserDataMutation();
 
-    const initialValues: { nickName: string } = {
-        nickName: data.user.nickName,
+    const dropdownRef = useRef<SelectDropdown>(null);
+    const isDisabled = isLoadChanging || isSuccess;
+
+    const initialValues: { defaultCurrencyId: string } = {
+        defaultCurrencyId: data.user.defaultCurrency._id,
     };
     const validationSchema = Yup.object().shape({
-        nickName: Yup.string().required('Nickname is Required'),
+        defaultCurrencyId: Yup.string().required(
+            'Default Currency is Required',
+        ),
     });
 
     const formik = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: ({ nickName }) => {
+        onSubmit: ({ defaultCurrencyId }) => {
             changeUserData({
-                nickName,
-                defaultCurrencyId: data.user.defaultCurrency._id,
+                nickName: data.user.nickName,
+                defaultCurrencyId,
             });
         },
     });
     const { handleSubmit, resetForm } = formik;
 
     const resetAllForm = () => {
+        dropdownRef.current.reset();
         resetForm();
     };
 
@@ -53,19 +60,21 @@ const EditNick: FC<IScreenProps> = ({ navigation }) => {
                 <RefreshControl refreshing={false} onRefresh={resetAllForm} />
             }
         >
-            <FormInput
+            <CurrencySelect
                 formik={formik}
-                field='nickName'
-                placeholder='Your nick or first name'
+                dropdownRef={dropdownRef}
+                isDisabled={false}
+                defaultBtnText={`${data.user.defaultCurrency.title} (${data.user.defaultCurrency.ticker})`}
             />
             <FormBtn
                 onPress={handleSubmit as any}
+                isDisabled={isDisabled}
                 isLoading={isLoadChanging}
-                btnText='Change Nick'
+                btnText='Change Currency'
             />
             <RequestErrorModal
                 visible={isError}
-                message='Nick has not been changed. Try to reboot the app and repeat changing'
+                message='Currency has not been changed. Try to reboot the app and repeat changing'
             />
         </ScrollView>
     );
@@ -80,4 +89,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export { EditNick };
+export { EditCurrency };

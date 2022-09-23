@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Text, StyleSheet } from 'react-native';
 
 import { IRegResponse } from 'types/authTypes';
-import { IRegStatusBlock } from '../RegisterType';
+import { IRegStatusBlock } from './RegisterType';
 
 const RegStatusBlock: FC<IRegStatusBlock> = ({ data, error }) => {
     if (data?.message) {

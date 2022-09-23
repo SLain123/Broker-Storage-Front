@@ -11,3 +11,10 @@ export interface IResponseError {
 export interface IScreenProps {
     navigation: NavigationProp<any, any>;
 }
+
+export interface ICurrencySelect {
+    dropdownRef: React.MutableRefObject<SelectDropdown>;
+    formik: FormikConfig;
+    isDisabled?: boolean;
+    defaultBtnText?: string;
+}

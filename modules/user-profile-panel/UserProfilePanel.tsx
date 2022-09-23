@@ -61,7 +61,7 @@ const UserProfilePanel: FC<IScreenProps> = ({ navigation }) => {
                 desc='You can change your nick here'
             />
             <InteractiveStringLink
-                onPress={() => console.log('press!')}
+                onPress={() => navigation.navigate('Edit Currency')}
                 icon={<Currency width={32} height={32} />}
                 title={`${data.user.defaultCurrency.title} ${data.user.defaultCurrency.ticker}`}
                 desc='You can change your default currency'
