@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 import { IBroker } from 'types/brokerTypes';
-import { BrokerAccountItem } from './BrokerAccountItem';
+import { BrokerAccountItem } from './components/BrokerAccountItem';
 import { IScreenProps } from 'types/commonTypes';
 
 export interface IBrokerAccountList extends IScreenProps {
@@ -19,18 +19,18 @@ const BrokerAccountList: FC<IBrokerAccountList> = ({
 
             {brokerAccounts.length ? (
                 brokerAccounts.map(
-                    ({ _id, title, currency, sumBalance, status }) => {
-                        return (
-                            <BrokerAccountItem
-                                key={_id}
-                                title={title}
-                                currency={currency}
-                                sumBalance={sumBalance}
-                                status={status}
-                                onPress={() => console.log(_id)}
-                            />
-                        );
-                    },
+                    ({ _id, title, currency, sumBalance, status, cash }) => (
+                        <BrokerAccountItem
+                            key={_id}
+                            _id={_id}
+                            title={title}
+                            currency={currency}
+                            sumBalance={sumBalance}
+                            status={status}
+                            cash={cash}
+                            navigation={navigation}
+                        />
+                    ),
                 )
             ) : (
                 <Text style={styles.message}>

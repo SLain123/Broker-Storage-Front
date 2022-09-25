@@ -69,14 +69,14 @@ const LoginModule: FC<IScreenProps> = ({ navigation }) => {
             <FormInput
                 formik={formik}
                 field='email'
-                isDisabled={!isDisabled}
+                editable={!isDisabled}
                 placeholder='Email Address'
                 keyboardType='email-address'
             />
             <FormInput
                 formik={formik}
                 field='password'
-                isDisabled={!isDisabled}
+                editable={!isDisabled}
                 placeholder='Password'
                 secureTextEntry
             />

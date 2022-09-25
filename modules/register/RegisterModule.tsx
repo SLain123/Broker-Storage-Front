@@ -80,28 +80,28 @@ const RegisterModule: FC<IScreenProps> = ({ navigation }) => {
             <FormInput
                 formik={formik}
                 field='email'
-                isDisabled={!isDisabled}
+                editable={!isDisabled}
                 placeholder='Email Address'
                 keyboardType='email-address'
             />
             <FormInput
                 formik={formik}
                 field='password'
-                isDisabled={!isDisabled}
+                editable={!isDisabled}
                 placeholder='Password'
                 secureTextEntry
             />
             <FormInput
                 formik={formik}
                 field='confirmPassword'
-                isDisabled={!isDisabled}
+                editable={!isDisabled}
                 placeholder='Confirm Password'
                 secureTextEntry
             />
             <FormInput
                 formik={formik}
                 field='nickName'
-                isDisabled={!isDisabled}
+                editable={!isDisabled}
                 placeholder='Your nick or first name'
             />
             <CurrencySelect

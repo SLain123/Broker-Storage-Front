@@ -63,7 +63,7 @@ const EditCurrency: FC<IScreenProps> = ({ navigation }) => {
             <CurrencySelect
                 formik={formik}
                 dropdownRef={dropdownRef}
-                isDisabled={false}
+                isDisabled={isDisabled}
                 defaultBtnText={`${data.user.defaultCurrency.title} (${data.user.defaultCurrency.ticker})`}
             />
             <FormBtn

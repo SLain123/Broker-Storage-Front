@@ -4,7 +4,7 @@ import { StyleSheet, ScrollView, RefreshControl } from 'react-native';
 import { useGetUserProfileQuery } from 'api/profileApi';
 import { BlanketSpinner, InteractiveStringLink } from 'components/ui';
 import { RequestErrorModal } from 'components/modals';
-import { BrokerAccountList } from './components/BrokerAccountList';
+import { BrokerAccountList } from '../broker-accounts/BrokerAccountList';
 import { saveToStore } from 'utils/secureStoreFuncs';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { setAuthStatus, getAuthStatus } from 'slice/authSlice';

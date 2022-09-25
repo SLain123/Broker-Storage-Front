@@ -14,10 +14,14 @@ export interface IBroker {
 export interface ICreateBrokerReq {
     title: string;
     currencyId: string;
-    cash: number;
+    cash: string | number;
 }
 
 export interface ICreateBrokerRes {
     message?: string;
     data?: IBroker;
+}
+
+export interface IEditBrokerReq extends ICreateBrokerReq {
+    id: string;
 }

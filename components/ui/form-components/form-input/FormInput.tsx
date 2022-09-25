@@ -10,7 +10,7 @@ import { FormikProps } from 'formik';
 
 export interface IFormInput {
     formik: FormikProps<any>;
-    isDisabled?: boolean;
+    editable?: boolean;
     field: string;
     placeholder?: string;
     secureTextEntry?: boolean;
@@ -19,7 +19,7 @@ export interface IFormInput {
 
 const FormInput: FC<IFormInput> = ({
     formik,
-    isDisabled = true,
+    editable = true,
     field,
     placeholder = '',
     secureTextEntry = false,
@@ -39,7 +39,7 @@ const FormInput: FC<IFormInput> = ({
                     onBlur={formik.handleBlur(field)}
                     value={formik.values[field]}
                     keyboardType={keyboardType}
-                    editable={isDisabled}
+                    editable={editable}
                     secureTextEntry={secureTextEntry}
                 />
             </View>

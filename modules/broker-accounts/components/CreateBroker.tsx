@@ -64,7 +64,7 @@ const CreateBroker: FC<IScreenProps> = ({ navigation }) => {
             <FormInput
                 formik={formik}
                 field='title'
-                isDisabled={!isDisabled}
+                editable={!isDisabled}
                 placeholder='Type Broker Name'
             />
             <CurrencySelect
@@ -77,7 +77,7 @@ const CreateBroker: FC<IScreenProps> = ({ navigation }) => {
             <FormInput
                 formik={formik}
                 field='cash'
-                isDisabled={!isDisabled}
+                editable={!isDisabled}
                 placeholder='Specify the amount of Сash'
                 keyboardType='number-pad'
             />

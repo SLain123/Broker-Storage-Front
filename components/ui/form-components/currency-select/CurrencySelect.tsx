@@ -37,7 +37,7 @@ const CurrencySelect: FC<ICurrencySelect> = ({
     };
 
     return isLoading ? (
-        <ActivityIndicator size='large' color='white' />
+        <ActivityIndicator size='large' color='white' style={styles.spin} />
     ) : (
         <>
             <SelectDropdown
@@ -96,6 +96,9 @@ const styles = StyleSheet.create({
         color: '#2756B1',
     },
     error: { color: 'red', padding: 6 },
+    spin: {
+        marginBottom: 24,
+    },
 });
 
 export { CurrencySelect };

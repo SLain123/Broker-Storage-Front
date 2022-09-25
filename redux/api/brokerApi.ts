@@ -1,5 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { ICreateBrokerReq, ICreateBrokerRes } from 'types/brokerTypes';
+import {
+    ICreateBrokerReq,
+    ICreateBrokerRes,
+    IEditBrokerReq,
+} from 'types/brokerTypes';
 import { getValueFromStore } from 'utils/secureStoreFuncs';
 
 export const brokerApi = createApi({
@@ -19,10 +23,17 @@ export const brokerApi = createApi({
             query: ({ title, currencyId, cash }) => ({
                 url: 'broker',
                 method: 'POST',
-                body: { title, currencyId, cash },
+                body: { title, currencyId, cash: +cash },
+            }),
+        }),
+        editBroker: builder.mutation<ICreateBrokerRes, IEditBrokerReq>({
+            query: ({ id, title, currencyId, cash }) => ({
+                url: 'broker/correct',
+                method: 'POST',
+                body: { id, title, currencyId, cash: +cash },
             }),
         }),
     }),
 });
 
-export const { useCreateBrokerMutation } = brokerApi;
+export const { useCreateBrokerMutation, useEditBrokerMutation } = brokerApi;

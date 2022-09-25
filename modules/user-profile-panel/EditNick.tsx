@@ -13,9 +13,10 @@ import { RequestErrorModal } from 'components/modals';
 
 const EditNick: FC<IScreenProps> = ({ navigation }) => {
     const { data, refetch } = useGetUserProfileQuery();
-    const [changeUserData, { isSuccess, isError, isLoading: isLoadChanging }] =
+    const [changeUserData, { isSuccess, isError, isLoading }] =
         useChangeUserDataMutation();
 
+    const isDisabled = isLoading || isSuccess;
     const initialValues: { nickName: string } = {
         nickName: data.user.nickName,
     };
@@ -57,10 +58,11 @@ const EditNick: FC<IScreenProps> = ({ navigation }) => {
                 formik={formik}
                 field='nickName'
                 placeholder='Your nick or first name'
+                editable={!isDisabled}
             />
             <FormBtn
                 onPress={handleSubmit as any}
-                isLoading={isLoadChanging}
+                isLoading={isDisabled}
                 btnText='Change Nick'
             />
             <RequestErrorModal
