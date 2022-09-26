@@ -16,7 +16,12 @@ const BrokerAccountList: FC<IBrokerAccountList> = ({
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Your brokers:</Text>
-
+            <View style={styles.headerBlock}>
+                <Text style={styles.headerText}>Broker Name</Text>
+                <Text style={styles.headerText}>
+                    Sum Balance, All Actives + Cash
+                </Text>
+            </View>
             {brokerAccounts.length ? (
                 brokerAccounts.map(
                     ({ _id, title, currency, sumBalance, status, cash }) => (
@@ -63,6 +68,19 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 20,
         marginTop: 16,
+    },
+    headerBlock: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 8,
+        padding: 8,
+        borderBottomColor: 'rgba(255,255,255,0.7)',
+        borderBottomWidth: 1,
+    },
+    headerText: {
+        color: 'white',
+        fontSize: 12,
     },
     addBtn: {
         marginTop: 24,

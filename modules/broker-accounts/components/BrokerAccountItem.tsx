@@ -6,6 +6,7 @@ import { SlideBottomModal } from 'components/modals';
 import { BrokerActionPanel } from './BrokerActionPanel';
 import { IScreenProps } from 'types/commonTypes';
 import { ChangeBrokerStatus } from './ChangeBrokerStatus';
+import { moneyFormater } from 'utils/formaters';
 
 import RightArrow from 'assets/icons/right-arrow.svg';
 
@@ -45,7 +46,7 @@ const BrokerAccountItem: FC<IBrokerAccountItem> = ({
                 <Text style={styles.title}>{title}</Text>
                 {status === 'active' ? (
                     <Text style={styles.cash}>
-                        {sumBalance} {currency.ticker}
+                        {moneyFormater(sumBalance)} {currency.ticker}
                     </Text>
                 ) : (
                     <Text style={styles.inactive}>Inactive</Text>
