@@ -16,10 +16,7 @@ const SlideBottomModal: FC<ISlideBottomModal> = ({
 }) => {
     return (
         <Modal animationType='slide' transparent={true} visible={isVisible}>
-            <TouchableOpacity
-                style={styles.blanket}
-                onPress={closeModalFunc}
-            ></TouchableOpacity>
+            <TouchableOpacity style={styles.blanket} onPress={closeModalFunc} />
             <View style={{ height, marginTop: 'auto' }}>
                 <View style={styles.content}>{children}</View>
             </View>

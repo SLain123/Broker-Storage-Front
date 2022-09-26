@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     dropdownActiveText: {
         color: '#2756B1',
     },
-    error: { color: 'red', padding: 6 },
+    error: { color: '#A30000', padding: 6 },
     spin: {
         marginBottom: 24,
     },

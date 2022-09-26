@@ -1,10 +1,11 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useCallback } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import { IBroker } from 'types/brokerTypes';
 import { SlideBottomModal } from 'components/modals';
 import { BrokerActionPanel } from './BrokerActionPanel';
 import { IScreenProps } from 'types/commonTypes';
+import { ChangeBrokerStatus } from './ChangeBrokerStatus';
 
 import RightArrow from 'assets/icons/right-arrow.svg';
 
@@ -21,14 +22,25 @@ const BrokerAccountItem: FC<IBrokerAccountItem> = ({
     cash,
     navigation,
 }) => {
-    const [isVisibleModal, setVisibleModal] = useState(false);
+    const [isVisibleBottomModal, setVisibleBottomModal] = useState(false);
+    const [isVisibleChangeModal, setVisibleChangeModal] = useState(false);
+
+    const closeBottomModal = useCallback(
+        () => setVisibleBottomModal(false),
+        [],
+    );
+    const closeChangeModal = useCallback(
+        () => setVisibleChangeModal(false),
+        [],
+    );
+    const openChangeModal = useCallback(() => setVisibleChangeModal(true), []);
 
     return (
         <>
             <TouchableOpacity
                 style={styles.container}
                 activeOpacity={0.5}
-                onPress={() => setVisibleModal(true)}
+                onPress={() => setVisibleBottomModal(true)}
             >
                 <Text style={styles.title}>{title}</Text>
                 {status === 'active' ? (
@@ -42,8 +54,8 @@ const BrokerAccountItem: FC<IBrokerAccountItem> = ({
             </TouchableOpacity>
 
             <SlideBottomModal
-                isVisible={isVisibleModal}
-                closeModalFunc={() => setVisibleModal(false)}
+                isVisible={isVisibleBottomModal}
+                closeModalFunc={closeBottomModal}
             >
                 <BrokerActionPanel
                     _id={_id}
@@ -52,8 +64,20 @@ const BrokerAccountItem: FC<IBrokerAccountItem> = ({
                     cash={cash}
                     currency={currency}
                     navigation={navigation}
+                    closeBottomModal={closeBottomModal}
+                    openChangeModal={openChangeModal}
                 />
             </SlideBottomModal>
+
+            <ChangeBrokerStatus
+                isVisibleChangeModal={isVisibleChangeModal}
+                _id={_id}
+                title={title}
+                status={status}
+                currency={currency}
+                cash={cash}
+                closeChangeModal={closeChangeModal}
+            />
         </>
     );
 };

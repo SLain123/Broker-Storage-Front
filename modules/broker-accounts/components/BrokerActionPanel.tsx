@@ -10,7 +10,10 @@ import DeactiveIcon from 'assets/icons/shutdown-red.svg';
 
 export interface IBrokerActionPanel
     extends IScreenProps,
-        Omit<IBroker, 'sumStocks' | 'sumBalance'> {}
+        Omit<IBroker, 'sumStocks' | 'sumBalance'> {
+    closeBottomModal: () => void;
+    openChangeModal: () => void;
+}
 
 const BrokerActionPanel: FC<IBrokerActionPanel> = ({
     _id,
@@ -19,8 +22,10 @@ const BrokerActionPanel: FC<IBrokerActionPanel> = ({
     cash,
     currency,
     navigation,
+    closeBottomModal,
+    openChangeModal,
 }) => {
-    const editBroker = () =>
+    const changeBrokerData = () =>
         navigation.navigate('Edit Broker', {
             _id,
             title,
@@ -32,7 +37,7 @@ const BrokerActionPanel: FC<IBrokerActionPanel> = ({
     return (
         <View style={styles.container}>
             {status === 'active' && (
-                <TouchableOpacity style={styles.btn} onPress={editBroker}>
+                <TouchableOpacity style={styles.btn} onPress={changeBrokerData}>
                     <EditIcon width='20%' height='50%' />
                     <Text style={styles.btnText}>Edit Broker</Text>
                 </TouchableOpacity>
@@ -40,7 +45,10 @@ const BrokerActionPanel: FC<IBrokerActionPanel> = ({
 
             <TouchableOpacity
                 style={styles.btn}
-                onPress={() => console.log('second')}
+                onPress={() => {
+                    openChangeModal();
+                    closeBottomModal();
+                }}
             >
                 {status === 'active' ? (
                     <>

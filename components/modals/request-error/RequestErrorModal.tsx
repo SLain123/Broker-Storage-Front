@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         margin: 16,
     },
-    title: { color: 'red', textAlign: 'center', fontSize: 18 },
-    text: { color: 'red', textAlign: 'center' },
+    title: { color: '#A30000', textAlign: 'center', fontSize: 18 },
+    text: { color: '#A30000', textAlign: 'center' },
     btn: {
         backgroundColor: 'black',
         padding: 8,

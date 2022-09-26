@@ -20,7 +20,7 @@ const RegStatusBlock: FC<IRegStatusBlock> = ({ data, error }) => {
 };
 
 const styles = StyleSheet.create({
-    error: { color: 'red', padding: 6 },
+    error: { color: '#A30000', padding: 6 },
     success: { color: 'green', padding: 6 },
 });
 

@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 18,
     },
-    error: { color: 'red', padding: 6 },
+    error: { color: '#A30000', padding: 6 },
 });
 
 export { FormInput };

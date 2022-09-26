@@ -24,4 +24,5 @@ export interface ICreateBrokerRes {
 
 export interface IEditBrokerReq extends ICreateBrokerReq {
     id: string;
+    status?: StatusType;
 }
