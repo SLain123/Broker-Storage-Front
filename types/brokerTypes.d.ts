@@ -26,3 +26,8 @@ export interface IEditBrokerReq extends ICreateBrokerReq {
     id: string;
     status?: StatusType;
 }
+
+export interface IBrokerAccountsRes {
+    brokerAccounts?: IBroker[];
+    message?: string;
+}

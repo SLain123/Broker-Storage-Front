@@ -1,10 +1,21 @@
-import { Text, SafeAreaView } from 'react-native';
+import React from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import { StockBrokerList } from 'modules/stock-broker-list/StockBrokerList';
+
+const Stack = createNativeStackNavigator();
 
 const BrokerActives = () => {
     return (
-        <SafeAreaView>
-            <Text style={{ color: 'white' }}>First</Text>
-        </SafeAreaView>
+        <Stack.Navigator
+            screenOptions={{
+                headerTitleStyle: { color: '#2756B1' },
+                headerBackTitleVisible: false,
+            }}
+        >
+            <Stack.Screen name='Brokers' component={StockBrokerList}  />
+            <Stack.Screen name='Stock List' component={StockBrokerList}  />
+        </Stack.Navigator>
     );
 };
 

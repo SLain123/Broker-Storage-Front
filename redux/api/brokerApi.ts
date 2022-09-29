@@ -3,6 +3,7 @@ import {
     ICreateBrokerReq,
     ICreateBrokerRes,
     IEditBrokerReq,
+    IBrokerAccountsRes,
 } from 'types/brokerTypes';
 import { getValueFromStore } from 'utils/secureStoreFuncs';
 
@@ -19,7 +20,7 @@ export const brokerApi = createApi({
     }),
     tagTypes: ['Broker'],
     endpoints: (builder) => ({
-        getBrokerList: builder.query<ICreateBrokerRes, void>({
+        getBrokerList: builder.query<IBrokerAccountsRes, void>({
             query: () => 'broker',
         }),
         createBroker: builder.mutation<ICreateBrokerRes, ICreateBrokerReq>({
@@ -39,4 +40,8 @@ export const brokerApi = createApi({
     }),
 });
 
-export const { useCreateBrokerMutation, useEditBrokerMutation } = brokerApi;
+export const {
+    useGetBrokerListQuery,
+    useCreateBrokerMutation,
+    useEditBrokerMutation,
+} = brokerApi;

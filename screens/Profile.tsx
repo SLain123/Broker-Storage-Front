@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { UserProfilePanel } from 'modules/user-profile-panel/UserProfilePanel';
@@ -13,8 +12,8 @@ const Profile = () => {
     return (
         <Stack.Navigator
             screenOptions={{
-                headerRight: () => <Text>Test</Text>,
                 headerTitleStyle: { color: '#2756B1' },
+                
             }}
         >
             <Stack.Screen name='Account' component={UserProfilePanel} />
