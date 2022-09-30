@@ -1,5 +1,5 @@
 import { ICurrency } from './currencyTypes';
-import { StatusType } from './commonTypes';
+import { CommonStatus } from './commonTypes';
 
 export interface IBroker {
     _id: string;
@@ -8,7 +8,7 @@ export interface IBroker {
     cash: number;
     sumStocks: number;
     sumBalance: number;
-    status: StatusType;
+    status: CommonStatus;
 }
 
 export interface ICreateBrokerReq {
@@ -20,14 +20,16 @@ export interface ICreateBrokerReq {
 export interface ICreateBrokerRes {
     message?: string;
     data?: IBroker;
+    data?: IResponseError;
 }
 
 export interface IEditBrokerReq extends ICreateBrokerReq {
     id: string;
-    status?: StatusType;
+    status?: CommonStatus;
 }
 
 export interface IBrokerAccountsRes {
     brokerAccounts?: IBroker[];
     message?: string;
+    data?: IResponseError;
 }

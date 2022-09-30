@@ -18,8 +18,10 @@ export interface IUserRequiest {
 export interface IGetProfileResponse {
     message?: string;
     user?: IUserData;
+    data?: IResponseError;
 }
 
 export interface IChangeUserResponse {
     message?: string;
+    data?: IResponseError;
 }

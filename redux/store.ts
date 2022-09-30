@@ -3,6 +3,7 @@ import { authApi } from 'api/authApi';
 import { currencyApi } from 'api/currencyApi';
 import { profileApi } from 'api/profileApi';
 import { brokerApi } from 'api/brokerApi';
+import { stockApi } from 'api/stockApi';
 
 import { authSlice } from 'slice/authSlice';
 
@@ -12,6 +13,7 @@ export const store = configureStore({
         [currencyApi.reducerPath]: currencyApi.reducer,
         [profileApi.reducerPath]: profileApi.reducer,
         [brokerApi.reducerPath]: brokerApi.reducer,
+        [stockApi.reducerPath]: stockApi.reducer,
         //slice
         [authSlice.name]: authSlice.reducer,
     },
@@ -21,6 +23,7 @@ export const store = configureStore({
             currencyApi.middleware,
             profileApi.middleware,
             brokerApi.middleware,
+            stockApi.middleware,
         ),
 });
 

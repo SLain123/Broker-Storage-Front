@@ -1,7 +1,9 @@
 import { NavigationProp } from '@react-navigation/native';
 
-export type StatusType = 'active' | 'inactive';
-
+export enum CommonStatus {
+    active = 'active',
+    closed = 'inactive',
+}
 export interface IResponseError {
     errors?: { msg: string }[];
     message?: string;

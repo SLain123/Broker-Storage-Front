@@ -2,6 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { StockBrokerList } from 'modules/stock-broker-list/StockBrokerList';
+import { StockList } from 'modules/stock-list/StockList';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,8 +14,9 @@ const BrokerActives = () => {
                 headerBackTitleVisible: false,
             }}
         >
-            <Stack.Screen name='Brokers' component={StockBrokerList}  />
-            <Stack.Screen name='Stock List' component={StockBrokerList}  />
+            <Stack.Screen name='Brokers' component={StockBrokerList} />
+            <Stack.Screen name='Stock List' component={StockList} />
+            <Stack.Screen name='Stock Details' component={StockList} />
         </Stack.Navigator>
     );
 };

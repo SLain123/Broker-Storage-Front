@@ -7,4 +7,5 @@ export interface ICurrency {
 export interface ICurrencyResponse {
     message?: string;
     currencies?: ICurrency[];
+    data?: IResponseError;
 }
