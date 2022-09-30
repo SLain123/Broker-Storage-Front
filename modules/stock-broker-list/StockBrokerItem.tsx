@@ -25,7 +25,8 @@ const StockBrokerItem: FC<IStockBrokerItem> = ({
             style={styles.container}
             activeOpacity={disabled ? 1 : 0.5}
             onPress={() =>
-                !disabled && navigation.navigate('Stock List', { id: _id })
+                !disabled &&
+                navigation.navigate('Stock List', { brokerId: _id })
             }
         >
             <Text style={disabled ? styles.disabledName : styles.brokerName}>
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 20,
         fontWeight: '700',
-        maxHeight: 30
+        maxHeight: 30,
     },
     disabledName: {
         color: '#A30000',

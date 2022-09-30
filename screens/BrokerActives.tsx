@@ -17,6 +17,7 @@ const BrokerActives = () => {
             <Stack.Screen name='Brokers' component={StockBrokerList} />
             <Stack.Screen name='Stock List' component={StockList} />
             <Stack.Screen name='Stock Details' component={StockList} />
+            <Stack.Screen name='Create Stock' component={StockList} />
         </Stack.Navigator>
     );
 };

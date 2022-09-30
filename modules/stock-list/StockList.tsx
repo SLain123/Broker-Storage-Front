@@ -5,14 +5,18 @@ import { RouteProp } from '@react-navigation/native';
 import { IScreenProps } from 'types/commonTypes';
 import { useGetAllStockListMutation } from 'api/stockApi';
 import { BlanketSpinner } from 'components/ui';
-import { StockItem, EmptyListNotification } from './components';
+import {
+    StockItem,
+    EmptyListNotification,
+    CreateStockPanel,
+} from './components';
 import { RequestErrorModal } from 'components/modals';
 
 export interface IStockList extends IScreenProps {
     route: RouteProp<
         {
             params: {
-                id: string;
+                brokerId: string;
             };
         },
         'params'
@@ -20,13 +24,13 @@ export interface IStockList extends IScreenProps {
 }
 
 const StockList: FC<IStockList> = ({ route, navigation }) => {
-    const { id } = route.params;
+    const { brokerId } = route.params;
 
     const [getAllStockList, { isLoading, data, isError }] =
         useGetAllStockListMutation();
 
     const getFiltredStockList = () => {
-        id && getAllStockList({ filters: { brokerId: id } });
+        brokerId && getAllStockList({ filters: { brokerId } });
     };
 
     const onlyInactiveStocks = useMemo(
@@ -38,58 +42,67 @@ const StockList: FC<IStockList> = ({ route, navigation }) => {
 
     useEffect(() => {
         getFiltredStockList();
-    }, [id]);
+    }, [brokerId]);
 
     if (isLoading) {
         return <BlanketSpinner />;
     }
 
-    if (onlyInactiveStocks) {
-        return <EmptyListNotification />;
+    if (isError) {
+        return (
+            <RequestErrorModal
+                visible
+                message="Stock list wasn't download from the server. Please, try to reboot the app."
+            />
+        );
+    }
+
+    if (onlyInactiveStocks || !data?.stocks.length) {
+        return (
+            <>
+                <EmptyListNotification />
+                <CreateStockPanel navigation={navigation} brokerId={brokerId} />
+            </>
+        );
     }
 
     return (
-        <ScrollView
-            refreshControl={
-                <RefreshControl
-                    refreshing={false}
-                    onRefresh={getFiltredStockList}
-                />
-            }
-        >
-            {data?.stocks && data.stocks.length ? (
-                data.stocks.map(
-                    ({
-                        _id,
-                        status,
-                        title,
-                        restCount,
-                        deltaBuy,
-                        fee,
-                        currency,
-                    }) => (
-                        <StockItem
-                            key={_id}
-                            _id={_id}
-                            status={status}
-                            title={title}
-                            restCount={restCount}
-                            deltaBuy={deltaBuy}
-                            fee={fee}
-                            currency={currency}
-                            navigation={navigation}
-                        />
-                    ),
-                )
-            ) : (
-                <EmptyListNotification />
-            )}
-
-            <RequestErrorModal
-                visible={isError}
-                message="Stock list wasn't download from the server. Please, try to reboot the app."
-            />
-        </ScrollView>
+        <>
+            <ScrollView
+                refreshControl={
+                    <RefreshControl
+                        refreshing={false}
+                        onRefresh={getFiltredStockList}
+                    />
+                }
+            >
+                {data?.stocks &&
+                    data.stocks.map(
+                        ({
+                            _id,
+                            status,
+                            title,
+                            restCount,
+                            deltaBuy,
+                            fee,
+                            currency,
+                        }) => (
+                            <StockItem
+                                key={_id}
+                                _id={_id}
+                                status={status}
+                                title={title}
+                                restCount={restCount}
+                                deltaBuy={deltaBuy}
+                                fee={fee}
+                                currency={currency}
+                                navigation={navigation}
+                            />
+                        ),
+                    )}
+            </ScrollView>
+            <CreateStockPanel navigation={navigation} brokerId={brokerId} />
+        </>
     );
 };
 
