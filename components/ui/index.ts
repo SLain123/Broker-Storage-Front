@@ -6,3 +6,4 @@ export { InteractiveStringLink } from './interactive-string-link/InteractiveStri
 export { CurrencySelect } from './form-components/currency-select/CurrencySelect';
 export { FormCalendar } from './form-components/form-calendar/FormCalendar';
 export { TypeSelect } from './form-components/type-select/TypeSelect';
+export { Accordion } from './accordion/Accordion';

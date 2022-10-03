@@ -1,7 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
-    IGetAllStockReq,
-    IGetAllStockRes,
+    IGetStockRes,
+    IGetStockReq,
+    IGetAllStocksReq,
+    IGetAllStocksRes,
     ICreateStockReq,
     ICreateStockRes,
 } from 'types/stockTypes';
@@ -20,7 +22,14 @@ export const stockApi = createApi({
     }),
     tagTypes: ['Stock'],
     endpoints: (builder) => ({
-        getAllStockList: builder.mutation<IGetAllStockRes, IGetAllStockReq>({
+        getStock: builder.mutation<IGetStockRes, IGetStockReq>({
+            query: ({ id }) => ({
+                url: 'stock',
+                method: 'POST',
+                body: { id },
+            }),
+        }),
+        getAllStockList: builder.mutation<IGetAllStocksRes, IGetAllStocksReq>({
             query: ({ filters }) => ({
                 url: 'stock/all',
                 method: 'POST',
@@ -53,4 +62,8 @@ export const stockApi = createApi({
     }),
 });
 
-export const { useGetAllStockListMutation, useCreateStockMutation } = stockApi;
+export const {
+    useGetStockMutation,
+    useGetAllStockListMutation,
+    useCreateStockMutation,
+} = stockApi;

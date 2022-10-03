@@ -6,14 +6,9 @@ import {
     RefreshControl,
     View,
 } from 'react-native';
-import {
-    Collapse,
-    CollapseHeader,
-    CollapseBody,
-} from 'accordion-collapse-react-native';
 
 import { useGetBrokerListQuery } from 'api/brokerApi';
-import { BlanketSpinner } from 'components/ui';
+import { BlanketSpinner, Accordion } from 'components/ui';
 import { RequestErrorModal } from 'components/modals';
 import { StockBrokerItem } from './StockBrokerItem';
 import { IScreenProps } from 'types/commonTypes';
@@ -82,13 +77,8 @@ const StockBrokerList: FC<IScreenProps> = ({ navigation }) => {
             )}
 
             {inactiveBrokers.length ? (
-                <Collapse style={styles.container}>
-                    <CollapseHeader style={styles.accHeaderBlock}>
-                        <Text style={styles.accHeaderText}>
-                            Inactive brokers
-                        </Text>
-                    </CollapseHeader>
-                    <CollapseBody>
+                <Accordion header='Inactive brokers'>
+                    <View>
                         {inactiveBrokers.map(
                             ({ _id, title, sumStocks, cash, currency }) => (
                                 <StockBrokerItem
@@ -103,8 +93,8 @@ const StockBrokerList: FC<IScreenProps> = ({ navigation }) => {
                                 />
                             ),
                         )}
-                    </CollapseBody>
-                </Collapse>
+                    </View>
+                </Accordion>
             ) : null}
 
             <RequestErrorModal
@@ -117,7 +107,6 @@ const StockBrokerList: FC<IScreenProps> = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-        borderBottomColor: 'white',
         borderWidth: 1,
         marginLeft: 16,
         marginRight: 16,

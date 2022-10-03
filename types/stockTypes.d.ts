@@ -57,11 +57,21 @@ export interface IStockFilters {
     type?: StockType;
 }
 
-export interface IGetAllStockReq {
+export interface IGetStockReq {
+    id: string;
+}
+
+export interface IGetStockRes {
+    message?: string;
+    stock?: IStock;
+    data?: IResponseError;
+}
+
+export interface IGetAllStocksReq {
     filters?: IStockFilters;
 }
 
-export interface IGetAllStockRes {
+export interface IGetAllStocksRes {
     message?: string;
     stocks?: IStock[];
     data?: IResponseError;
