@@ -66,3 +66,19 @@ export interface IGetAllStockRes {
     stocks?: IStock[];
     data?: IResponseError;
 }
+
+export interface ICreateStockReq {
+    date: string;
+    title: string;
+    count: number;
+    pricePerSingle: number;
+    fee: number;
+    brokerId: string;
+    type?: StockType | '';
+}
+
+export interface ICreateStockRes {
+    message?: string;
+    stock?: IStock;
+    data?: IResponseError;
+}

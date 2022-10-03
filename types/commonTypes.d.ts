@@ -14,7 +14,7 @@ export interface IScreenProps {
     navigation: NavigationProp<any, any>;
 }
 
-export interface ICurrencySelect {
+export interface ICommonSelect {
     dropdownRef: React.MutableRefObject<SelectDropdown>;
     formik: FormikConfig;
     isDisabled?: boolean;

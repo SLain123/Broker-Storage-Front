@@ -34,7 +34,9 @@ const StockItem: FC<IStockItem> = ({
         <TouchableOpacity
             style={styles.container}
             activeOpacity={0.5}
-            onPress={() => navigation.navigate('Stock Details', { id: _id })}
+            onPress={() =>
+                navigation.navigate('Stock Details', { stockId: _id })
+            }
         >
             <View style={styles.headerBlock}>
                 <Text style={styles.title}>{title}</Text>

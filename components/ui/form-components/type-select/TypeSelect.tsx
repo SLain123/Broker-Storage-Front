@@ -1,48 +1,30 @@
-import React, { FC, useMemo } from 'react';
-import { ActivityIndicator, StyleSheet, Text } from 'react-native';
+import React, { FC, useMemo, useEffect } from 'react';
+import { StyleSheet, Text } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 
-import { RequestErrorModal } from 'components/modals';
-import { useGetCurrencyListQuery } from 'api/currencyApi';
 import { ICommonSelect } from 'types/commonTypes';
 
-const CurrencySelect: FC<ICommonSelect> = ({
+const TypeSelect: FC<ICommonSelect> = ({
     dropdownRef,
     formik,
     isDisabled = false,
     defaultBtnText,
     formikFieldName = 'defaultCurrencyId',
 }) => {
-    const {
-        data: currencyList,
-        isLoading,
-        isError,
-    } = useGetCurrencyListQuery();
-
-    const selectCurrencyList = useMemo(
-        () =>
-            !isLoading && !isError
-                ? currencyList.currencies.map(
-                      (cur) => `${cur.title} (${cur.ticker})`,
-                  )
-                : [],
-        [isLoading, isError, currencyList],
+    const selectTypeList = useMemo(
+        () => ['stock', 'bond', 'futures', 'currency'],
+        [],
     );
 
     const changeCurrency = (index: number) => {
-        formik.setFieldValue(
-            formikFieldName,
-            currencyList.currencies[index]._id,
-        );
+        formik.setFieldValue(formikFieldName, selectTypeList[index]);
     };
 
-    return isLoading ? (
-        <ActivityIndicator size='large' color='white' style={styles.spin} />
-    ) : (
+    return (
         <>
             <SelectDropdown
                 ref={dropdownRef}
-                data={selectCurrencyList}
+                data={selectTypeList}
                 onSelect={(_selectedItem, index) => {
                     changeCurrency(index);
                 }}
@@ -63,10 +45,6 @@ const CurrencySelect: FC<ICommonSelect> = ({
                 {formik.touched[formikFieldName] &&
                     formik.errors[formikFieldName]}
             </Text>
-            <RequestErrorModal
-                visible={isError}
-                message="Currency wasn't download from the server. Please, try to reboot the app."
-            />
         </>
     );
 };
@@ -96,9 +74,6 @@ const styles = StyleSheet.create({
         color: '#2756B1',
     },
     error: { color: '#A30000', padding: 6 },
-    spin: {
-        marginBottom: 24,
-    },
 });
 
-export { CurrencySelect };
+export { TypeSelect };
