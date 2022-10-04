@@ -21,6 +21,7 @@ export enum StockAction {
 }
 
 export interface IHistory {
+    _id: string;
     date: Date;
     count: number;
     pricePerSingle: number;
@@ -63,7 +64,7 @@ export interface IGetStockReq {
 
 export interface IGetStockRes {
     message?: string;
-    stock?: IStock;
+    stock?: IStockFull;
     data?: IResponseError;
 }
 

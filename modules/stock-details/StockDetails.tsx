@@ -13,6 +13,7 @@ import { Accordion, BlanketSpinner } from 'components/ui';
 import { RequestErrorModal } from 'components/modals';
 import { IScreenProps } from 'types/commonTypes';
 import { moneyFormater } from 'utils/formaters';
+import { StockHistoryList } from 'modules/stock-history/StockHistoryList';
 
 export interface IStockDetails extends IScreenProps {
     route: RouteProp<
@@ -38,7 +39,7 @@ const StockDetails: FC<IStockDetails> = ({ route, navigation }) => {
         getStockDetails();
     }, [stockId]);
 
-    useEffect(() => data?.stock && console.log(data.stock), [data]);
+    // useEffect(() => data?.stock && console.log(data.stock), [data]);
 
     if (isLoading) {
         return <BlanketSpinner />;
@@ -72,6 +73,16 @@ const StockDetails: FC<IStockDetails> = ({ route, navigation }) => {
                 </View>
 
                 <View style={styles.row}>
+                    <Text style={styles.text}>Total Price of Stock:</Text>
+                    <Text style={styles.text}>
+                        {moneyFormater(
+                            data?.stock?.restCount * data?.stock?.deltaBuy,
+                        )}{' '}
+                        {data?.stock?.currency?.ticker}
+                    </Text>
+                </View>
+
+                <View style={styles.row}>
                     <Text style={styles.text}>
                         Delta of Buy Price per Unit:
                     </Text>
@@ -100,8 +111,15 @@ const StockDetails: FC<IStockDetails> = ({ route, navigation }) => {
                 </View>
 
                 <Accordion header='All operation (history):'>
-                    <Text>123</Text>
+                    <StockHistoryList history={data?.stock?.history} />
                 </Accordion>
+
+                {data?.stock?.type === 'stock' &&
+                data?.stock?.dividends.length ? (
+                    <Accordion header='All dividends:'>
+                        <Text>123</Text>
+                    </Accordion>
+                ) : null}
             </ScrollView>
             {/* <CreateStockPanel navigation={navigation} brokerId={brokerId} /> */}
         </>
