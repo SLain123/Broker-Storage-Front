@@ -1,11 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import {
-    View,
-    Text,
-    ScrollView,
-    RefreshControl,
-    StyleSheet,
-} from 'react-native';
+import { Text, ScrollView, RefreshControl, StyleSheet } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 
 import { useGetStockMutation } from 'api/stockApi';
@@ -14,6 +8,7 @@ import { RequestErrorModal } from 'components/modals';
 import { IScreenProps } from 'types/commonTypes';
 import { moneyFormater } from 'utils/formaters';
 import { StockHistoryList } from 'modules/stock-history/StockHistoryList';
+import { ControlPanel, RowDetail } from './components';
 
 export interface IStockDetails extends IScreenProps {
     route: RouteProp<
@@ -39,8 +34,6 @@ const StockDetails: FC<IStockDetails> = ({ route, navigation }) => {
         getStockDetails();
     }, [stockId]);
 
-    // useEffect(() => data?.stock && console.log(data.stock), [data]);
-
     if (isLoading) {
         return <BlanketSpinner />;
     }
@@ -65,50 +58,38 @@ const StockDetails: FC<IStockDetails> = ({ route, navigation }) => {
                 }
             >
                 <Text style={styles.title}>{data?.stock?.title}</Text>
-                <View style={styles.row}>
-                    <Text style={styles.text}>Count of Stocks:</Text>
-                    <Text style={styles.text}>
-                        {data?.stock?.restCount} unit
-                    </Text>
-                </View>
-
-                <View style={styles.row}>
-                    <Text style={styles.text}>Total Price of Stock:</Text>
-                    <Text style={styles.text}>
-                        {moneyFormater(
-                            data?.stock?.restCount * data?.stock?.deltaBuy,
-                        )}{' '}
-                        {data?.stock?.currency?.ticker}
-                    </Text>
-                </View>
-
-                <View style={styles.row}>
-                    <Text style={styles.text}>
-                        Delta of Buy Price per Unit:
-                    </Text>
-                    <Text style={styles.text}>
-                        {moneyFormater(data?.stock?.deltaBuy)}{' '}
-                        {data?.stock?.currency?.ticker}
-                    </Text>
-                </View>
-
-                <View style={styles.row}>
-                    <Text style={styles.text}>Summary Broker Fee:</Text>
-                    <Text style={styles.text}>
-                        {moneyFormater(data?.stock?.fee)}{' '}
-                        {data?.stock?.currency?.ticker}
-                    </Text>
-                </View>
-
-                <View style={styles.row}>
-                    <Text style={styles.text}>
-                        Potential Profit at the moment:
-                    </Text>
-                    <Text style={styles.text}>
-                        {moneyFormater(data?.stock?.profit)}{' '}
-                        {data?.stock?.currency?.ticker}
-                    </Text>
-                </View>
+                <RowDetail
+                    description='Count of Stocks:'
+                    value={`${data?.stock?.restCount} unit`}
+                />
+                <RowDetail
+                    description='Total Price of Stock:'
+                    value={`${moneyFormater(
+                        data?.stock?.restCount * data?.stock?.deltaBuy,
+                    )} ${data?.stock?.currency?.ticker}`}
+                />
+                <RowDetail
+                    description='Delta of Buy Price per Unit:'
+                    value={`${moneyFormater(data?.stock?.deltaBuy)} ${
+                        data?.stock?.currency?.ticker
+                    }`}
+                />
+                <RowDetail
+                    description='Summary Broker Fee:'
+                    value={`${moneyFormater(data?.stock?.fee)} ${
+                        data?.stock?.currency?.ticker
+                    }`}
+                />
+                <RowDetail
+                    description='Potential Profit at the moment:'
+                    value={`${moneyFormater(data?.stock?.profit)} ${
+                        data?.stock?.currency?.ticker
+                    }`}
+                />
+                <RowDetail
+                    description='Stock Type:'
+                    value={data?.stock?.type}
+                />
 
                 <Accordion header='All operation (history):'>
                     <StockHistoryList history={data?.stock?.history} />
@@ -117,11 +98,16 @@ const StockDetails: FC<IStockDetails> = ({ route, navigation }) => {
                 {data?.stock?.type === 'stock' &&
                 data?.stock?.dividends.length ? (
                     <Accordion header='All dividends:'>
-                        <Text>123</Text>
+                        <Text>Dividend List</Text>
                     </Accordion>
                 ) : null}
             </ScrollView>
-            {/* <CreateStockPanel navigation={navigation} brokerId={brokerId} /> */}
+
+            <ControlPanel
+                stockId={data?.stock._id}
+                type={data?.stock?.type}
+                navigation={navigation}
+            />
         </>
     );
 };
