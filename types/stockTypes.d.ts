@@ -93,3 +93,17 @@ export interface ICreateStockRes {
     stock?: IStock;
     data?: IResponseError;
 }
+
+export interface IAddStockReq {
+    id: string;
+    action: StockAction | '';
+    date: string;
+    count: number;
+    pricePerSingle: number;
+    fee: number;
+}
+
+export interface IAddStockRes {
+    message?: string;
+    data?: IResponseError;
+}

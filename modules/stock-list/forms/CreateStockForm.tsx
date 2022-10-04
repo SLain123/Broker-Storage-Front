@@ -1,15 +1,20 @@
-import React, { useEffect, FC, useRef, useState } from 'react';
+import React, { useEffect, FC, useRef, useState, useMemo } from 'react';
 import { ScrollView, StyleSheet, Text, RefreshControl } from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { RouteProp } from '@react-navigation/native';
 import SelectDropdown from 'react-native-select-dropdown';
 
-import { FormInput, FormBtn, FormCalendar, TypeSelect } from 'components/ui';
+import {
+    FormInput,
+    FormBtn,
+    FormCalendar,
+    FormSelect,
+    FormStatusBlock,
+} from 'components/ui';
 import { IScreenProps } from 'types/commonTypes';
 import { useCreateStockMutation } from 'api/stockApi';
 import { ICreateStockReq } from 'types/stockTypes';
-import { CreateStatusBlock } from './CreateStatusBlock';
 
 interface ICreateStockForm extends IScreenProps {
     route: RouteProp<
@@ -32,6 +37,11 @@ const CreateStockForm: FC<ICreateStockForm> = ({ navigation, route }) => {
     const dropdownRef = useRef<SelectDropdown>(null);
     const isDisabled = isLoading || isSuccess;
 
+    const selectTypeList = useMemo(
+        () => ['stock', 'bond', 'futures', 'currency'],
+        [],
+    );
+
     const initialValues: ICreateStockReq = {
         date: '',
         title: '',
@@ -43,7 +53,7 @@ const CreateStockForm: FC<ICreateStockForm> = ({ navigation, route }) => {
     };
     const validationSchema = Yup.object().shape({
         date: Yup.string().required('Transaction Date is Required'),
-        title: Yup.string().required('Password is Required'),
+        title: Yup.string().required('Name of stock is Required'),
         count: Yup.number()
             .min(1, 'Specify count of stock, min 1')
             .max(999999999999, 'Amount is Too Large'),
@@ -53,7 +63,6 @@ const CreateStockForm: FC<ICreateStockForm> = ({ navigation, route }) => {
         fee: Yup.number()
             .min(0, 'Specify fee of stock, min 0')
             .max(999999999999, 'Amount is Too Large'),
-        brokerId: Yup.string().required('Broker Currency is Required'),
         type: Yup.string().required('Specify type of stock'),
     });
 
@@ -137,13 +146,14 @@ const CreateStockForm: FC<ICreateStockForm> = ({ navigation, route }) => {
                 placeholder='Specify the Fee of Stock'
                 keyboardType='number-pad'
             />
-            <TypeSelect
+            <FormSelect
                 formik={formik}
                 formikFieldName='type'
                 dropdownRef={dropdownRef}
                 defaultBtnText='Select stock type'
+                selectList={selectTypeList}
             />
-            <CreateStatusBlock data={data} error={error} />
+            <FormStatusBlock data={data} error={error} />
 
             <FormBtn
                 onPress={handleSubmit as any}

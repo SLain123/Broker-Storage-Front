@@ -20,4 +20,5 @@ export interface ICommonSelect {
     isDisabled?: boolean;
     defaultBtnText?: string;
     formikFieldName?: string;
+    selectList: string[];
 }

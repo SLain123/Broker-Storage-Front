@@ -1,30 +1,26 @@
-import React, { FC, useMemo, useEffect } from 'react';
+import React, { FC } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 
 import { ICommonSelect } from 'types/commonTypes';
 
-const TypeSelect: FC<ICommonSelect> = ({
+const FormSelect: FC<ICommonSelect> = ({
     dropdownRef,
     formik,
     isDisabled = false,
     defaultBtnText,
-    formikFieldName = 'defaultCurrencyId',
+    formikFieldName = 'type',
+    selectList,
 }) => {
-    const selectTypeList = useMemo(
-        () => ['stock', 'bond', 'futures', 'currency'],
-        [],
-    );
-
     const changeCurrency = (index: number) => {
-        formik.setFieldValue(formikFieldName, selectTypeList[index]);
+        formik.setFieldValue(formikFieldName, selectList[index]);
     };
 
     return (
         <>
             <SelectDropdown
                 ref={dropdownRef}
-                data={selectTypeList}
+                data={selectList}
                 onSelect={(_selectedItem, index) => {
                     changeCurrency(index);
                 }}
@@ -76,4 +72,4 @@ const styles = StyleSheet.create({
     error: { color: '#A30000', padding: 6 },
 });
 
-export { TypeSelect };
+export { FormSelect };

@@ -4,9 +4,8 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { IInitialValues } from './LoginType';
-import { LoginStatusBlock } from './LoginStatusBlock';
 import { useMakeLoginMutation } from 'api/authApi';
-import { FormInput, FormLink, FormBtn } from 'components/ui';
+import { FormInput, FormLink, FormBtn, FormStatusBlock } from 'components/ui';
 import { saveToStore } from 'utils/secureStoreFuncs';
 import { useAppDispatch } from 'hooks';
 import { setAuthStatus } from 'slice/authSlice';
@@ -85,7 +84,8 @@ const LoginModule: FC<IScreenProps> = ({ navigation }) => {
                 textList={["Don't have an account yet?", 'Sign up here']}
                 onPress={() => navigation.navigate('Register')}
             />
-            <LoginStatusBlock data={data} error={error} />
+            <FormStatusBlock data={data} error={error} />
+
             <FormBtn
                 onPress={handleSubmit as any}
                 isDisabled={isDisabled}

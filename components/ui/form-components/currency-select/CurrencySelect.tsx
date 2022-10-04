@@ -6,7 +6,9 @@ import { RequestErrorModal } from 'components/modals';
 import { useGetCurrencyListQuery } from 'api/currencyApi';
 import { ICommonSelect } from 'types/commonTypes';
 
-const CurrencySelect: FC<ICommonSelect> = ({
+export interface ICurrencySelect extends Omit<ICommonSelect, 'selectList'> {}
+
+const CurrencySelect: FC<ICurrencySelect> = ({
     dropdownRef,
     formik,
     isDisabled = false,

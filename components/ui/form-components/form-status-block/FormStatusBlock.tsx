@@ -1,14 +1,16 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 
-import { IRegResponse } from 'types/authTypes';
-import { IRegStatusBlock } from './RegisterType';
+import { IFormStatusBlock, ICommonInformation } from './Status';
 
-const RegStatusBlock: FC<IRegStatusBlock> = ({ data, error }) => {
+const FormStatusBlock = <T extends ICommonInformation>({
+    data,
+    error,
+}: IFormStatusBlock<T>) => {
     if (data?.message) {
         return <Text style={styles.success}>{data.message}</Text>;
     }
-    const err = error as IRegResponse;
+    const err = error as T;
     if (error) {
         return err?.data?.errors ? (
             <Text style={styles.error}>{err?.data.errors[0].msg}</Text>
@@ -24,4 +26,4 @@ const styles = StyleSheet.create({
     success: { color: 'green', padding: 6 },
 });
 
-export { RegStatusBlock };
+export { FormStatusBlock };

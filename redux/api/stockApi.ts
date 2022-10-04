@@ -6,6 +6,8 @@ import {
     IGetAllStocksRes,
     ICreateStockReq,
     ICreateStockRes,
+    IAddStockRes,
+    IAddStockReq,
 } from 'types/stockTypes';
 import { getValueFromStore } from 'utils/secureStoreFuncs';
 
@@ -59,6 +61,20 @@ export const stockApi = createApi({
                 },
             }),
         }),
+        addStock: builder.mutation<IAddStockRes, IAddStockReq>({
+            query: ({ id, action, date, count, pricePerSingle, fee }) => ({
+                url: 'stock/add',
+                method: 'POST',
+                body: {
+                    id,
+                    action,
+                    date,
+                    count: +count,
+                    pricePerSingle: +pricePerSingle,
+                    fee: +fee,
+                },
+            }),
+        }),
     }),
 });
 
@@ -66,4 +82,5 @@ export const {
     useGetStockMutation,
     useGetAllStockListMutation,
     useCreateStockMutation,
+    useAddStockMutation,
 } = stockApi;

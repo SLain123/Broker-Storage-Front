@@ -5,9 +5,14 @@ import * as Yup from 'yup';
 import SelectDropdown from 'react-native-select-dropdown';
 
 import { IInitialValues } from './RegisterType';
-import { RegStatusBlock } from './RegStatusBlock';
 import { useMakeRegisterMutation } from 'api/authApi';
-import { FormBtn, FormInput, FormLink, CurrencySelect } from 'components/ui';
+import {
+    FormBtn,
+    FormInput,
+    FormLink,
+    CurrencySelect,
+    FormStatusBlock,
+} from 'components/ui';
 import { IScreenProps } from 'types/commonTypes';
 
 const RegisterModule: FC<IScreenProps> = ({ navigation }) => {
@@ -114,7 +119,8 @@ const RegisterModule: FC<IScreenProps> = ({ navigation }) => {
                 textList={['Already have an account?', 'Sign in here']}
                 onPress={() => navigation.navigate('Login')}
             />
-            <RegStatusBlock data={data} error={error} />
+            <FormStatusBlock data={data} error={error} />
+
             <FormBtn
                 onPress={handleSubmit as any}
                 isDisabled={isDisabled}

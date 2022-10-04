@@ -5,5 +5,6 @@ export { BlanketSpinner } from './blanket-spinner/BlanketSpinner';
 export { InteractiveStringLink } from './interactive-string-link/InteractiveStringLink';
 export { CurrencySelect } from './form-components/currency-select/CurrencySelect';
 export { FormCalendar } from './form-components/form-calendar/FormCalendar';
-export { TypeSelect } from './form-components/type-select/TypeSelect';
+export { FormSelect } from './form-components/form-select/FormSelect';
 export { Accordion } from './accordion/Accordion';
+export { FormStatusBlock } from './form-components/form-status-block/FormStatusBlock';
