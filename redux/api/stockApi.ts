@@ -8,6 +8,8 @@ import {
     ICreateStockRes,
     IAddStockRes,
     IAddStockReq,
+    IRemoveStockReq,
+    IRemoveStockRes,
 } from 'types/stockTypes';
 import { getValueFromStore } from 'utils/secureStoreFuncs';
 
@@ -79,6 +81,16 @@ export const stockApi = createApi({
             }),
             invalidatesTags: ['Stock'],
         }),
+        removeStock: builder.mutation<IRemoveStockRes, IRemoveStockReq>({
+            query: ({ id }) => ({
+                url: 'stock/remove',
+                method: 'POST',
+                body: {
+                    id,
+                },
+            }),
+            invalidatesTags: ['Stock'],
+        }),
     }),
 });
 
@@ -87,4 +99,5 @@ export const {
     useGetAllStockListQuery,
     useCreateStockMutation,
     useAddStockMutation,
+    useRemoveStockMutation,
 } = stockApi;

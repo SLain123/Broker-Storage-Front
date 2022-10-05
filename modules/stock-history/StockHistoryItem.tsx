@@ -1,41 +1,57 @@
-import React, { FC } from 'react';
+import React, { FC, useState, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { IHistory } from 'types/stockTypes';
 import { moneyFormater } from 'utils/formaters';
+import { RemoveStock } from 'modules/stock-details/components';
 
-export interface IStockHistoryItem extends Omit<IHistory, '_id'> {}
+import RemoveIcon from 'assets/icons/remove.svg';
 
-const StockHistoryItem: FC<IStockHistoryItem> = ({
+const StockHistoryItem: FC<IHistory> = ({
+    _id,
     action,
     count,
     date,
     fee,
     pricePerSingle,
 }) => {
+    const [isVisbleRemoveModal, setVisibleRemoveModal] = useState(false);
+
     const newDate = new Date(date);
     const formatedDate = `${newDate.getDate()}.${newDate.getMonth()}.${newDate.getFullYear()}`;
 
     const actionStyle = action === 'buy' ? styles.buy : styles.sell;
 
-    return (
-        <View style={styles.row}>
-            <Text style={styles.text}>{formatedDate}</Text>
-            <Text style={{ ...styles.text, ...actionStyle }}>{action}</Text>
-            <Text style={styles.text}>{count}</Text>
-            <Text style={styles.text}>{moneyFormater(pricePerSingle)}</Text>
-            <Text style={styles.text}>
-                {moneyFormater(count * pricePerSingle + fee)}
-            </Text>
-            <Text style={styles.text}>{moneyFormater(fee)}</Text>
+    const toggleModal = useCallback(() => {
+        setVisibleRemoveModal((prev) => !prev);
+    }, []);
 
-            <TouchableOpacity style={styles.btn} activeOpacity={0.5}>
-                <Text>Edit</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.btn} activeOpacity={0.5}>
-                <Text>Remove</Text>
-            </TouchableOpacity>
-        </View>
+    return (
+        <>
+            <View style={styles.row}>
+                <Text style={styles.text}>{formatedDate}</Text>
+                <Text style={{ ...styles.text, ...actionStyle }}>{action}</Text>
+                <Text style={styles.text}>{count}</Text>
+                <Text style={styles.text}>{moneyFormater(pricePerSingle)}</Text>
+                <Text style={styles.text}>
+                    {moneyFormater(count * pricePerSingle + fee)}
+                </Text>
+                <Text style={styles.text}>{moneyFormater(fee)}</Text>
+
+                <TouchableOpacity
+                    style={styles.btn}
+                    activeOpacity={0.5}
+                    onPress={toggleModal}
+                >
+                    <RemoveIcon width={22} height={35} />
+                </TouchableOpacity>
+            </View>
+
+            <RemoveStock
+                isVisbleRemoveModal={isVisbleRemoveModal}
+                closeModal={toggleModal}
+            />
+        </>
     );
 };
 
@@ -62,7 +78,11 @@ const styles = StyleSheet.create({
         width: 105,
         maxWidth: 105,
         height: 35,
-        backgroundColor: 'white',
+        borderWidth: 1,
+        borderColor: '#2756B1',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 });
 

@@ -3,7 +3,6 @@ import {
     View,
     Text,
     StyleSheet,
-    Modal,
     TouchableOpacity,
     TextInput,
     ActivityIndicator,
@@ -12,7 +11,7 @@ import {
 import { useEditBrokerMutation } from 'api/brokerApi';
 import { useGetUserProfileQuery } from 'api/profileApi';
 import { IBroker } from 'types/brokerTypes';
-import { RequestErrorModal } from 'components/modals';
+import { RequestErrorModal, StandartModal } from 'components/modals';
 
 export interface IChangeBrokerStatus
     extends Omit<IBroker, 'sumStocks' | 'sumBalance'> {
@@ -78,86 +77,61 @@ const ChangeBrokerStatus: FC<IChangeBrokerStatus> = ({
     }, [isSuccess]);
 
     return (
-        <Modal animationType='fade' transparent visible={isVisibleChangeModal}>
-            <TouchableOpacity
-                style={styles.blanket}
-                onPress={closeChangeModal}
-            />
+        <StandartModal
+            visible={isVisibleChangeModal}
+            closeModal={closeChangeModal}
+        >
+            <Text style={styles.title}>
+                {status === 'active'
+                    ? 'Are you sure you want to deactivate the selected broker?'
+                    : 'Are you sure you want to reactivate the selected broker?'}
+            </Text>
 
-            <View style={styles.content}>
-                <Text style={styles.title}>
-                    {status === 'active'
-                        ? 'Are you sure you want to deactivate the selected broker?'
-                        : 'Are you sure you want to reactivate the selected broker?'}
-                </Text>
-
-                {status === 'active' && (
-                    <View>
-                        <Text style={styles.bold}>{title}</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder='Type name of Broker to activate the button'
-                            value={checkInputValue}
-                            onChangeText={(text) => {
-                                setCheckInputValue(text);
-                            }}
-                        />
-                    </View>
-                )}
-
-                <View style={styles.btnBlock}>
-                    <TouchableOpacity
-                        style={mainBtnStyle}
-                        onPress={changeBrokerStatus}
-                        disabled={isDisabledBtn || isLoading}
-                    >
-                        {isLoading ? (
-                            <ActivityIndicator size='small' color='black' />
-                        ) : (
-                            <Text style={styles.text}>
-                                {status === 'active'
-                                    ? 'Deactivate'
-                                    : 'Activate'}
-                            </Text>
-                        )}
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.standartBtn}
-                        onPress={cleanFunc}
-                    >
-                        <Text style={styles.text}>Cancel</Text>
-                    </TouchableOpacity>
+            {status === 'active' && (
+                <View>
+                    <Text style={styles.bold}>{title}</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder='Type name of Broker to activate the button'
+                        value={checkInputValue}
+                        onChangeText={(text) => {
+                            setCheckInputValue(text);
+                        }}
+                    />
                 </View>
+            )}
+
+            <View style={styles.btnBlock}>
+                <TouchableOpacity
+                    style={mainBtnStyle}
+                    onPress={changeBrokerStatus}
+                    disabled={isDisabledBtn || isLoading}
+                >
+                    {isLoading ? (
+                        <ActivityIndicator size='small' color='black' />
+                    ) : (
+                        <Text style={styles.text}>
+                            {status === 'active' ? 'Deactivate' : 'Activate'}
+                        </Text>
+                    )}
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.standartBtn}
+                    onPress={cleanFunc}
+                >
+                    <Text style={styles.text}>Cancel</Text>
+                </TouchableOpacity>
             </View>
 
             <RequestErrorModal
                 visible={isError}
                 message="Broker status wasn't change. Please, try to reboot the app."
             />
-        </Modal>
+        </StandartModal>
     );
 };
 
 const styles = StyleSheet.create({
-    blanket: {
-        position: 'absolute',
-        zIndex: 9,
-        left: 0,
-        top: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(255,255,255, 0.4)',
-    },
-    content: {
-        padding: 16,
-        backgroundColor: 'white',
-        borderRadius: 4,
-        zIndex: 10,
-        margin: 16,
-        position: 'absolute',
-        top: '40%',
-        left: 16,
-    },
     title: { textAlign: 'center', fontSize: 18 },
     text: { color: 'white', textAlign: 'center' },
     btnBlock: {

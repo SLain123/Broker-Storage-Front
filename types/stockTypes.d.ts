@@ -107,3 +107,12 @@ export interface IAddStockRes {
     message?: string;
     data?: IResponseError;
 }
+
+export interface IRemoveStockReq {
+    id: string;
+}
+
+export interface IRemoveStockRes {
+    message?: string;
+    data?: IResponseError;
+}

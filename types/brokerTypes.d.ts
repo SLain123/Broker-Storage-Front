@@ -1,5 +1,6 @@
 import { ICurrency } from './currencyTypes';
-import { CommonStatus } from './commonTypes';
+
+export type BrokerStatus = 'active' | 'inactive';
 
 export interface IBroker {
     _id: string;
@@ -8,7 +9,7 @@ export interface IBroker {
     cash: number;
     sumStocks: number;
     sumBalance: number;
-    status: CommonStatus;
+    status: BrokerStatus;
 }
 
 export interface ICreateBrokerReq {
@@ -25,7 +26,7 @@ export interface ICreateBrokerRes {
 
 export interface IEditBrokerReq extends ICreateBrokerReq {
     id: string;
-    status?: CommonStatus;
+    status?: BrokerStatus;
 }
 
 export interface IBrokerAccountsRes {

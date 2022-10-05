@@ -19,7 +19,6 @@ const StockHistoryList: FC<IStockHistoryList> = ({ history }) => {
                     <Text style={styles.headText}>Price per Unit</Text>
                     <Text style={styles.headText}>Total Price</Text>
                     <Text style={styles.headText}>Fee</Text>
-                    <Text style={styles.headText}>Edit</Text>
                     <Text style={styles.headText}>Remove</Text>
                 </View>
 
@@ -27,6 +26,7 @@ const StockHistoryList: FC<IStockHistoryList> = ({ history }) => {
                     ({ _id, action, count, date, fee, pricePerSingle }) => (
                         <StockHistoryItem
                             key={_id}
+                            _id={_id}
                             action={action}
                             count={count}
                             date={date}
