@@ -15,6 +15,7 @@ import {
 import { IScreenProps } from 'types/commonTypes';
 import { useAddStockMutation } from 'api/stockApi';
 import { IAddStockReq } from 'types/stockTypes';
+import { useGetBrokerListQuery } from 'api/brokerApi';
 
 interface IAddStockForm extends IScreenProps {
     route: RouteProp<
@@ -32,6 +33,7 @@ const AddStockForm: FC<IAddStockForm> = ({ navigation, route }) => {
 
     const [addStock, { isLoading, isSuccess, data, error }] =
         useAddStockMutation();
+    const { refetch } = useGetBrokerListQuery();
 
     const dropdownRef = useRef<SelectDropdown>(null);
     const isDisabled = isLoading || isSuccess;
@@ -84,6 +86,7 @@ const AddStockForm: FC<IAddStockForm> = ({ navigation, route }) => {
     useEffect(() => {
         if (isSuccess) {
             setTimeout(() => {
+                refetch();
                 navigation.navigate('Stock Details', { stockId });
             }, 1500);
         }

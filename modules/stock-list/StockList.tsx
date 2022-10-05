@@ -1,5 +1,5 @@
 import React, { FC, useMemo } from 'react';
-import { ScrollView, RefreshControl } from 'react-native';
+import { ScrollView, RefreshControl, View, StyleSheet } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 
 import { IScreenProps } from 'types/commonTypes';
@@ -66,34 +66,42 @@ const StockList: FC<IStockList> = ({ route, navigation }) => {
                     <RefreshControl refreshing={false} onRefresh={refetch} />
                 }
             >
-                {data?.stocks &&
-                    data.stocks.map(
-                        ({
-                            _id,
-                            status,
-                            title,
-                            restCount,
-                            deltaBuy,
-                            fee,
-                            currency,
-                        }) => (
-                            <StockItem
-                                key={_id}
-                                _id={_id}
-                                status={status}
-                                title={title}
-                                restCount={restCount}
-                                deltaBuy={deltaBuy}
-                                fee={fee}
-                                currency={currency}
-                                navigation={navigation}
-                            />
-                        ),
-                    )}
+                <View style={styles.container}>
+                    {data?.stocks &&
+                        data.stocks.map(
+                            ({
+                                _id,
+                                status,
+                                title,
+                                restCount,
+                                deltaBuy,
+                                fee,
+                                currency,
+                            }) => (
+                                <StockItem
+                                    key={_id}
+                                    _id={_id}
+                                    status={status}
+                                    title={title}
+                                    restCount={restCount}
+                                    deltaBuy={deltaBuy}
+                                    fee={fee}
+                                    currency={currency}
+                                    navigation={navigation}
+                                />
+                            ),
+                        )}
+                </View>
             </ScrollView>
             <CreateStockPanel navigation={navigation} brokerId={brokerId} />
         </>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        marginBottom: 64,
+    },
+});
 
 export { StockList };

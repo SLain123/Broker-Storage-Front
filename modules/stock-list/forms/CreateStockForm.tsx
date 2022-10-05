@@ -15,6 +15,7 @@ import {
 import { IScreenProps } from 'types/commonTypes';
 import { useCreateStockMutation } from 'api/stockApi';
 import { ICreateStockReq } from 'types/stockTypes';
+import { useGetBrokerListQuery } from 'api/brokerApi';
 
 interface ICreateStockForm extends IScreenProps {
     route: RouteProp<
@@ -32,6 +33,7 @@ const CreateStockForm: FC<ICreateStockForm> = ({ navigation, route }) => {
 
     const [createStock, { isLoading, isSuccess, data, error }] =
         useCreateStockMutation();
+    const { refetch } = useGetBrokerListQuery();
 
     const dropdownRef = useRef<SelectDropdown>(null);
     const isDisabled = isLoading || isSuccess;
@@ -98,6 +100,7 @@ const CreateStockForm: FC<ICreateStockForm> = ({ navigation, route }) => {
     useEffect(() => {
         if (isSuccess) {
             setTimeout(() => {
+                refetch();
                 navigation.navigate('Stock Details', {
                     stockId: data.stock._id,
                 });
