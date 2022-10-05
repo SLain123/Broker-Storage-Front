@@ -1,8 +1,8 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { Text, ScrollView, RefreshControl, StyleSheet } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 
-import { useGetStockMutation } from 'api/stockApi';
+import { useGetStockQuery } from 'api/stockApi';
 import { Accordion, BlanketSpinner } from 'components/ui';
 import { RequestErrorModal } from 'components/modals';
 import { IScreenProps } from 'types/commonTypes';
@@ -24,15 +24,9 @@ export interface IStockDetails extends IScreenProps {
 const StockDetails: FC<IStockDetails> = ({ route, navigation }) => {
     const { stockId } = route.params;
 
-    const [getStock, { isLoading, isError, data }] = useGetStockMutation();
-
-    const getStockDetails = () => {
-        stockId && getStock({ id: stockId });
-    };
-
-    useEffect(() => {
-        getStockDetails();
-    }, [stockId]);
+    const { data, isLoading, isError, refetch } = useGetStockQuery({
+        id: stockId,
+    });
 
     if (isLoading) {
         return <BlanketSpinner />;
@@ -51,10 +45,7 @@ const StockDetails: FC<IStockDetails> = ({ route, navigation }) => {
         <>
             <ScrollView
                 refreshControl={
-                    <RefreshControl
-                        refreshing={false}
-                        onRefresh={getStockDetails}
-                    />
+                    <RefreshControl refreshing={false} onRefresh={refetch} />
                 }
             >
                 <Text style={styles.title}>{data?.stock?.title}</Text>

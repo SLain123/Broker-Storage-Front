@@ -85,7 +85,7 @@ export interface ICreateStockReq {
     pricePerSingle: number;
     fee: number;
     brokerId: string;
-    type?: StockType | '';
+    type: StockType | '';
 }
 
 export interface ICreateStockRes {

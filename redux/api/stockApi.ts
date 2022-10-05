@@ -24,19 +24,21 @@ export const stockApi = createApi({
     }),
     tagTypes: ['Stock'],
     endpoints: (builder) => ({
-        getStock: builder.mutation<IGetStockRes, IGetStockReq>({
+        getStock: builder.query<IGetStockRes, IGetStockReq>({
             query: ({ id }) => ({
                 url: 'stock',
                 method: 'POST',
                 body: { id },
             }),
+            providesTags: ['Stock'],
         }),
-        getAllStockList: builder.mutation<IGetAllStocksRes, IGetAllStocksReq>({
+        getAllStockList: builder.query<IGetAllStocksRes, IGetAllStocksReq>({
             query: ({ filters }) => ({
                 url: 'stock/all',
                 method: 'POST',
                 body: { filters },
             }),
+            providesTags: ['Stock'],
         }),
         createStock: builder.mutation<ICreateStockRes, ICreateStockReq>({
             query: ({
@@ -60,6 +62,7 @@ export const stockApi = createApi({
                     type,
                 },
             }),
+            invalidatesTags: ['Stock'],
         }),
         addStock: builder.mutation<IAddStockRes, IAddStockReq>({
             query: ({ id, action, date, count, pricePerSingle, fee }) => ({
@@ -74,13 +77,14 @@ export const stockApi = createApi({
                     fee: +fee,
                 },
             }),
+            invalidatesTags: ['Stock'],
         }),
     }),
 });
 
 export const {
-    useGetStockMutation,
-    useGetAllStockListMutation,
+    useGetStockQuery,
+    useGetAllStockListQuery,
     useCreateStockMutation,
     useAddStockMutation,
 } = stockApi;

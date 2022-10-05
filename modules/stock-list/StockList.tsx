@@ -1,9 +1,9 @@
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 import { ScrollView, RefreshControl } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 
 import { IScreenProps } from 'types/commonTypes';
-import { useGetAllStockListMutation } from 'api/stockApi';
+import { useGetAllStockListQuery } from 'api/stockApi';
 import { BlanketSpinner } from 'components/ui';
 import {
     StockItem,
@@ -26,12 +26,9 @@ export interface IStockList extends IScreenProps {
 const StockList: FC<IStockList> = ({ route, navigation }) => {
     const { brokerId } = route.params;
 
-    const [getAllStockList, { isLoading, data, isError }] =
-        useGetAllStockListMutation();
-
-    const getFiltredStockList = () => {
-        brokerId && getAllStockList({ filters: { brokerId } });
-    };
+    const { data, isLoading, isError, refetch } = useGetAllStockListQuery({
+        filters: { brokerId },
+    });
 
     const onlyInactiveStocks = useMemo(
         () =>
@@ -39,10 +36,6 @@ const StockList: FC<IStockList> = ({ route, navigation }) => {
             data.stocks.every(({ status }) => status === 'closed'),
         [data],
     );
-
-    useEffect(() => {
-        getFiltredStockList();
-    }, [brokerId]);
 
     if (isLoading) {
         return <BlanketSpinner />;
@@ -70,10 +63,7 @@ const StockList: FC<IStockList> = ({ route, navigation }) => {
         <>
             <ScrollView
                 refreshControl={
-                    <RefreshControl
-                        refreshing={false}
-                        onRefresh={getFiltredStockList}
-                    />
+                    <RefreshControl refreshing={false} onRefresh={refetch} />
                 }
             >
                 {data?.stocks &&

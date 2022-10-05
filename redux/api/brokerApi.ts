@@ -22,6 +22,7 @@ export const brokerApi = createApi({
     endpoints: (builder) => ({
         getBrokerList: builder.query<IBrokerAccountsRes, void>({
             query: () => 'broker',
+            providesTags: ['Broker'],
         }),
         createBroker: builder.mutation<ICreateBrokerRes, ICreateBrokerReq>({
             query: ({ title, currencyId, cash }) => ({
@@ -29,6 +30,7 @@ export const brokerApi = createApi({
                 method: 'POST',
                 body: { title, currencyId, cash: +cash },
             }),
+            invalidatesTags: ['Broker'],
         }),
         editBroker: builder.mutation<ICreateBrokerRes, IEditBrokerReq>({
             query: ({ id, title, currencyId, cash, status = 'active' }) => ({
@@ -36,6 +38,7 @@ export const brokerApi = createApi({
                 method: 'POST',
                 body: { id, title, currencyId, cash: +cash, status },
             }),
+            invalidatesTags: ['Broker'],
         }),
     }),
 });

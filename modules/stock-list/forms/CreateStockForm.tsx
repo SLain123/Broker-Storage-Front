@@ -1,4 +1,4 @@
-import React, { useEffect, FC, useRef, useState, useMemo } from 'react';
+import React, { useEffect, FC, useRef, useMemo } from 'react';
 import { ScrollView, StyleSheet, Text, RefreshControl } from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -29,7 +29,6 @@ interface ICreateStockForm extends IScreenProps {
 
 const CreateStockForm: FC<ICreateStockForm> = ({ navigation, route }) => {
     const { brokerId } = route.params;
-    const [stockId, setStockId] = useState('');
 
     const [createStock, { isLoading, isSuccess, data, error }] =
         useCreateStockMutation();
@@ -98,9 +97,10 @@ const CreateStockForm: FC<ICreateStockForm> = ({ navigation, route }) => {
 
     useEffect(() => {
         if (isSuccess) {
-            setStockId(data.stock._id);
             setTimeout(() => {
-                navigation.navigate('Stock Details', { stockId });
+                navigation.navigate('Stock Details', {
+                    stockId: data.stock._id,
+                });
             }, 1500);
         }
     }, [isSuccess]);
