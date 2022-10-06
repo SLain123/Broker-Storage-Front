@@ -1,43 +1,102 @@
 import React, { FC } from 'react';
-import { StyleSheet, Text, Modal, View, TouchableOpacity } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    TouchableOpacity,
+    ActivityIndicator,
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+import { useRemoveStockMutation } from 'api/stockApi';
 
 export interface IRemoveStock {
-    isVisbleRemoveModal: boolean;
+    id: string;
     closeModal: () => void;
+    isLast: boolean;
 }
 
-const RemoveStock: FC<IRemoveStock> = ({ isVisbleRemoveModal, closeModal }) => {
+const RemoveStock: FC<IRemoveStock> = ({ id, closeModal, isLast }) => {
+    const navigation = useNavigation();
+
+    const [removeStock, { isLoading, isError, isSuccess }] =
+        useRemoveStockMutation();
+
+    const removeStockFunc = () => {
+        removeStock({ id });
+        if (isLast) {
+            navigation.goBack();
+        }
+        isSuccess && closeModal();
+    };
+
+    if (isError) {
+        return (
+            <Text style={styles.error}>
+                The Stock was not removed. Please, try to repeate the action or
+                reboot the app.
+            </Text>
+        );
+    }
+
     return (
-        <Modal animationType='fade' transparent visible={isVisbleRemoveModal}>
-            <TouchableOpacity style={styles.blanket} onPress={closeModal} />
-            <View style={styles.container}>
-                <View style={styles.content}>
-                    <Text>123</Text>
-                </View>
+        <>
+            <Text style={styles.title}>
+                Are you sure you want to remove the operation/stock?
+            </Text>
+
+            <View style={styles.btnBlock}>
+                <TouchableOpacity
+                    activeOpacity={0.5}
+                    style={styles.removeBtn}
+                    onPress={removeStockFunc}
+                    disabled={isSuccess || isLoading}
+                >
+                    {isLoading ? (
+                        <ActivityIndicator size='small' color='black' />
+                    ) : (
+                        <Text style={styles.text}>Remove</Text>
+                    )}
+                </TouchableOpacity>
+                <TouchableOpacity
+                    activeOpacity={0.5}
+                    style={styles.standartBtn}
+                    onPress={closeModal}
+                >
+                    <Text style={styles.text}>Cancel</Text>
+                </TouchableOpacity>
             </View>
-        </Modal>
+        </>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+    title: { textAlign: 'center', fontSize: 18 },
+    text: { color: 'white', textAlign: 'center' },
+    btnBlock: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 'auto',
     },
-    blanket: {
-        position: 'absolute',
-        zIndex: 9,
-        left: 0,
-        top: 0,
-        width: '100%',
-        height: '100%',
-    },
-    content: {
-        padding: 16,
-        backgroundColor: 'white',
+    standartBtn: {
+        backgroundColor: '#2756B1',
+        padding: 12,
+        width: '45%',
+        marginTop: 8,
         borderRadius: 4,
-        margin: 16,
+    },
+    removeBtn: {
+        backgroundColor: '#A30000',
+        padding: 12,
+        width: '45%',
+        marginTop: 8,
+        borderRadius: 4,
+    },
+    error: {
+        color: '#A30000',
+        textAlign: 'center',
+        lineHeight: 26,
     },
 });
 

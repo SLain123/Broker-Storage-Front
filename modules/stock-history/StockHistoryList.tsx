@@ -23,7 +23,10 @@ const StockHistoryList: FC<IStockHistoryList> = ({ history }) => {
                 </View>
 
                 {history.map(
-                    ({ _id, action, count, date, fee, pricePerSingle }) => (
+                    (
+                        { _id, action, count, date, fee, pricePerSingle },
+                        index,
+                    ) => (
                         <StockHistoryItem
                             key={_id}
                             _id={_id}
@@ -32,6 +35,8 @@ const StockHistoryList: FC<IStockHistoryList> = ({ history }) => {
                             date={date}
                             fee={fee}
                             pricePerSingle={pricePerSingle}
+                            isFirst={history.length > 1 && index === 0}
+                            isLast={history.length < 2}
                         />
                     ),
                 )}

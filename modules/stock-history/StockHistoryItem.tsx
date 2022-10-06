@@ -3,17 +3,25 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { IHistory } from 'types/stockTypes';
 import { moneyFormater } from 'utils/formaters';
+import { StandartModal } from 'components/modals';
 import { RemoveStock } from 'modules/stock-details/components';
 
 import RemoveIcon from 'assets/icons/remove.svg';
 
-const StockHistoryItem: FC<IHistory> = ({
+export interface IStockHistoryItem extends IHistory {
+    isFirst: boolean;
+    isLast: boolean;
+}
+
+const StockHistoryItem: FC<IStockHistoryItem> = ({
     _id,
     action,
     count,
     date,
     fee,
     pricePerSingle,
+    isFirst,
+    isLast,
 }) => {
     const [isVisbleRemoveModal, setVisibleRemoveModal] = useState(false);
 
@@ -42,15 +50,22 @@ const StockHistoryItem: FC<IHistory> = ({
                     style={styles.btn}
                     activeOpacity={0.5}
                     onPress={toggleModal}
+                    disabled={isFirst}
                 >
-                    <RemoveIcon width={22} height={35} />
+                    {!isFirst && <RemoveIcon width={22} height={35} />}
                 </TouchableOpacity>
             </View>
 
-            <RemoveStock
-                isVisbleRemoveModal={isVisbleRemoveModal}
+            <StandartModal
+                visible={isVisbleRemoveModal}
                 closeModal={toggleModal}
-            />
+            >
+                <RemoveStock
+                    id={_id}
+                    closeModal={toggleModal}
+                    isLast={isLast}
+                />
+            </StandartModal>
         </>
     );
 };

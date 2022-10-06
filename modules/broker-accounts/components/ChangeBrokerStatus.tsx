@@ -103,6 +103,7 @@ const ChangeBrokerStatus: FC<IChangeBrokerStatus> = ({
 
             <View style={styles.btnBlock}>
                 <TouchableOpacity
+                    activeOpacity={0.5}
                     style={mainBtnStyle}
                     onPress={changeBrokerStatus}
                     disabled={isDisabledBtn || isLoading}
@@ -116,6 +117,7 @@ const ChangeBrokerStatus: FC<IChangeBrokerStatus> = ({
                     )}
                 </TouchableOpacity>
                 <TouchableOpacity
+                    activeOpacity={0.5}
                     style={styles.standartBtn}
                     onPress={cleanFunc}
                 >
