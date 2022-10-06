@@ -88,7 +88,7 @@ const AddStockForm: FC<IAddStockForm> = ({ route }) => {
         if (isSuccess) {
             setTimeout(() => {
                 refetch();
-                navigation.navigate('Stock Details', { stockId });
+                navigation.goBack();
             }, 1500);
         }
     }, [isSuccess]);

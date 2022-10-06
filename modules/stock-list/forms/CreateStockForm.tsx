@@ -102,9 +102,7 @@ const CreateStockForm: FC<ICreateStockForm> = ({ route }) => {
         if (isSuccess) {
             setTimeout(() => {
                 refetch();
-                navigation.navigate('Stock Details', {
-                    stockId: data.stock._id,
-                });
+                navigation.goBack();
             }, 1500);
         }
     }, [isSuccess]);
