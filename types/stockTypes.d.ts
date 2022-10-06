@@ -22,7 +22,7 @@ export enum StockAction {
 
 export interface IHistory {
     _id: string;
-    date: Date;
+    date: string;
     count: number;
     pricePerSingle: number;
     fee: number;

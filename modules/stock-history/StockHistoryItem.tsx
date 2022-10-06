@@ -2,7 +2,7 @@ import React, { FC, useState, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { IHistory } from 'types/stockTypes';
-import { moneyFormater } from 'utils/formaters';
+import { moneyFormater, dateFormater } from 'utils/formaters';
 import { StandartModal } from 'components/modals';
 import { RemoveStock } from 'modules/stock-details/components';
 
@@ -25,9 +25,6 @@ const StockHistoryItem: FC<IStockHistoryItem> = ({
 }) => {
     const [isVisbleRemoveModal, setVisibleRemoveModal] = useState(false);
 
-    const newDate = new Date(date);
-    const formatedDate = `${newDate.getDate()}.${newDate.getMonth()}.${newDate.getFullYear()}`;
-
     const actionStyle = action === 'buy' ? styles.buy : styles.sell;
 
     const toggleModal = useCallback(() => {
@@ -37,7 +34,7 @@ const StockHistoryItem: FC<IStockHistoryItem> = ({
     return (
         <>
             <View style={styles.row}>
-                <Text style={styles.text}>{formatedDate}</Text>
+                <Text style={styles.text}>{dateFormater(new Date(date))}</Text>
                 <Text style={{ ...styles.text, ...actionStyle }}>{action}</Text>
                 <Text style={styles.text}>{count}</Text>
                 <Text style={styles.text}>{moneyFormater(pricePerSingle)}</Text>
