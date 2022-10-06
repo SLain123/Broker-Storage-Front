@@ -1,14 +1,16 @@
 import React, { FC } from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { StaticBottomModal } from 'components/modals';
-import { IScreenProps } from 'types/commonTypes';
 
-export interface ICreateStockPanel extends IScreenProps {
+export interface ICreateStockPanel {
     brokerId: string;
 }
 
-const CreateStockPanel: FC<ICreateStockPanel> = ({ navigation, brokerId }) => {
+const CreateStockPanel: FC<ICreateStockPanel> = ({ brokerId }) => {
+    const navigation = useNavigation<NavigationProp<any, any>>();
+
     return (
         <StaticBottomModal>
             <TouchableOpacity

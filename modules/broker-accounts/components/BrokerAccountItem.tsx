@@ -4,15 +4,12 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { IBroker } from 'types/brokerTypes';
 import { SlideBottomModal } from 'components/modals';
 import { BrokerActionPanel } from './BrokerActionPanel';
-import { IScreenProps } from 'types/commonTypes';
 import { ChangeBrokerStatus } from './ChangeBrokerStatus';
 import { moneyFormater } from 'utils/formaters';
 
 import RightArrow from 'assets/icons/right-arrow.svg';
 
-export interface IBrokerAccountItem
-    extends IScreenProps,
-        Omit<IBroker, 'sumStocks'> {}
+export interface IBrokerAccountItem extends Omit<IBroker, 'sumStocks'> {}
 
 const BrokerAccountItem: FC<IBrokerAccountItem> = ({
     _id,
@@ -21,7 +18,6 @@ const BrokerAccountItem: FC<IBrokerAccountItem> = ({
     sumBalance,
     status,
     cash,
-    navigation,
 }) => {
     const [isVisibleBottomModal, setVisibleBottomModal] = useState(false);
     const [isVisibleChangeModal, setVisibleChangeModal] = useState(false);
@@ -64,7 +60,6 @@ const BrokerAccountItem: FC<IBrokerAccountItem> = ({
                     status={status}
                     cash={cash}
                     currency={currency}
-                    navigation={navigation}
                     closeBottomModal={closeBottomModal}
                     openChangeModal={openChangeModal}
                 />

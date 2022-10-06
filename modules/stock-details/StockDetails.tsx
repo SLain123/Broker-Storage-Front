@@ -1,16 +1,16 @@
 import React, { FC } from 'react';
 import { Text, ScrollView, RefreshControl, StyleSheet } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { useGetStockQuery } from 'api/stockApi';
 import { Accordion, BlanketSpinner } from 'components/ui';
 import { RequestErrorModal } from 'components/modals';
-import { IScreenProps } from 'types/commonTypes';
 import { moneyFormater } from 'utils/formaters';
 import { StockHistoryList } from 'modules/stock-history/StockHistoryList';
 import { ControlPanel, RowDetail } from './components';
 
-export interface IStockDetails extends IScreenProps {
+export interface IStockDetails {
     route: RouteProp<
         {
             params: {
@@ -21,7 +21,8 @@ export interface IStockDetails extends IScreenProps {
     >;
 }
 
-const StockDetails: FC<IStockDetails> = ({ route, navigation }) => {
+const StockDetails: FC<IStockDetails> = ({ route }) => {
+    const navigation = useNavigation<NavigationProp<any, any>>();
     const { stockId } = route.params;
 
     const { data, isLoading, isError, refetch } = useGetStockQuery({
@@ -94,11 +95,7 @@ const StockDetails: FC<IStockDetails> = ({ route, navigation }) => {
                 ) : null}
             </ScrollView>
 
-            <ControlPanel
-                stockId={data?.stock._id}
-                type={data?.stock?.type}
-                navigation={navigation}
-            />
+            <ControlPanel stockId={data?.stock._id} type={data?.stock?.type} />
         </>
     );
 };

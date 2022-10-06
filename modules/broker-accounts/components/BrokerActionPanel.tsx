@@ -1,16 +1,15 @@
 import React, { FC } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { IBroker } from 'types/brokerTypes';
-import { IScreenProps } from 'types/commonTypes';
 
 import EditIcon from 'assets/icons/edit.svg';
 import ActiveIcon from 'assets/icons/shutdown-blue.svg';
 import DeactiveIcon from 'assets/icons/shutdown-red.svg';
 
 export interface IBrokerActionPanel
-    extends IScreenProps,
-        Omit<IBroker, 'sumStocks' | 'sumBalance'> {
+    extends Omit<IBroker, 'sumStocks' | 'sumBalance'> {
     closeBottomModal: () => void;
     openChangeModal: () => void;
 }
@@ -21,10 +20,11 @@ const BrokerActionPanel: FC<IBrokerActionPanel> = ({
     status,
     cash,
     currency,
-    navigation,
     closeBottomModal,
     openChangeModal,
 }) => {
+    const navigation = useNavigation<NavigationProp<any, any>>();
+
     const changeBrokerData = () =>
         navigation.navigate('Edit Broker', {
             _id,

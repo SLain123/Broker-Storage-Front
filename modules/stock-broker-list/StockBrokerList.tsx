@@ -6,16 +6,17 @@ import {
     RefreshControl,
     View,
 } from 'react-native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { useGetBrokerListQuery } from 'api/brokerApi';
 import { BlanketSpinner, Accordion } from 'components/ui';
 import { RequestErrorModal } from 'components/modals';
 import { StockBrokerItem } from './StockBrokerItem';
-import { IScreenProps } from 'types/commonTypes';
 import { getAuthStatus } from 'slice/authSlice';
 import { useAppSelector } from 'hooks';
 
-const StockBrokerList: FC<IScreenProps> = ({ navigation }) => {
+const StockBrokerList: FC = () => {
+    const navigation = useNavigation<NavigationProp<any, any>>();
     const isAuth = useAppSelector(getAuthStatus);
     const { data, isLoading, isError, refetch } = useGetBrokerListQuery();
 
@@ -63,7 +64,6 @@ const StockBrokerList: FC<IScreenProps> = ({ navigation }) => {
                                 sumStocks={sumStocks}
                                 currency={currency}
                                 cash={cash}
-                                navigation={navigation}
                             />
                         ),
                     )}
@@ -88,7 +88,6 @@ const StockBrokerList: FC<IScreenProps> = ({ navigation }) => {
                                     sumStocks={sumStocks}
                                     currency={currency}
                                     cash={cash}
-                                    navigation={navigation}
                                     disabled
                                 />
                             ),

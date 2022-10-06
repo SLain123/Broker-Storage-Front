@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, Text, RefreshControl } from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import SelectDropdown from 'react-native-select-dropdown';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { IInitialValues } from './RegisterType';
 import { useMakeRegisterMutation } from 'api/authApi';
@@ -13,9 +14,9 @@ import {
     CurrencySelect,
     FormStatusBlock,
 } from 'components/ui';
-import { IScreenProps } from 'types/commonTypes';
 
-const RegisterModule: FC<IScreenProps> = ({ navigation }) => {
+const RegisterModule: FC = () => {
+    const navigation = useNavigation<NavigationProp<any, any>>();
     const dropdownRef = useRef<SelectDropdown>(null);
     const [makeRegister, { isSuccess, isLoading, data, error }] =
         useMakeRegisterMutation();

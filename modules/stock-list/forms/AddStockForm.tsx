@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { RouteProp } from '@react-navigation/native';
 import SelectDropdown from 'react-native-select-dropdown';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import {
     FormInput,
@@ -12,12 +13,11 @@ import {
     FormSelect,
     FormStatusBlock,
 } from 'components/ui';
-import { IScreenProps } from 'types/commonTypes';
 import { useAddStockMutation } from 'api/stockApi';
 import { IAddStockReq } from 'types/stockTypes';
 import { useGetBrokerListQuery } from 'api/brokerApi';
 
-interface IAddStockForm extends IScreenProps {
+interface IAddStockForm {
     route: RouteProp<
         {
             params: {
@@ -28,7 +28,8 @@ interface IAddStockForm extends IScreenProps {
     >;
 }
 
-const AddStockForm: FC<IAddStockForm> = ({ navigation, route }) => {
+const AddStockForm: FC<IAddStockForm> = ({ route }) => {
+    const navigation = useNavigation<NavigationProp<any, any>>();
     const { stockId } = route.params;
 
     const [addStock, { isLoading, isSuccess, data, error }] =

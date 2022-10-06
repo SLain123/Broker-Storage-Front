@@ -1,15 +1,17 @@
 import React, { FC } from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { StockType } from 'types/stockTypes';
-import { IScreenProps } from 'types/commonTypes';
 
-export interface IControlPanel extends IScreenProps {
+export interface IControlPanel {
     stockId: string;
     type: StockType;
 }
 
-const ControlPanel: FC<IControlPanel> = ({ stockId, type, navigation }) => {
+const ControlPanel: FC<IControlPanel> = ({ stockId, type }) => {
+    const navigation = useNavigation<NavigationProp<any, any>>();
+
     return (
         <View>
             <TouchableOpacity

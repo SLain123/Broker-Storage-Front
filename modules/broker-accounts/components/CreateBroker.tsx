@@ -3,16 +3,18 @@ import { ScrollView, StyleSheet, Text, RefreshControl } from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import SelectDropdown from 'react-native-select-dropdown';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { ICreateBrokerReq } from 'types/brokerTypes';
 import { FormBtn, FormInput, CurrencySelect } from 'components/ui';
 import { RequestErrorModal } from 'components/modals';
-import { IScreenProps } from 'types/commonTypes';
 import { useGetUserProfileQuery } from 'api/profileApi';
 import { useCreateBrokerMutation } from 'api/brokerApi';
 
-const CreateBroker: FC<IScreenProps> = ({ navigation }) => {
+const CreateBroker: FC = () => {
+    const navigation = useNavigation<NavigationProp<any, any>>();
     const dropdownRef = useRef<SelectDropdown>(null);
+    
     const { data, refetch } = useGetUserProfileQuery();
     const [createBroker, { isSuccess, isLoading, isError }] =
         useCreateBrokerMutation();

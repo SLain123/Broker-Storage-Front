@@ -3,16 +3,17 @@ import { ScrollView, StyleSheet, RefreshControl } from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import SelectDropdown from 'react-native-select-dropdown';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { FormBtn, CurrencySelect } from 'components/ui';
 import {
     useGetUserProfileQuery,
     useChangeUserDataMutation,
 } from 'api/profileApi';
-import { IScreenProps } from 'types/commonTypes';
 import { RequestErrorModal } from 'components/modals';
 
-const EditCurrency: FC<IScreenProps> = ({ navigation }) => {
+const EditCurrency: FC = () => {
+    const navigation = useNavigation<NavigationProp<any, any>>();
     const { data, refetch } = useGetUserProfileQuery();
     const [changeUserData, { isSuccess, isError, isLoading: isLoadChanging }] =
         useChangeUserDataMutation();

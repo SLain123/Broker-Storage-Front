@@ -2,16 +2,17 @@ import React, { FC, useEffect } from 'react';
 import { ScrollView, StyleSheet, Text, RefreshControl } from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { FormInput, FormBtn } from 'components/ui';
 import {
     useGetUserProfileQuery,
     useChangeUserDataMutation,
 } from 'api/profileApi';
-import { IScreenProps } from 'types/commonTypes';
 import { RequestErrorModal } from 'components/modals';
 
-const EditNick: FC<IScreenProps> = ({ navigation }) => {
+const EditNick: FC = () => {
+    const navigation = useNavigation<NavigationProp<any, any>>();
     const { data, refetch } = useGetUserProfileQuery();
     const [changeUserData, { isSuccess, isError, isLoading }] =
         useChangeUserDataMutation();

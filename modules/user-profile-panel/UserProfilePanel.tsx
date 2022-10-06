@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { StyleSheet, ScrollView, RefreshControl } from 'react-native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { useGetUserProfileQuery } from 'api/profileApi';
 import { BlanketSpinner, InteractiveStringLink } from 'components/ui';
@@ -8,14 +9,14 @@ import { BrokerAccountList } from '../broker-accounts/BrokerAccountList';
 import { saveToStore } from 'utils/secureStoreFuncs';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { setAuthStatus, getAuthStatus } from 'slice/authSlice';
-import { IScreenProps } from 'types/commonTypes';
 
 import At from 'assets/icons/at.svg';
 import Person from 'assets/icons/person.svg';
 import Currency from 'assets/icons/currency.svg';
 import Exit from 'assets/icons/exit.svg';
 
-const UserProfilePanel: FC<IScreenProps> = ({ navigation }) => {
+const UserProfilePanel: FC = () => {
+    const navigation = useNavigation<NavigationProp<any, any>>();
     const dispatch = useAppDispatch();
     const { data, isLoading, isError, refetch } = useGetUserProfileQuery();
     const isAuth = useAppSelector(getAuthStatus);
@@ -66,10 +67,7 @@ const UserProfilePanel: FC<IScreenProps> = ({ navigation }) => {
                 title={`${data.user.defaultCurrency.title} ${data.user.defaultCurrency.ticker}`}
                 desc='You can change your default currency'
             />
-            <BrokerAccountList
-                brokerAccounts={data.user.brokerAccounts}
-                navigation={navigation}
-            />
+            <BrokerAccountList brokerAccounts={data.user.brokerAccounts} />
             <InteractiveStringLink
                 onPress={exitFromAccount}
                 icon={<Exit width={32} height={32} />}

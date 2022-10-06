@@ -2,7 +2,6 @@ import React, { FC, useMemo } from 'react';
 import { ScrollView, RefreshControl, View, StyleSheet } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 
-import { IScreenProps } from 'types/commonTypes';
 import { useGetAllStockListQuery } from 'api/stockApi';
 import { BlanketSpinner } from 'components/ui';
 import {
@@ -12,7 +11,7 @@ import {
 } from './components';
 import { RequestErrorModal } from 'components/modals';
 
-export interface IStockList extends IScreenProps {
+export interface IStockList {
     route: RouteProp<
         {
             params: {
@@ -23,7 +22,7 @@ export interface IStockList extends IScreenProps {
     >;
 }
 
-const StockList: FC<IStockList> = ({ route, navigation }) => {
+const StockList: FC<IStockList> = ({ route }) => {
     const { brokerId } = route.params;
 
     const { data, isLoading, isError, refetch } = useGetAllStockListQuery({
@@ -54,7 +53,7 @@ const StockList: FC<IStockList> = ({ route, navigation }) => {
         return (
             <>
                 <EmptyListNotification />
-                <CreateStockPanel navigation={navigation} brokerId={brokerId} />
+                <CreateStockPanel brokerId={brokerId} />
             </>
         );
     }
@@ -87,13 +86,12 @@ const StockList: FC<IStockList> = ({ route, navigation }) => {
                                     deltaBuy={deltaBuy}
                                     fee={fee}
                                     currency={currency}
-                                    navigation={navigation}
                                 />
                             ),
                         )}
                 </View>
             </ScrollView>
-            <CreateStockPanel navigation={navigation} brokerId={brokerId} />
+            <CreateStockPanel brokerId={brokerId} />
         </>
     );
 };

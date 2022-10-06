@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { StockStatus } from 'types/stockTypes';
 import { ICurrency } from 'types/currencyTypes';
 import { moneyFormater } from 'utils/formaters';
-import { IScreenProps } from 'types/commonTypes';
 
-export interface IStockItem extends IScreenProps {
+export interface IStockItem {
     _id: string;
     status: StockStatus;
     title: string;
@@ -24,8 +24,9 @@ const StockItem: FC<IStockItem> = ({
     deltaBuy,
     fee,
     currency,
-    navigation,
 }) => {
+    const navigation = useNavigation<NavigationProp<any, any>>();
+
     if (status !== 'active') {
         return null;
     }

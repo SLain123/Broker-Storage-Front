@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, Text, RefreshControl } from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { RouteProp } from '@react-navigation/native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import {
     FormInput,
@@ -10,12 +11,11 @@ import {
     FormCalendar,
     FormStatusBlock,
 } from 'components/ui';
-import { IScreenProps } from 'types/commonTypes';
 import { useCreateDivMutation } from 'api/dividendApi';
 import { ICreateDividendReq } from 'types/dividendTypes';
 import { useGetStockQuery } from 'api/stockApi';
 
-interface ICreateDividendForm extends IScreenProps {
+interface ICreateDividendForm {
     route: RouteProp<
         {
             params: {
@@ -26,7 +26,8 @@ interface ICreateDividendForm extends IScreenProps {
     >;
 }
 
-const CreateDividendForm: FC<ICreateDividendForm> = ({ navigation, route }) => {
+const CreateDividendForm: FC<ICreateDividendForm> = ({ route }) => {
+    const navigation = useNavigation<NavigationProp<any, any>>();
     const { stockId } = route.params;
 
     const [createDiv, { isLoading, isSuccess, data, error }] =

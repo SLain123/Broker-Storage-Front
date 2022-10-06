@@ -1,18 +1,17 @@
 import React, { FC } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { IBroker } from 'types/brokerTypes';
 import { BrokerAccountItem } from './components/BrokerAccountItem';
-import { IScreenProps } from 'types/commonTypes';
 
-export interface IBrokerAccountList extends IScreenProps {
+export interface IBrokerAccountList {
     brokerAccounts: IBroker[];
 }
 
-const BrokerAccountList: FC<IBrokerAccountList> = ({
-    brokerAccounts,
-    navigation,
-}) => {
+const BrokerAccountList: FC<IBrokerAccountList> = ({ brokerAccounts }) => {
+    const navigation = useNavigation<NavigationProp<any, any>>();
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Your brokers:</Text>
@@ -33,7 +32,6 @@ const BrokerAccountList: FC<IBrokerAccountList> = ({
                             sumBalance={sumBalance}
                             status={status}
                             cash={cash}
-                            navigation={navigation}
                         />
                     ),
                 )

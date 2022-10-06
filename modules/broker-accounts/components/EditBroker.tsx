@@ -4,22 +4,22 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { RouteProp } from '@react-navigation/native';
 import SelectDropdown from 'react-native-select-dropdown';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
-import { IScreenProps, StatusType } from 'types/commonTypes';
 import { FormBtn, FormInput, CurrencySelect } from 'components/ui';
 import { RequestErrorModal } from 'components/modals';
 import { ICurrency } from 'types/currencyTypes';
-import { ICreateBrokerReq } from 'types/brokerTypes';
+import { ICreateBrokerReq, BrokerStatus } from 'types/brokerTypes';
 import { useEditBrokerMutation } from 'api/brokerApi';
 import { useGetUserProfileQuery } from 'api/profileApi';
 
-export interface IEditBroker extends IScreenProps {
+export interface IEditBroker {
     route: RouteProp<
         {
             params: {
                 _id: string;
                 title: string;
-                status: StatusType;
+                status: BrokerStatus;
                 cash: number;
                 currency: ICurrency;
             };
@@ -28,7 +28,8 @@ export interface IEditBroker extends IScreenProps {
     >;
 }
 
-const EditBroker: FC<IEditBroker> = ({ navigation, route }) => {
+const EditBroker: FC<IEditBroker> = ({ route }) => {
+    const navigation = useNavigation<NavigationProp<any, any>>();
     const dropdownRef = useRef<SelectDropdown>(null);
     const { _id, title, status, cash, currency } = route.params;
 

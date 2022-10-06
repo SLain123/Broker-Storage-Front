@@ -1,13 +1,12 @@
 import React, { FC } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { IBroker } from 'types/brokerTypes';
 import { moneyFormater } from 'utils/formaters';
-import { IScreenProps } from 'types/commonTypes';
 
 export interface IStockBrokerItem
-    extends Omit<IBroker, 'status' | 'sumBalance'>,
-        IScreenProps {
+    extends Omit<IBroker, 'status' | 'sumBalance'> {
     disabled?: boolean;
 }
 
@@ -17,9 +16,10 @@ const StockBrokerItem: FC<IStockBrokerItem> = ({
     sumStocks,
     cash,
     currency,
-    navigation,
     disabled = false,
 }) => {
+    const navigation = useNavigation<NavigationProp<any, any>>();
+
     return (
         <TouchableOpacity
             style={styles.container}
