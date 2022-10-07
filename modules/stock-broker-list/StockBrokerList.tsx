@@ -6,7 +6,6 @@ import {
     RefreshControl,
     View,
 } from 'react-native';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { useGetBrokerListQuery } from 'api/brokerApi';
 import { BlanketSpinner, Accordion } from 'components/ui';
@@ -16,7 +15,6 @@ import { getAuthStatus } from 'slice/authSlice';
 import { useAppSelector } from 'hooks';
 
 const StockBrokerList: FC = () => {
-    const navigation = useNavigation<NavigationProp<any, any>>();
     const isAuth = useAppSelector(getAuthStatus);
     const { data, isLoading, isError, refetch } = useGetBrokerListQuery();
 
