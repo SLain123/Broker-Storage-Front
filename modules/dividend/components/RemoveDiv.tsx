@@ -15,9 +15,10 @@ export interface IRemoveDiv {
     id: string;
     closeModal: () => void;
     stockId: string;
+    type: 'dividend' | 'payment';
 }
 
-const RemoveDiv: FC<IRemoveDiv> = ({ id, closeModal, stockId }) => {
+const RemoveDiv: FC<IRemoveDiv> = ({ id, closeModal, stockId, type }) => {
     const [removeDiv, { isLoading, isError, isSuccess }] =
         useRemoveDivMutation();
     const { refetch } = useGetStockQuery({ id: stockId });

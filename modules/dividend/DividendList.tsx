@@ -7,9 +7,14 @@ import { DividendItem } from './components';
 export interface IDividendList {
     divList: IDividend[];
     stockId: string;
+    type?: 'dividend' | 'payment';
 }
 
-const DividendList: FC<IDividendList> = ({ divList, stockId }) => {
+const DividendList: FC<IDividendList> = ({
+    divList,
+    stockId,
+    type = 'dividend',
+}) => {
     return (
         <ScrollView horizontal={true}>
             <View style={styles.table}>
@@ -29,6 +34,7 @@ const DividendList: FC<IDividendList> = ({ divList, stockId }) => {
                         sumPriceBuyngStoсk={sumPriceBuyngStoсk}
                         payment={payment}
                         stockId={stockId}
+                        type={type}
                     />
                 ))}
             </View>

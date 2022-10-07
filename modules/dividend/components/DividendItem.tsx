@@ -10,6 +10,7 @@ import RemoveIcon from 'assets/icons/remove.svg';
 
 export interface IDividendItem extends Omit<IDividend, 'currency'> {
     stockId: string;
+    type: 'dividend' | 'payment';
 }
 
 const DividendItem: FC<IDividendItem> = ({
@@ -18,6 +19,7 @@ const DividendItem: FC<IDividendItem> = ({
     payment,
     sumPriceBuyngStoсk,
     stockId,
+    type,
 }) => {
     const [isVisbleRemoveModal, setVisibleRemoveModal] = useState(false);
 
@@ -54,6 +56,7 @@ const DividendItem: FC<IDividendItem> = ({
                     id={_id}
                     closeModal={toggleModal}
                     stockId={stockId}
+                    type={type}
                 />
             </StandartModal>
         </>

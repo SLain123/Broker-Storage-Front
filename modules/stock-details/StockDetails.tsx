@@ -116,15 +116,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         backgroundColor: '#2756B1',
     },
-    row: {
-        padding: 8,
-        paddingLeft: 16,
-        paddingRight: 16,
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    text: { color: 'white', fontSize: 16 },
 });
 
 export { StockDetails };
