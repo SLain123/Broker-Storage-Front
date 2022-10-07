@@ -2,6 +2,7 @@ import { ICurrency } from './currencyTypes';
 import { IResponseError } from './commonTypes';
 
 export interface IDividend {
+    _id: string;
     date: Date;
     currency: ICurrency;
     sumPriceBuyngStoсk: number;
@@ -16,6 +17,15 @@ export interface ICreateDividendReq {
 
 export interface ICreateDividendRes {
     message?: string;
-    // stock?: IStock;
+    payment?: IDividend;
+    data?: IResponseError;
+}
+
+export interface IRemoveDividendReq {
+    id: string;
+}
+
+export interface IRemoveDividendRes {
+    message?: string;
     data?: IResponseError;
 }

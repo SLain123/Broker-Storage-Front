@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import { Text, ScrollView, RefreshControl, StyleSheet } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { useGetStockQuery } from 'api/stockApi';
 import { Accordion, BlanketSpinner } from 'components/ui';
 import { RequestErrorModal } from 'components/modals';
 import { moneyFormater } from 'utils/formaters';
-import { StockHistoryList } from 'modules/stock-history/StockHistoryList';
+import { HistoryList } from 'modules/history/HistoryList';
 import { ControlPanel, RowDetail } from './components';
+import { DividendList } from 'modules/dividend/DividendList';
 
 export interface IStockDetails {
     route: RouteProp<
@@ -22,7 +22,6 @@ export interface IStockDetails {
 }
 
 const StockDetails: FC<IStockDetails> = ({ route }) => {
-    const navigation = useNavigation<NavigationProp<any, any>>();
     const { stockId } = route.params;
 
     const { data, isLoading, isError, refetch } = useGetStockQuery({
@@ -84,13 +83,16 @@ const StockDetails: FC<IStockDetails> = ({ route }) => {
                 />
 
                 <Accordion header='All operation (history):'>
-                    <StockHistoryList history={data?.stock?.history} />
+                    <HistoryList history={data?.stock?.history} />
                 </Accordion>
 
                 {data?.stock?.type === 'stock' &&
                 data?.stock?.dividends.length ? (
                     <Accordion header='All dividends:'>
-                        <Text>Dividend List</Text>
+                        <DividendList
+                            divList={data.stock.dividends}
+                            stockId={stockId}
+                        />
                     </Accordion>
                 ) : null}
             </ScrollView>

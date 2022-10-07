@@ -1,5 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { ICreateDividendReq, ICreateDividendRes } from 'types/dividendTypes';
+import {
+    ICreateDividendReq,
+    ICreateDividendRes,
+    IRemoveDividendReq,
+    IRemoveDividendRes,
+} from 'types/dividendTypes';
 import { getValueFromStore } from 'utils/secureStoreFuncs';
 
 export const dividendApi = createApi({
@@ -27,7 +32,17 @@ export const dividendApi = createApi({
             }),
             invalidatesTags: ['Dividend'],
         }),
+        removeDiv: builder.mutation<IRemoveDividendRes, IRemoveDividendReq>({
+            query: ({ id }) => ({
+                url: 'dividend/remove',
+                method: 'POST',
+                body: {
+                    id,
+                },
+            }),
+            invalidatesTags: ['Dividend'],
+        }),
     }),
 });
 
-export const { useCreateDivMutation } = dividendApi;
+export const { useCreateDivMutation, useRemoveDivMutation } = dividendApi;

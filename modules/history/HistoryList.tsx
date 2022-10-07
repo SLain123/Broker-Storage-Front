@@ -2,13 +2,13 @@ import React, { FC } from 'react';
 import { StyleSheet, ScrollView, View, Text } from 'react-native';
 
 import { IHistory } from 'types/stockTypes';
-import { StockHistoryItem } from './StockHistoryItem';
+import { HistoryItem } from './HistoryItem';
 
-export interface IStockHistoryList {
+export interface IHistoryList {
     history: IHistory[];
 }
 
-const StockHistoryList: FC<IStockHistoryList> = ({ history }) => {
+const HistoryList: FC<IHistoryList> = ({ history }) => {
     return (
         <ScrollView horizontal={true}>
             <View style={styles.table}>
@@ -27,7 +27,7 @@ const StockHistoryList: FC<IStockHistoryList> = ({ history }) => {
                         { _id, action, count, date, fee, pricePerSingle },
                         index,
                     ) => (
-                        <StockHistoryItem
+                        <HistoryItem
                             key={_id}
                             _id={_id}
                             action={action}
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export { StockHistoryList };
+export { HistoryList };

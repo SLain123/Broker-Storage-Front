@@ -48,6 +48,7 @@ export interface IStock {
 
 export interface IStockFull extends IStock {
     history: IHistory[];
+    dividends: IDividend[];
 }
 
 export interface IStockFilters {

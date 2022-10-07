@@ -8,12 +8,12 @@ import { RemoveStock } from 'modules/stock-details/components';
 
 import RemoveIcon from 'assets/icons/remove.svg';
 
-export interface IStockHistoryItem extends IHistory {
+export interface IHistoryItem extends IHistory {
     isFirst: boolean;
     isLast: boolean;
 }
 
-const StockHistoryItem: FC<IStockHistoryItem> = ({
+const HistoryItem: FC<IHistoryItem> = ({
     _id,
     action,
     count,
@@ -98,4 +98,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export { StockHistoryItem };
+export { HistoryItem };
