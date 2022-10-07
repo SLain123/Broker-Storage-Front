@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { UserProfilePanel } from 'modules/user-profile-panel/UserProfilePanel';
 import { EditNick } from 'modules/user-profile-panel/EditNick';
 import { EditCurrency } from 'modules/user-profile-panel/EditCurrency';
-import { CreateBroker, EditBroker } from 'modules/broker-accounts/components';
+import { CreateBroker, EditBroker } from 'modules/broker-accounts/forms';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,7 +13,6 @@ const Profile = () => {
         <Stack.Navigator
             screenOptions={{
                 headerTitleStyle: { color: '#2756B1' },
-                
             }}
         >
             <Stack.Screen name='Account' component={UserProfilePanel} />
