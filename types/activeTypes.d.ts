@@ -51,3 +51,16 @@ export interface ICreateActiveRes {
     active?: IActive;
     data?: IResponseError;
 }
+
+export interface IEditActiveReq {
+    id: string;
+    title: string;
+    currencyId: string;
+    cash: number | string;
+    status: ActiveStatus;
+}
+
+export interface IEditActiveRes {
+    message?: string;
+    data?: IResponseError;
+}

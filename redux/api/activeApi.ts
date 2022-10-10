@@ -6,6 +6,8 @@ import {
     IGetAllActivessRes,
     ICreateActiveRes,
     ICreateActiveReq,
+    IEditActiveReq,
+    IEditActiveRes,
 } from 'types/activeTypes';
 import { getValueFromStore } from 'utils/secureStoreFuncs';
 
@@ -53,6 +55,20 @@ export const activeApi = createApi({
             }),
             invalidatesTags: ['Active'],
         }),
+        editActive: builder.mutation<IEditActiveRes, IEditActiveReq>({
+            query: ({ id, title, currencyId, cash, status }) => ({
+                url: 'active/correct',
+                method: 'POST',
+                body: {
+                    id,
+                    title,
+                    currencyId,
+                    cash: +cash,
+                    status,
+                },
+            }),
+            invalidatesTags: ['Active'],
+        }),
     }),
 });
 
@@ -60,4 +76,5 @@ export const {
     useGetActiveQuery,
     useGetAllActiveListQuery,
     useCreateActiveMutation,
+    useEditActiveMutation
 } = activeApi;

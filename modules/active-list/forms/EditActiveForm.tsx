@@ -2,7 +2,11 @@ import React, { useEffect, FC, useRef } from 'react';
 import { ScrollView, StyleSheet, Text, RefreshControl } from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
+import {
+    useNavigation,
+    NavigationProp,
+    RouteProp,
+} from '@react-navigation/native';
 import SelectDropdown from 'react-native-select-dropdown';
 
 import {
@@ -10,31 +14,40 @@ import {
     FormInput,
     CurrencySelect,
     FormStatusBlock,
-    BlanketSpinner,
 } from 'components/ui';
-import { useCreateActiveMutation } from 'api/activeApi';
-import { ICreateActiveReq } from 'types/activeTypes';
-import { useGetUserProfileQuery } from 'api/profileApi';
+import { useEditActiveMutation, useGetActiveQuery } from 'api/activeApi';
+import { IEditActiveReq } from 'types/activeTypes';
 
-const CreateActiveForm: FC = () => {
+export interface IEditActiveForm {
+    route: RouteProp<
+        {
+            params: {
+                id: string;
+            };
+        },
+        'params'
+    >;
+}
+
+const EditActiveForm: FC<IEditActiveForm> = ({ route }) => {
+    const { id } = route.params;
     const navigation = useNavigation<NavigationProp<any, any>>();
     const dropdownRef = useRef<SelectDropdown>(null);
 
-    const [createActive, { isLoading, isSuccess, data, error }] =
-        useCreateActiveMutation();
-    const { data: userData, isLoading: userLoading } = useGetUserProfileQuery();
+    const { data: activeData, isLoading: isLoadingActive } = useGetActiveQuery({
+        id,
+    });
+    const [editActive, { isLoading, isSuccess, data, error }] =
+        useEditActiveMutation();
 
-    const isDisabled = isLoading || isSuccess;
-    const defaultBtnText = userData?.user?.defaultCurrency
-        ? `${userData.user.defaultCurrency.title} (${userData.user.defaultCurrency.ticker})`
-        : 'Specify active currency';
+    const isDisabled = isLoading || isSuccess || isLoadingActive;
 
-    const initialValues: ICreateActiveReq = {
-        title: '',
-        currencyId: userData?.user?.defaultCurrency?._id
-            ? userData.user.defaultCurrency._id
-            : '',
-        cash: -1,
+    const initialValues: IEditActiveReq = {
+        id,
+        title: activeData.active.title,
+        currencyId: activeData.active.currency._id,
+        cash: String(activeData.active.cash),
+        status: activeData.active.status,
     };
     const validationSchema = Yup.object().shape({
         title: Yup.string().required('Name of stock is Required'),
@@ -48,8 +61,8 @@ const CreateActiveForm: FC = () => {
         enableReinitialize: true,
         initialValues,
         validationSchema,
-        onSubmit: ({ title, currencyId, cash }) => {
-            createActive({ title, currencyId, cash });
+        onSubmit: ({ id, title, currencyId, cash, status }) => {
+            editActive({ id, title, currencyId, cash, status });
         },
     });
     const { handleSubmit, resetForm } = formik;
@@ -67,10 +80,6 @@ const CreateActiveForm: FC = () => {
         }
     }, [isSuccess]);
 
-    if (userLoading) {
-        <BlanketSpinner />;
-    }
-
     return (
         <ScrollView
             contentContainerStyle={styles.container}
@@ -78,7 +87,7 @@ const CreateActiveForm: FC = () => {
                 <RefreshControl refreshing={false} onRefresh={resetAllForm} />
             }
         >
-            <Text style={styles.title}>Create New Active</Text>
+            <Text style={styles.title}>Edit Active</Text>
 
             <FormInput
                 formik={formik}
@@ -90,7 +99,7 @@ const CreateActiveForm: FC = () => {
                 formik={formik}
                 isDisabled={isDisabled}
                 dropdownRef={dropdownRef}
-                defaultBtnText={defaultBtnText}
+                defaultBtnText={`${activeData.active.currency.title} (${activeData.active.currency.ticker})`}
                 formikFieldName='currencyId'
             />
             <FormInput
@@ -105,8 +114,8 @@ const CreateActiveForm: FC = () => {
             <FormBtn
                 onPress={handleSubmit as any}
                 isDisabled={isDisabled}
-                isLoading={isLoading}
-                btnText='Add Active'
+                isLoading={isLoading || isLoadingActive}
+                btnText='Edit Active'
             />
         </ScrollView>
     );
@@ -126,4 +135,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export { CreateActiveForm };
+export { EditActiveForm };
