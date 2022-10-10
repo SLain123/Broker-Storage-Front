@@ -8,35 +8,62 @@ import {
 } from 'react-native';
 
 import { useRemoveDivMutation } from 'api/dividendApi';
+import { useGetActiveQuery } from 'api/activeApi';
 import { useGetStockQuery } from 'api/stockApi';
+import { useRemovePaymentMutation } from 'api/paymentsApi';
 import { IRemoveDividendRes } from 'types/dividendTypes';
 
 export interface IRemoveDiv {
     id: string;
     closeModal: () => void;
-    stockId: string;
+    payId: string;
     type: 'dividend' | 'payment';
 }
 
-const RemoveDiv: FC<IRemoveDiv> = ({ id, closeModal, stockId, type }) => {
-    const [removeDiv, { isLoading, isError, isSuccess }] =
-        useRemoveDivMutation();
-    const { refetch } = useGetStockQuery({ id: stockId });
+const RemoveDiv: FC<IRemoveDiv> = ({ id, closeModal, payId, type }) => {
+    const [
+        removeDiv,
+        {
+            isLoading: isLoadingDiv,
+            isError: isErrorDiv,
+            isSuccess: isSuccessDiv,
+        },
+    ] = useRemoveDivMutation();
+    const [
+        removePayment,
+        {
+            isLoading: isLoadingPay,
+            isError: isErrorPay,
+            isSuccess: isSuccessPay,
+        },
+    ] = useRemovePaymentMutation();
+    const { refetch: refetchStock } = useGetStockQuery({ id: payId });
+    const { refetch: refetchActive } = useGetActiveQuery({ id: payId });
 
-    const removeStockFunc = () => {
+    const removeDivFunc = () => {
         removeDiv({ id }).then((data) => {
             const result = data as IRemoveDividendRes;
             if (result.data.message) {
-                refetch();
+                refetchStock();
                 closeModal();
             }
         });
     };
 
-    if (isError) {
+    const removePaymentFunc = () => {
+        removePayment({ id }).then((data) => {
+            const result = data as IRemoveDividendRes;
+            if (result.data.message) {
+                refetchActive();
+                closeModal();
+            }
+        });
+    };
+
+    if (isErrorDiv || isErrorPay) {
         return (
             <Text style={styles.error}>
-                The Dividend was not removed. Please, try to repeate the action
+                The Payment was not removed. Please, try to repeate the action
                 or reboot the app.
             </Text>
         );
@@ -52,10 +79,19 @@ const RemoveDiv: FC<IRemoveDiv> = ({ id, closeModal, stockId, type }) => {
                 <TouchableOpacity
                     activeOpacity={0.5}
                     style={styles.removeBtn}
-                    onPress={removeStockFunc}
-                    disabled={isSuccess || isLoading}
+                    onPress={() => {
+                        type === 'dividend'
+                            ? removeDivFunc()
+                            : removePaymentFunc();
+                    }}
+                    disabled={
+                        isSuccessDiv ||
+                        isSuccessPay ||
+                        isLoadingDiv ||
+                        isLoadingPay
+                    }
                 >
-                    {isLoading ? (
+                    {isLoadingDiv || isLoadingPay ? (
                         <ActivityIndicator size='small' color='black' />
                     ) : (
                         <Text style={styles.text}>Remove</Text>

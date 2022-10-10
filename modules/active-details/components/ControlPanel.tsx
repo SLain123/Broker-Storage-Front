@@ -34,7 +34,7 @@ const ControlPanel: FC<IControlPanel> = ({ id, status }) => {
                         activeOpacity={0.5}
                         style={styles.btn}
                         onPress={() =>
-                            navigation.navigate('Add Payment', { id })
+                            navigation.navigate('Add Payment', { activeId: id })
                         }
                     >
                         <Text style={styles.btnText}>Add Payment</Text>

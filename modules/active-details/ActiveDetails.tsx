@@ -70,7 +70,7 @@ const ActiveDetails: FC<IActiveDetails> = ({ route }) => {
                     <Accordion header='All payments:'>
                         <DividendList
                             divList={data?.active?.dividends}
-                            stockId={id}
+                            id={id}
                             type='payment'
                         />
                     </Accordion>

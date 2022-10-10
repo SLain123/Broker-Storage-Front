@@ -9,10 +9,17 @@ export interface IDividend {
     payment: number;
 }
 
-export interface ICreateDividendReq {
-    stockId: string;
+export interface ICreateBaseReq {
     date: string;
     payment: number;
+}
+
+export interface ICreateDividendReq extends ICreateBaseReq {
+    stockId: string;
+}
+
+export interface ICreatePaymentReq extends ICreateBaseReq {
+    activeId: string;
 }
 
 export interface ICreateDividendRes {

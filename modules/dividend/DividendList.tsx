@@ -6,13 +6,13 @@ import { DividendItem } from './components';
 
 export interface IDividendList {
     divList: IDividend[];
-    stockId: string;
+    id: string;
     type?: 'dividend' | 'payment';
 }
 
 const DividendList: FC<IDividendList> = ({
     divList,
-    stockId,
+    id,
     type = 'dividend',
 }) => {
     return (
@@ -33,7 +33,7 @@ const DividendList: FC<IDividendList> = ({
                         date={date}
                         sumPriceBuyngStoсk={sumPriceBuyngStoсk}
                         payment={payment}
-                        stockId={stockId}
+                        payId={id}
                         type={type}
                     />
                 ))}
