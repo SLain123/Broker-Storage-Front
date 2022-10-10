@@ -1,10 +1,7 @@
 import { ICurrency } from './currencyTypes';
 import { IDividend } from './dividendTypes';
 
-export enum ActiveStatus {
-    active = 'active',
-    inactive = 'inactive',
-}
+export type ActiveStatusType = 'active' | 'inactive';
 
 export interface IActive {
     _id: string;
@@ -12,12 +9,12 @@ export interface IActive {
     currency: ICurrency;
     cash: number;
     dividends?: IDividend[];
-    status: ActiveStatus;
+    status: ActiveStatusType;
 }
 
 export interface IActiveFilters {
     currencyId?: string;
-    status?: ActiveStatus;
+    status?: ActiveStatusType;
 }
 
 export interface IGetActiveReq {
@@ -57,7 +54,7 @@ export interface IEditActiveReq {
     title: string;
     currencyId: string;
     cash: number | string;
-    status: ActiveStatus;
+    status: ActiveStatusType;
 }
 
 export interface IEditActiveRes {

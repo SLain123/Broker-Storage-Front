@@ -1,16 +1,24 @@
-import React, { FC } from 'react';
-import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
+import React, { FC, useState, useCallback } from 'react';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 
-import { ActiveStatus } from 'types/activeTypes';
+import { StandartModal } from 'components/modals';
+import { ArchiveWindow } from './ArchiveWindow';
+import { ActiveStatusType } from 'types/activeTypes';
 
 export interface IControlPanel {
     id: string;
-    status: ActiveStatus;
+    status: ActiveStatusType;
 }
 
 const ControlPanel: FC<IControlPanel> = ({ id, status }) => {
     const navigation = useNavigation<NavigationProp<any, any>>();
+
+    const [isVisibleArchiveWindow, setVisibleArchiveWindow] = useState(false);
+
+    const toggleArchiveWindow = useCallback(() => {
+        setVisibleArchiveWindow((prev) => !prev);
+    }, []);
 
     return (
         <>
@@ -39,7 +47,7 @@ const ControlPanel: FC<IControlPanel> = ({ id, status }) => {
             <TouchableOpacity
                 activeOpacity={0.5}
                 style={status === 'active' ? styles.redBtn : styles.btn}
-                onPress={() => navigation.navigate(' Active', { id, status })}
+                onPress={toggleArchiveWindow}
             >
                 <Text style={styles.btnText}>
                     {status === 'active'
@@ -50,10 +58,17 @@ const ControlPanel: FC<IControlPanel> = ({ id, status }) => {
             <TouchableOpacity
                 activeOpacity={0.5}
                 style={styles.redBtn}
-                onPress={() => navigation.navigate('Remove Active', { id })}
+                onPress={toggleArchiveWindow}
             >
                 <Text style={styles.btnText}>Remove Active</Text>
             </TouchableOpacity>
+
+            <StandartModal
+                visible={isVisibleArchiveWindow}
+                closeModal={toggleArchiveWindow}
+            >
+                <ArchiveWindow id={id} closeModal={toggleArchiveWindow} />
+            </StandartModal>
         </>
     );
 };

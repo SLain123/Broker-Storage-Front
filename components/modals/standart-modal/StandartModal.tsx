@@ -35,10 +35,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 4,
         zIndex: 10,
-        margin: 16,
         position: 'absolute',
         top: '40%',
-        left: 16,
+        left: '5%',
+        width: '90%',
     },
 });
 
