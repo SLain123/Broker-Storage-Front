@@ -91,7 +91,7 @@ const StockDetails: FC<IStockDetails> = ({ route }) => {
                     <Accordion header='All dividends:'>
                         <DividendList
                             divList={data.stock.dividends}
-                            stockId={stockId}
+                            id={stockId}
                         />
                     </Accordion>
                 ) : null}

@@ -37,7 +37,9 @@ const RemoveDiv: FC<IRemoveDiv> = ({ id, closeModal, payId, type }) => {
             isSuccess: isSuccessPay,
         },
     ] = useRemovePaymentMutation();
-    const { refetch: refetchStock } = useGetStockQuery({ id: payId });
+    const { refetch: refetchStock } = useGetStockQuery({
+        id: payId,
+    });
     const { refetch: refetchActive } = useGetActiveQuery({ id: payId });
 
     const removeDivFunc = () => {
