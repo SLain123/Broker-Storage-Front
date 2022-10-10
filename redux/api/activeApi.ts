@@ -7,7 +7,8 @@ import {
     ICreateActiveRes,
     ICreateActiveReq,
     IEditActiveReq,
-    IEditActiveRes,
+    IResultActiveRes,
+    IRemoveActiveReq,
 } from 'types/activeTypes';
 import { getValueFromStore } from 'utils/secureStoreFuncs';
 
@@ -55,7 +56,7 @@ export const activeApi = createApi({
             }),
             invalidatesTags: ['Active'],
         }),
-        editActive: builder.mutation<IEditActiveRes, IEditActiveReq>({
+        editActive: builder.mutation<IResultActiveRes, IEditActiveReq>({
             query: ({ id, title, currencyId, cash, status }) => ({
                 url: 'active/correct',
                 method: 'POST',
@@ -69,6 +70,16 @@ export const activeApi = createApi({
             }),
             invalidatesTags: ['Active'],
         }),
+        removeActive: builder.mutation<IResultActiveRes, IRemoveActiveReq>({
+            query: ({ id }) => ({
+                url: 'active/remove',
+                method: 'POST',
+                body: {
+                    id,
+                },
+            }),
+            invalidatesTags: ['Active'],
+        }),
     }),
 });
 
@@ -76,5 +87,6 @@ export const {
     useGetActiveQuery,
     useGetAllActiveListQuery,
     useCreateActiveMutation,
-    useEditActiveMutation
+    useEditActiveMutation,
+    useRemoveActiveMutation,
 } = activeApi;

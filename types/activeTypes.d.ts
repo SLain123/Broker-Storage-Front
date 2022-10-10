@@ -57,7 +57,11 @@ export interface IEditActiveReq {
     status: ActiveStatusType;
 }
 
-export interface IEditActiveRes {
+export interface IResultActiveRes {
     message?: string;
     data?: IResponseError;
+}
+
+export interface IRemoveActiveReq {
+    id: string;
 }

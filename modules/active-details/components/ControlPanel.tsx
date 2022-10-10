@@ -4,6 +4,7 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { StandartModal } from 'components/modals';
 import { ArchiveWindow } from './ArchiveWindow';
+import { RemoveWindow } from './RemoveWindow';
 import { ActiveStatusType } from 'types/activeTypes';
 
 export interface IControlPanel {
@@ -15,9 +16,14 @@ const ControlPanel: FC<IControlPanel> = ({ id, status }) => {
     const navigation = useNavigation<NavigationProp<any, any>>();
 
     const [isVisibleArchiveWindow, setVisibleArchiveWindow] = useState(false);
+    const [isVisibleRemoveWindow, setVisibleRemoveWindow] = useState(false);
 
     const toggleArchiveWindow = useCallback(() => {
         setVisibleArchiveWindow((prev) => !prev);
+    }, []);
+
+    const toggleRemoveWindow = useCallback(() => {
+        setVisibleRemoveWindow((prev) => !prev);
     }, []);
 
     return (
@@ -58,16 +64,23 @@ const ControlPanel: FC<IControlPanel> = ({ id, status }) => {
             <TouchableOpacity
                 activeOpacity={0.5}
                 style={styles.redBtn}
-                onPress={toggleArchiveWindow}
+                onPress={toggleRemoveWindow}
             >
                 <Text style={styles.btnText}>Remove Active</Text>
             </TouchableOpacity>
 
+            {/* Windows */}
             <StandartModal
                 visible={isVisibleArchiveWindow}
                 closeModal={toggleArchiveWindow}
             >
                 <ArchiveWindow id={id} closeModal={toggleArchiveWindow} />
+            </StandartModal>
+            <StandartModal
+                visible={isVisibleRemoveWindow}
+                closeModal={toggleRemoveWindow}
+            >
+                <RemoveWindow id={id} closeModal={toggleRemoveWindow} />
             </StandartModal>
         </>
     );
