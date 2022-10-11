@@ -42,6 +42,9 @@ const RemoveDiv: FC<IRemoveDiv> = ({ id, closeModal, payId, type }) => {
     });
     const { refetch: refetchActive } = useGetActiveQuery({ id: payId });
 
+    const isDisabledRemoveBtn =
+        isSuccessDiv || isSuccessPay || isLoadingDiv || isLoadingPay;
+
     const removeDivFunc = () => {
         removeDiv({ id }).then((data) => {
             const result = data as IRemoveDividendRes;
@@ -60,6 +63,10 @@ const RemoveDiv: FC<IRemoveDiv> = ({ id, closeModal, payId, type }) => {
                 closeModal();
             }
         });
+    };
+
+    const onPressRemoveBtn = () => {
+        type === 'dividend' ? removeDivFunc() : removePaymentFunc();
     };
 
     if (isErrorDiv || isErrorPay) {
@@ -81,17 +88,8 @@ const RemoveDiv: FC<IRemoveDiv> = ({ id, closeModal, payId, type }) => {
                 <TouchableOpacity
                     activeOpacity={0.5}
                     style={styles.removeBtn}
-                    onPress={() => {
-                        type === 'dividend'
-                            ? removeDivFunc()
-                            : removePaymentFunc();
-                    }}
-                    disabled={
-                        isSuccessDiv ||
-                        isSuccessPay ||
-                        isLoadingDiv ||
-                        isLoadingPay
-                    }
+                    onPress={onPressRemoveBtn}
+                    disabled={isDisabledRemoveBtn}
                 >
                     {isLoadingDiv || isLoadingPay ? (
                         <ActivityIndicator size='small' color='black' />
