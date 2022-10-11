@@ -7,6 +7,7 @@ import { stockApi } from 'api/stockApi';
 import { dividendApi } from 'api/dividendApi';
 import { activeApi } from 'api/activeApi';
 import { paymentsApi } from 'api/paymentsApi';
+import { statApi } from 'api/statApi';
 
 import { authSlice } from 'slice/authSlice';
 
@@ -20,6 +21,7 @@ export const store = configureStore({
         [dividendApi.reducerPath]: dividendApi.reducer,
         [activeApi.reducerPath]: activeApi.reducer,
         [paymentsApi.reducerPath]: paymentsApi.reducer,
+        [statApi.reducerPath]: statApi.reducer,
         //slice
         [authSlice.name]: authSlice.reducer,
     },
@@ -33,6 +35,7 @@ export const store = configureStore({
             dividendApi.middleware,
             activeApi.middleware,
             paymentsApi.middleware,
+            statApi.middleware,
         ),
 });
 

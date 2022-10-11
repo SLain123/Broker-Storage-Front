@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { BrokerActives } from 'screens/BrokerActives';
 import { OtherActives } from 'screens/OtherActives';
+import { Statistic } from 'screens/Statistics';
 import { Profile } from 'screens/Profile';
 
 import BrokerIcon from 'assets/icons/bag.svg';
@@ -43,7 +44,7 @@ const AuthNav = () => {
                 />
                 <Tab.Screen
                     name='Statistics'
-                    component={BrokerActives}
+                    component={Statistic}
                     options={{
                         tabBarIcon: () => <StatIcon width={50} />,
                     }}
