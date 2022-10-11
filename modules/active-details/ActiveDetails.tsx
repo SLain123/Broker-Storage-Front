@@ -77,7 +77,11 @@ const ActiveDetails: FC<IActiveDetails> = ({ route }) => {
                 ) : null}
             </ScrollView>
 
-            <ControlPanel id={id} status={data?.active?.status} />
+            <ControlPanel
+                id={id}
+                title={data?.active?.title}
+                status={data?.active?.status}
+            />
         </>
     );
 };

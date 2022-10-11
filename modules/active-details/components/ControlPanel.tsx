@@ -9,10 +9,11 @@ import { ActiveStatusType } from 'types/activeTypes';
 
 export interface IControlPanel {
     id: string;
+    title: string;
     status: ActiveStatusType;
 }
 
-const ControlPanel: FC<IControlPanel> = ({ id, status }) => {
+const ControlPanel: FC<IControlPanel> = ({ id, title, status }) => {
     const navigation = useNavigation<NavigationProp<any, any>>();
 
     const [isVisibleArchiveWindow, setVisibleArchiveWindow] = useState(false);
@@ -80,7 +81,11 @@ const ControlPanel: FC<IControlPanel> = ({ id, status }) => {
                 visible={isVisibleRemoveWindow}
                 closeModal={toggleRemoveWindow}
             >
-                <RemoveWindow id={id} closeModal={toggleRemoveWindow} />
+                <RemoveWindow
+                    id={id}
+                    title={title}
+                    closeModal={toggleRemoveWindow}
+                />
             </StandartModal>
         </>
     );
