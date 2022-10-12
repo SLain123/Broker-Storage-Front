@@ -2,20 +2,20 @@ import { IBroker } from 'types/brokerTypes';
 import { ICurrency } from 'types/currencyTypes';
 import { StockType } from 'types/stockTypes';
 
-interface IFeeResult {
+export interface IFeeResult {
     fee: number;
     currency: ICurrency;
     broker: IBroker;
 }
 
-interface IPaymentsResult {
+export interface IPaymentsResult {
     title: string;
     currency: ICurrency;
     allPayments: number;
     totalAmountOfInvest: number;
 }
 
-interface IDividendResult {
+export interface IDividendResult {
     currency: ICurrency;
     type: StockType;
     allPayments: number;

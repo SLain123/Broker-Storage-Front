@@ -8,3 +8,4 @@ export { FormCalendar } from './form-components/form-calendar/FormCalendar';
 export { FormSelect } from './form-components/form-select/FormSelect';
 export { Accordion } from './accordion/Accordion';
 export { FormStatusBlock } from './form-components/form-status-block/FormStatusBlock';
+export { ErrorMessage } from './error-message/ErrorMessage';

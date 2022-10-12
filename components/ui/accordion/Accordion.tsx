@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Text, StyleSheet } from 'react-native';
 import {
     Collapse,
@@ -8,7 +8,7 @@ import {
 
 export interface IAccordion {
     header: string;
-    children: React.ReactElement;
+    children: ReactElement | ReactElement[];
 }
 
 const Accordion: FC<IAccordion> = ({ header, children }) => {

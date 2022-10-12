@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import {
     ScrollView,
     View,
@@ -13,23 +13,18 @@ import {
     useGetPaymentsQuery,
     useGetDividendsQuery,
 } from 'api/statApi';
+import { StatFee } from 'modules/stat-fee/StatFee';
 
 const StatisticList: FC = () => {
-    const { data: feeData, refetch: feeRefetch } = useGetFeeQuery({});
-    const { data: paymentsData, refetch: paymentsRefetch } =
-        useGetPaymentsQuery({});
-    const { data: dividendsData, refetch: dividendsRefetch } =
-        useGetDividendsQuery({});
+    const { refetch: feeRefetch } = useGetFeeQuery({});
+    const { refetch: paymentsRefetch } = useGetPaymentsQuery({});
+    const { refetch: dividendsRefetch } = useGetDividendsQuery({});
 
     const refetchAll = () => {
         feeRefetch();
         paymentsRefetch();
         dividendsRefetch();
     };
-
-    useEffect(() => {
-        console.log(feeData);
-    }, [feeData]);
 
     return (
         <ScrollView
@@ -38,16 +33,13 @@ const StatisticList: FC = () => {
             }
         >
             <View style={styles.container}>
+                <StatFee />
                 <Accordion header='Sum of all Dividends'>
                     <Text>Div</Text>
                 </Accordion>
 
                 <Accordion header='Sum of all Payments'>
                     <Text>Pay</Text>
-                </Accordion>
-
-                <Accordion header='All Fee'>
-                    <Text>Fee</Text>
                 </Accordion>
             </View>
         </ScrollView>
