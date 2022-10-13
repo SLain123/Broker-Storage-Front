@@ -6,7 +6,7 @@ import { RouteProp } from '@react-navigation/native';
 import SelectDropdown from 'react-native-select-dropdown';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 
-import { FormBtn, FormInput, CurrencySelect } from 'components/ui';
+import { FormBtn, FormInput } from 'components/ui';
 import { RequestErrorModal } from 'components/modals';
 import { ICurrency } from 'types/currencyTypes';
 import { ICreateBrokerReq, BrokerStatus } from 'types/brokerTypes';
@@ -41,11 +41,9 @@ const EditBroker: FC<IEditBroker> = ({ route }) => {
     const initialValues: ICreateBrokerReq = {
         title,
         cash: String(cash),
-        currencyId: currency._id,
     };
     const validationSchema = Yup.object().shape({
         title: Yup.string().required('Broker Name is Required'),
-        currencyId: Yup.string().required('Broker Currency is Required'),
         cash: Yup.number()
             .min(0, 'Specify Amount of Cash, min 0')
             .max(999999999999, 'Amount is Too Large'),
@@ -54,9 +52,9 @@ const EditBroker: FC<IEditBroker> = ({ route }) => {
     const formik = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: ({ title, cash, currencyId }) => {
+        onSubmit: ({ title, cash }) => {
             status === 'active' &&
-                editBroker({ id: _id, title, cash, currencyId });
+                editBroker({ id: _id, title, cash });
         },
     });
     const { handleSubmit, resetForm } = formik;
@@ -85,13 +83,6 @@ const EditBroker: FC<IEditBroker> = ({ route }) => {
                 field='title'
                 editable={!isDisabled}
                 placeholder='Type Broker Name'
-            />
-            <CurrencySelect
-                formik={formik}
-                isDisabled={isDisabled}
-                dropdownRef={dropdownRef}
-                defaultBtnText={`${currency.title} (${currency.ticker})`}
-                formikFieldName='currencyId'
             />
             <FormInput
                 formik={formik}

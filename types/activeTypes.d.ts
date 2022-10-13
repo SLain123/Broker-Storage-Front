@@ -52,7 +52,6 @@ export interface ICreateActiveRes {
 export interface IEditActiveReq {
     id: string;
     title: string;
-    currencyId: string;
     cash: number | string;
     status: ActiveStatusType;
 }

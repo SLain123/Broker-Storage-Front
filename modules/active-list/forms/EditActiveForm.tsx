@@ -9,12 +9,7 @@ import {
 } from '@react-navigation/native';
 import SelectDropdown from 'react-native-select-dropdown';
 
-import {
-    FormBtn,
-    FormInput,
-    CurrencySelect,
-    FormStatusBlock,
-} from 'components/ui';
+import { FormBtn, FormInput, FormStatusBlock } from 'components/ui';
 import { useEditActiveMutation, useGetActiveQuery } from 'api/activeApi';
 import { IEditActiveReq } from 'types/activeTypes';
 
@@ -45,13 +40,11 @@ const EditActiveForm: FC<IEditActiveForm> = ({ route }) => {
     const initialValues: IEditActiveReq = {
         id,
         title: activeData.active.title,
-        currencyId: activeData.active.currency._id,
         cash: String(activeData.active.cash),
         status: activeData.active.status,
     };
     const validationSchema = Yup.object().shape({
         title: Yup.string().required('Name of stock is Required'),
-        currencyId: Yup.string().required('Broker Currency is Required'),
         cash: Yup.number()
             .min(0, 'Specify Amount of Cash, min 0')
             .max(999999999999, 'Amount is Too Large'),
@@ -61,8 +54,8 @@ const EditActiveForm: FC<IEditActiveForm> = ({ route }) => {
         enableReinitialize: true,
         initialValues,
         validationSchema,
-        onSubmit: ({ id, title, currencyId, cash, status }) => {
-            editActive({ id, title, currencyId, cash, status });
+        onSubmit: ({ id, title, cash, status }) => {
+            editActive({ id, title, cash, status });
         },
     });
     const { handleSubmit, resetForm } = formik;
@@ -94,13 +87,6 @@ const EditActiveForm: FC<IEditActiveForm> = ({ route }) => {
                 field='title'
                 editable={!isDisabled}
                 placeholder='Specify Name of Active'
-            />
-            <CurrencySelect
-                formik={formik}
-                isDisabled={isDisabled}
-                dropdownRef={dropdownRef}
-                defaultBtnText={`${activeData.active.currency.title} (${activeData.active.currency.ticker})`}
-                formikFieldName='currencyId'
             />
             <FormInput
                 formik={formik}
