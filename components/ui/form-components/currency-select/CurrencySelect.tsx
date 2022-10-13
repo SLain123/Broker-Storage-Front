@@ -58,7 +58,7 @@ const CurrencySelect: FC<ICurrencySelect> = ({
                 dropdownStyle={styles.dropdownBody}
                 rowTextStyle={styles.dropdownText}
                 selectedRowTextStyle={styles.dropdownActiveText}
-                dropdownOverlayColor='white'
+                dropdownOverlayColor='rgba(255,255,255,0.7)'
                 disabled={isDisabled}
             />
             <Text style={styles.error}>

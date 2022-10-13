@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
         top: 0,
         width: '100%',
         height: '100%',
+        backgroundColor: 'rgba(255,255,255,0.7)',
     },
     content: {
         padding: 16,
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         margin: 16,
         borderWidth: 1,
-        borderColor: 'rgba(255,255,255,0.5)',
+        borderColor: 'rgba(255,255,255,0.7)',
         zIndex: 10,
     },
     btn: {
