@@ -1,13 +1,6 @@
-import React, { FC } from 'react';
-import {
-    ScrollView,
-    View,
-    RefreshControl,
-    StyleSheet,
-    Text,
-} from 'react-native';
+import React, { FC, useEffect } from 'react';
+import { ScrollView, RefreshControl } from 'react-native';
 
-import { Accordion } from 'components/ui';
 import {
     useGetFeeQuery,
     useGetPaymentsQuery,
@@ -15,11 +8,20 @@ import {
 } from 'api/statApi';
 import { StatFee } from 'modules/stat-fee/StatFee';
 import { StatPayments } from 'modules/stat-payments/StatPayments';
+import { useAppSelector } from 'hooks';
+import { getAuthStatus } from 'slice/authSlice';
 
 const StatisticList: FC = () => {
-    const { refetch: feeRefetch } = useGetFeeQuery({});
-    const { refetch: paymentsRefetch } = useGetPaymentsQuery({});
-    const { refetch: dividendsRefetch } = useGetDividendsQuery({});
+    const currentYear = new Date().getFullYear();
+    const isAuth = useAppSelector(getAuthStatus);
+
+    const { refetch: feeRefetch } = useGetFeeQuery({ byYear: currentYear });
+    const { refetch: paymentsRefetch } = useGetPaymentsQuery({
+        byYear: currentYear,
+    });
+    const { refetch: dividendsRefetch } = useGetDividendsQuery({
+        byYear: currentYear,
+    });
 
     const refetchAll = () => {
         feeRefetch();
@@ -27,23 +29,21 @@ const StatisticList: FC = () => {
         dividendsRefetch();
     };
 
+    useEffect(() => {
+        refetchAll();
+    }, [isAuth]);
+
     return (
         <ScrollView
             refreshControl={
                 <RefreshControl refreshing={false} onRefresh={refetchAll} />
             }
         >
-            <View style={styles.container}>
-                <StatPayments type='Dividends' />
-                <StatPayments type='Payments' />
-                <StatFee />
-            </View>
+            <StatPayments type='Dividends' />
+            <StatPayments type='Payments' />
+            <StatFee />
         </ScrollView>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {},
-});
 
 export { StatisticList };
