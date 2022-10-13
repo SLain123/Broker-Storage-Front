@@ -11,13 +11,16 @@ import { StandartModal } from 'components/modals';
 
 export interface IYearFilter {
     saveYearFunc: (year: number | {}) => void;
+    defaultYear?: number;
 }
 
-const YearFilter: FC<IYearFilter> = ({ saveYearFunc }) => {
+const YearFilter: FC<IYearFilter> = ({ saveYearFunc, defaultYear = '' }) => {
     const [isVisibleInputModal, setVisibleInputModal] = useState(false);
-    const [inputValue, setValue] = useState('');
+    const [inputValue, setValue] = useState(String(defaultYear));
     const [displayError, setError] = useState(false);
-    const [title, setTitle] = useState('Add filter by Year');
+    const [title, setTitle] = useState(
+        defaultYear ? `Filter by ${defaultYear} year` : 'Add filter by Year',
+    );
 
     const toggleInputModal = useCallback(() => {
         setError(false);

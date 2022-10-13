@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, StyleSheet, Text, ActivityIndicator } from 'react-native';
 
 import { Accordion } from 'components/ui';
@@ -9,17 +9,16 @@ import { ErrorMessage } from 'components/ui';
 import { IYearFilter } from 'types/statTypes';
 
 const StatFee = () => {
-    const [byYear, setYear] = useState<{} | IYearFilter>({});
+    const currentYear = new Date().getFullYear();
+    const [byYear, setYear] = useState<{} | IYearFilter>({
+        byYear: currentYear,
+    });
 
-    const { data, isError, isLoading, refetch } = useGetFeeQuery(byYear);
+    const { data, isError, isLoading } = useGetFeeQuery(byYear);
 
     const saveYear = useCallback((year: number) => {
         isNaN(year) ? setYear({}) : setYear({ byYear: year });
     }, []);
-
-    useEffect(() => {
-        refetch;
-    }, [byYear]);
 
     if (isLoading) {
         return <ActivityIndicator size='large' color='white' />;
@@ -29,7 +28,7 @@ const StatFee = () => {
         <Accordion header='All Fee'>
             <>
                 {isError && (
-                    <ErrorMessage message='The Fees have not been downloaded from server, please try reboot App.' />
+                    <ErrorMessage message='The Fees have not been downloaded from server, please try to reboot App.' />
                 )}
                 {data?.result?.length ? (
                     <>
@@ -51,7 +50,12 @@ const StatFee = () => {
                         No fee were found for the specified year
                     </Text>
                 )}
-                {!isError && <YearFilter saveYearFunc={saveYear} />}
+                {!isError && (
+                    <YearFilter
+                        saveYearFunc={saveYear}
+                        defaultYear={currentYear}
+                    />
+                )}
             </>
         </Accordion>
     );
@@ -67,6 +71,7 @@ const styles = StyleSheet.create({
         color: '#2756B1',
         paddingBottom: 8,
         textAlign: 'center',
+        fontSize: 12,
     },
 });
 

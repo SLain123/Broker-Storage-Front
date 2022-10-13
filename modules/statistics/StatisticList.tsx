@@ -14,6 +14,7 @@ import {
     useGetDividendsQuery,
 } from 'api/statApi';
 import { StatFee } from 'modules/stat-fee/StatFee';
+import { StatPayments } from 'modules/stat-payments/StatPayments';
 
 const StatisticList: FC = () => {
     const { refetch: feeRefetch } = useGetFeeQuery({});
@@ -33,14 +34,9 @@ const StatisticList: FC = () => {
             }
         >
             <View style={styles.container}>
+                <StatPayments type='Dividends' />
+                <StatPayments type='Payments' />
                 <StatFee />
-                <Accordion header='Sum of all Dividends'>
-                    <Text>Div</Text>
-                </Accordion>
-
-                <Accordion header='Sum of all Payments'>
-                    <Text>Pay</Text>
-                </Accordion>
             </View>
         </ScrollView>
     );
