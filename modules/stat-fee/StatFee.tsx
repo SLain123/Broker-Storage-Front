@@ -25,7 +25,7 @@ const StatFee = () => {
     }
 
     return (
-        <Accordion header='All Fee'>
+        <Accordion header='All Fee' fontSize={16}>
             <>
                 {isError && (
                     <ErrorMessage message='The Fees have not been downloaded from server, please try to reboot App.' />

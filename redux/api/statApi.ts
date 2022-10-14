@@ -22,6 +22,7 @@ export const statApi = createApi({
         },
     }),
     tagTypes: ['Stat'],
+    refetchOnMountOrArgChange: true,
     endpoints: (builder) => ({
         getFee: builder.query<IGetFeeRes, Partial<IYearFilter>>({
             query: ({ byYear }) => ({

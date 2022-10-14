@@ -51,7 +51,7 @@ const StatPayments: FC<IStatPayments> = ({ type }) => {
     }
 
     return (
-        <Accordion header={`Sum of all ${type}`}>
+        <Accordion header={`Sum of all ${type}`} fontSize={16}>
             <>
                 {isPayError ||
                     (isDivError && (

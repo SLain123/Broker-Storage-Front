@@ -9,13 +9,16 @@ import {
 export interface IAccordion {
     header: string;
     children: ReactElement | ReactElement[];
+    fontSize?: number;
 }
 
-const Accordion: FC<IAccordion> = ({ header, children }) => {
+const Accordion: FC<IAccordion> = ({ header, children, fontSize = 10 }) => {
     return (
         <Collapse style={styles.container}>
             <CollapseHeader style={styles.accHeaderBlock}>
-                <Text style={styles.accHeaderText}>{header}</Text>
+                <Text style={{ ...styles.accHeaderText, fontSize }}>
+                    {header}
+                </Text>
             </CollapseHeader>
             <CollapseBody>{children}</CollapseBody>
         </Collapse>
@@ -38,7 +41,6 @@ const styles = StyleSheet.create({
         color: 'white',
         paddingTop: 16,
         paddingBottom: 16,
-        fontSize: 10,
         textAlign: 'center',
     },
 });
