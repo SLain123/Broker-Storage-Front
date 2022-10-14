@@ -14,7 +14,7 @@ export interface IStatPayments {
 
 const StatPayments: FC<IStatPayments> = ({ type }) => {
     const currentYear = new Date().getFullYear();
-    const [byYear, setYear] = useState<{} | IYearFilter>({
+    const [byYear, setYear] = useState<IYearFilter>({
         byYear: currentYear,
     });
 
@@ -43,7 +43,7 @@ const StatPayments: FC<IStatPayments> = ({ type }) => {
     }, [payData, divData, type]);
 
     const saveYear = useCallback((year: number) => {
-        isNaN(year) ? setYear({}) : setYear({ byYear: year });
+        setYear({ byYear: year });
     }, []);
 
     if (isPayLoading || isDivLoading) {

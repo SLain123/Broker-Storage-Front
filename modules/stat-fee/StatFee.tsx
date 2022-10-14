@@ -10,14 +10,14 @@ import { IYearFilter } from 'types/statTypes';
 
 const StatFee = () => {
     const currentYear = new Date().getFullYear();
-    const [byYear, setYear] = useState<{} | IYearFilter>({
+    const [byYear, setYear] = useState<IYearFilter>({
         byYear: currentYear,
     });
 
     const { data, isError, isLoading } = useGetFeeQuery(byYear);
 
     const saveYear = useCallback((year: number) => {
-        isNaN(year) ? setYear({}) : setYear({ byYear: year });
+        setYear({ byYear: year });
     }, []);
 
     if (isLoading) {

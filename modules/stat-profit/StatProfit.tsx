@@ -1,5 +1,6 @@
 import React, { FC, useState, useCallback, useMemo } from 'react';
 import { Text, StyleSheet, ActivityIndicator, View } from 'react-native';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 import { useGetProfitQuery } from 'api/statApi';
 import { IGetProfitReq } from 'types/statTypes';
@@ -10,7 +11,7 @@ import { ProfitRow } from './ProfitRow';
 
 const StatProfit: FC = () => {
     const currentYear = new Date().getFullYear();
-    const [filters, setFilters] = useState<{} | IGetProfitReq>({
+    const [filters, setFilters] = useState<IGetProfitReq>({
         year: currentYear,
         plusInactiveBrokers: false,
     });
@@ -22,6 +23,13 @@ const StatProfit: FC = () => {
             ? setFilters({ ...filters, year: currentYear })
             : setFilters({ ...filters, year });
     }, []);
+
+    const changeInactiveBrokerStatus = (isChecked: boolean) => {
+        setFilters({
+            ...filters,
+            plusInactiveBrokers: isChecked,
+        });
+    };
 
     const separateByBroker = useMemo(() => {
         return data?.filtredList
@@ -69,7 +77,29 @@ const StatProfit: FC = () => {
                 </Text>
             )}
             {!isError && (
-                <YearFilter saveYearFunc={saveYear} defaultYear={currentYear} />
+                <View style={styles.filterContainer}>
+                    <View style={styles.checkboxContainer}>
+                        <BouncyCheckbox
+                            size={30}
+                            fillColor='#2756B1'
+                            unfillColor='#FFFFFF'
+                            innerIconStyle={{ borderWidth: 2 }}
+                            onPress={(isChecked: boolean) => {
+                                changeInactiveBrokerStatus(isChecked);
+                            }}
+                            isChecked={filters.plusInactiveBrokers}
+                        />
+                        <Text style={styles.text}>
+                            {filters.plusInactiveBrokers
+                                ? 'With Inactive Brokers'
+                                : 'Only Active Brokers'}
+                        </Text>
+                    </View>
+                    <YearFilter
+                        saveYearFunc={saveYear}
+                        defaultYear={currentYear}
+                    />
+                </View>
             )}
         </>
     );
@@ -86,6 +116,21 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     text: { color: 'white', padding: 16 },
+    filterContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingLeft: 16,
+    },
+    checkboxContainer: {
+        paddingBottom: 16,
+        display: 'flex',
+        flexDirection: 'row',
+    },
+    checkboxText: {
+        color: 'white',
+    },
 });
 
 const getSeparateList = (
