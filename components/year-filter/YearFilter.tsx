@@ -40,9 +40,13 @@ const YearFilter: FC<IYearFilter> = ({ saveYearFunc, defaultYear = '' }) => {
 
     const reset = () => {
         setError(false);
-        saveYearFunc({});
-        setValue('');
-        setTitle('Add filter by Year');
+        saveYearFunc(defaultYear ? +defaultYear : {});
+        setValue(String(defaultYear));
+        setTitle(
+            defaultYear
+                ? `Filter by ${defaultYear} year`
+                : 'Add filter by Year',
+        );
         setVisibleInputModal(false);
     };
 

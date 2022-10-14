@@ -5,7 +5,9 @@ import {
     useGetFeeQuery,
     useGetPaymentsQuery,
     useGetDividendsQuery,
+    useGetProfitQuery,
 } from 'api/statApi';
+import { StatProfit } from 'modules/stat-profit/StatProfit';
 import { StatFee } from 'modules/stat-fee/StatFee';
 import { StatPayments } from 'modules/stat-payments/StatPayments';
 import { useAppSelector } from 'hooks';
@@ -22,11 +24,13 @@ const StatisticList: FC = () => {
     const { refetch: dividendsRefetch } = useGetDividendsQuery({
         byYear: currentYear,
     });
+    const { refetch: profitRefetch } = useGetProfitQuery({});
 
     const refetchAll = () => {
         feeRefetch();
         paymentsRefetch();
         dividendsRefetch();
+        profitRefetch();
     };
 
     useEffect(() => {
@@ -39,6 +43,7 @@ const StatisticList: FC = () => {
                 <RefreshControl refreshing={false} onRefresh={refetchAll} />
             }
         >
+            <StatProfit />
             <StatPayments type='Dividends' />
             <StatPayments type='Payments' />
             <StatFee />

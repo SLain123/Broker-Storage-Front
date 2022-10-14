@@ -5,6 +5,8 @@ import {
     IGetFeeRes,
     IGetPaymentsRes,
     IGetDividendsRes,
+    IGetProfitReq,
+    IGetProfitRes,
 } from 'types/statTypes';
 import { getValueFromStore } from 'utils/secureStoreFuncs';
 
@@ -42,8 +44,19 @@ export const statApi = createApi({
                 body: { byYear },
             }),
         }),
+        getProfit: builder.query<IGetProfitRes, Partial<IGetProfitReq>>({
+            query: ({ year, plusDividends, plusInactiveBrokers }) => ({
+                url: 'stat/profit',
+                method: 'POST',
+                body: { filters: { year, plusDividends, plusInactiveBrokers } },
+            }),
+        }),
     }),
 });
 
-export const { useGetFeeQuery, useGetPaymentsQuery, useGetDividendsQuery } =
-    statApi;
+export const {
+    useGetFeeQuery,
+    useGetPaymentsQuery,
+    useGetDividendsQuery,
+    useGetProfitQuery,
+} = statApi;

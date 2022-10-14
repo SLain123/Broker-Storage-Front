@@ -1,6 +1,6 @@
 import { IBroker } from 'types/brokerTypes';
 import { ICurrency } from 'types/currencyTypes';
-import { StockType } from 'types/stockTypes';
+import { StockType, IStock } from 'types/stockTypes';
 
 export interface IFeeResult {
     fee: number;
@@ -39,4 +39,18 @@ export interface IGetPaymentsRes {
 export interface IGetDividendsRes {
     message?: string;
     result?: IDividendResult[];
+}
+
+export interface IGetProfitReq {
+    brokerId?: string;
+    currencyId?: string;
+    year?: number;
+    plusInactiveBrokers?: boolean;
+    plusDividends?: boolean;
+}
+
+export interface IGetProfitRes {
+    message?: string;
+    sumProfit?: number;
+    filtredList?: IStock[];
 }
