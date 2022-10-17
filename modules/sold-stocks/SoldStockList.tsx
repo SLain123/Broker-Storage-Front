@@ -10,13 +10,13 @@ import SelectDropdown from 'react-native-select-dropdown';
 
 import { useGetProfitQuery } from 'api/statApi';
 import { IGetProfitReq } from 'types/statTypes';
-import { BlanketSpinner } from 'components/ui';
 import { RequestErrorModal } from 'components/modals';
 import { SoldItem } from './componentns/SoldItem';
 import { YearFilter } from 'components/year-filter/YearFilter';
 import { BrokerFilter } from 'components/broker-filter/BrokerFilter';
 import { getAuthStatus } from 'slice/authSlice';
 import { useAppSelector } from 'hooks';
+import { LoadingPreview } from 'components/loading-preview/LoadingPreview';
 
 const SoldStockList: FC = () => {
     const dropdownRef = useRef<SelectDropdown>(null);
@@ -66,7 +66,7 @@ const SoldStockList: FC = () => {
     }, [isAuth]);
 
     if (isLoading) {
-        return <BlanketSpinner />;
+        return <LoadingPreview />;
     }
 
     if (isError) {

@@ -8,11 +8,12 @@ import {
 } from 'react-native';
 
 import { useGetBrokerListQuery } from 'api/brokerApi';
-import { BlanketSpinner, Accordion } from 'components/ui';
+import { Accordion } from 'components/ui';
 import { RequestErrorModal } from 'components/modals';
 import { StockBrokerItem } from './StockBrokerItem';
 import { getAuthStatus } from 'slice/authSlice';
 import { useAppSelector } from 'hooks';
+import { LoadingPreview } from 'components/loading-preview/LoadingPreview';
 
 const StockBrokerList: FC = () => {
     const isAuth = useAppSelector(getAuthStatus);
@@ -42,7 +43,7 @@ const StockBrokerList: FC = () => {
     }, [isAuth]);
 
     if (isLoading) {
-        return <BlanketSpinner />;
+        return <LoadingPreview />;
     }
 
     return (

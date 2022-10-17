@@ -9,10 +9,11 @@ import {
 
 import { CreateActivePanel, ActiveItem } from './components';
 import { useGetAllActiveListQuery } from 'api/activeApi';
-import { BlanketSpinner, Accordion } from 'components/ui';
+import { Accordion } from 'components/ui';
 import { RequestErrorModal } from 'components/modals';
 import { useAppSelector } from 'hooks';
 import { getAuthStatus } from 'slice/authSlice';
+import { LoadingPreview } from 'components/loading-preview/LoadingPreview';
 
 const ActiveList: FC = () => {
     const isAuth = useAppSelector(getAuthStatus);
@@ -38,7 +39,7 @@ const ActiveList: FC = () => {
     }, [isAuth]);
 
     if (isLoading) {
-        return <BlanketSpinner />;
+        return <LoadingPreview />;
     }
 
     return (

@@ -3,12 +3,13 @@ import { StyleSheet, ScrollView, RefreshControl } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { useGetUserProfileQuery } from 'api/profileApi';
-import { BlanketSpinner, InteractiveStringLink } from 'components/ui';
+import { InteractiveStringLink } from 'components/ui';
 import { RequestErrorModal } from 'components/modals';
 import { BrokerAccountList } from '../broker-accounts/BrokerAccountList';
 import { saveToStore } from 'utils/secureStoreFuncs';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { setAuthStatus, getAuthStatus } from 'slice/authSlice';
+import { LoadingPreview } from 'components/loading-preview/LoadingPreview';
 
 import At from 'assets/icons/at.svg';
 import Person from 'assets/icons/person.svg';
@@ -31,7 +32,7 @@ const UserProfilePanel: FC = () => {
     }, [isAuth]);
 
     if (isLoading) {
-        return <BlanketSpinner />;
+        return <LoadingPreview />;
     }
 
     if (isError) {
