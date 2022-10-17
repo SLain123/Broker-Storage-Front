@@ -8,13 +8,17 @@ import {
 } from 'react-native';
 
 import { StandartModal } from 'components/modals';
+import { IComponentActions } from 'types/commonTypes';
 
 export interface IYearFilter {
     saveYearFunc: (year: number | {}) => void;
     defaultYear?: number;
 }
 
-const YearFilter: FC<IYearFilter> = ({ saveYearFunc, defaultYear = '' }) => {
+const YearFilter: FC<IYearFilter> & IComponentActions = ({
+    saveYearFunc,
+    defaultYear = '',
+}) => {
     const [isVisibleInputModal, setVisibleInputModal] = useState(false);
     const [inputValue, setValue] = useState(String(defaultYear));
     const [displayError, setError] = useState(false);
@@ -49,6 +53,8 @@ const YearFilter: FC<IYearFilter> = ({ saveYearFunc, defaultYear = '' }) => {
         );
         setVisibleInputModal(false);
     };
+
+    YearFilter.reset = reset;
 
     return (
         <>

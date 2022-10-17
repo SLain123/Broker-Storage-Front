@@ -16,3 +16,7 @@ export interface ICommonSelect {
     formikFieldName?: string;
     selectList: string[];
 }
+
+export interface IComponentActions {
+    reset?: () => void;
+}

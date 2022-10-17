@@ -18,11 +18,14 @@ const StatProfit: FC = () => {
 
     const { data, isLoading, isError } = useGetProfitQuery(filters);
 
-    const saveYear = useCallback((year: number) => {
-        isNaN(year)
-            ? setFilters({ ...filters, year: currentYear })
-            : setFilters({ ...filters, year });
-    }, []);
+    const saveYear = useCallback(
+        (year: number) => {
+            isNaN(year)
+                ? setFilters({ ...filters, year: currentYear })
+                : setFilters({ ...filters, year });
+        },
+        [filters],
+    );
 
     const changeInactiveBrokerStatus = (isChecked: boolean) => {
         setFilters({

@@ -46,10 +46,22 @@ export const statApi = createApi({
             }),
         }),
         getProfit: builder.query<IGetProfitRes, Partial<IGetProfitReq>>({
-            query: ({ year, plusDividends, plusInactiveBrokers }) => ({
+            query: ({
+                year,
+                plusDividends,
+                plusInactiveBrokers,
+                brokerId,
+            }) => ({
                 url: 'stat/profit',
                 method: 'POST',
-                body: { filters: { year, plusDividends, plusInactiveBrokers } },
+                body: {
+                    filters: {
+                        year,
+                        plusDividends,
+                        plusInactiveBrokers,
+                        brokerId,
+                    },
+                },
             }),
         }),
     }),
