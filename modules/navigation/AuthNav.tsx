@@ -3,11 +3,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { BrokerActives } from 'screens/BrokerActives';
+import { SoldStocks } from 'screens/SoldStocks';
 import { OtherActives } from 'screens/OtherActives';
 import { Statistic } from 'screens/Statistics';
 import { Profile } from 'screens/Profile';
 
 import BrokerIcon from 'assets/icons/bag.svg';
+import SoldIcon from 'assets/icons/sold.svg';
 import ActivesIcon from 'assets/icons/newspaper.svg';
 import StatIcon from 'assets/icons/stat.svg';
 import ProfileIcon from 'assets/icons/profile.svg';
@@ -23,7 +25,7 @@ const AuthNav = () => {
                     tabBarStyle: {
                         borderTopWidth: 2,
                         borderTopColor: '#2756B1',
-                        height: 55,
+                        height: 60,
                     },
                     headerShown: false,
                 }}
@@ -32,28 +34,35 @@ const AuthNav = () => {
                     name='Broker Actives'
                     component={BrokerActives}
                     options={{
-                        tabBarIcon: () => <BrokerIcon width={50} />,
+                        tabBarIcon: () => <BrokerIcon width={55} />,
+                    }}
+                />
+                <Tab.Screen
+                    name='Sold Stocks'
+                    component={SoldStocks}
+                    options={{
+                        tabBarIcon: () => <SoldIcon width={55} height={28} />,
                     }}
                 />
                 <Tab.Screen
                     name='Other Actives'
                     component={OtherActives}
                     options={{
-                        tabBarIcon: () => <ActivesIcon width={50} />,
+                        tabBarIcon: () => <ActivesIcon width={55} />,
                     }}
                 />
                 <Tab.Screen
                     name='Statistics'
                     component={Statistic}
                     options={{
-                        tabBarIcon: () => <StatIcon width={50} />,
+                        tabBarIcon: () => <StatIcon width={55} />,
                     }}
                 />
                 <Tab.Screen
                     name='Profile'
                     component={Profile}
                     options={{
-                        tabBarIcon: () => <ProfileIcon width={50} />,
+                        tabBarIcon: () => <ProfileIcon width={55} />,
                     }}
                 />
             </Tab.Navigator>
