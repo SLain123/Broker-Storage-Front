@@ -97,7 +97,18 @@ const StockDetails: FC<IStockDetails> = ({ route }) => {
                 ) : null}
             </ScrollView>
 
-            <ControlPanel stockId={data?.stock._id} type={data?.stock?.type} />
+            {data?.stock?.status === 'active' && (
+                <ControlPanel
+                    stockId={data?.stock._id}
+                    type={data?.stock?.type}
+                />
+            )}
+            {data?.stock?.broker.status === 'inactive' && (
+                <Text style={styles.warning}>
+                    The broker is not active! You cannot edit operation until
+                    the broker is reactivated.
+                </Text>
+            )}
         </>
     );
 };
@@ -115,6 +126,13 @@ const styles = StyleSheet.create({
         borderTopColor: 'white',
         borderWidth: 1,
         backgroundColor: '#2756B1',
+    },
+    warning: {
+        color: '#A30000',
+        padding: 16,
+        fontSize: 20,
+        marginBottom: 16,
+        textAlign: 'center',
     },
 });
 
