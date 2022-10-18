@@ -24,10 +24,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     logo: {
-        marginLeft: 10,
+        marginLeft: 12,
         marginBottom: 48,
         width: 240,
-        height: 200,
+        height: 210,
     },
 });
 
