@@ -15,6 +15,7 @@ export interface IFormInput {
     placeholder?: string;
     secureTextEntry?: boolean;
     keyboardType?: KeyboardTypeOptions;
+    numberOfLines?: number;
 }
 
 const FormInput: FC<IFormInput> = ({
@@ -24,6 +25,7 @@ const FormInput: FC<IFormInput> = ({
     placeholder = '',
     secureTextEntry = false,
     keyboardType = 'default',
+    numberOfLines = 1,
 }) => {
     const errorMessage =
         formik.touched[field] && (formik.errors[field] as string);
@@ -41,6 +43,8 @@ const FormInput: FC<IFormInput> = ({
                     keyboardType={keyboardType}
                     editable={editable}
                     secureTextEntry={secureTextEntry}
+                    multiline={numberOfLines > 1}
+                    numberOfLines={numberOfLines}
                 />
             </View>
             <Text style={styles.error}>{errorMessage}</Text>

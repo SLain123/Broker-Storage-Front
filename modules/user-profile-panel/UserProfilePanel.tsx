@@ -14,6 +14,7 @@ import { LoadingPreview } from 'components/loading-preview/LoadingPreview';
 import At from 'assets/icons/at.svg';
 import Person from 'assets/icons/person.svg';
 import Currency from 'assets/icons/currency.svg';
+import Message from 'assets/icons/message.svg';
 import Exit from 'assets/icons/exit.svg';
 
 const UserProfilePanel: FC = () => {
@@ -68,7 +69,15 @@ const UserProfilePanel: FC = () => {
                 title={`${data.user.defaultCurrency.title} ${data.user.defaultCurrency.ticker}`}
                 desc='You can change your default currency'
             />
+
             <BrokerAccountList brokerAccounts={data.user.brokerAccounts} />
+
+            <InteractiveStringLink
+                onPress={() => navigation.navigate('Send Email')}
+                icon={<Message width={30} height={30} />}
+                title={'Send message to Author App'}
+                desc='You can send your feedback to author'
+            />
             <InteractiveStringLink
                 onPress={exitFromAccount}
                 icon={<Exit width={32} height={32} />}

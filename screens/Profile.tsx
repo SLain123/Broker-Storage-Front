@@ -5,6 +5,7 @@ import { UserProfilePanel } from 'modules/user-profile-panel/UserProfilePanel';
 import { EditNick } from 'modules/user-profile-panel/EditNick';
 import { EditCurrency } from 'modules/user-profile-panel/EditCurrency';
 import { CreateBroker, EditBroker } from 'modules/broker-accounts/forms';
+import { ContactAuthor } from 'modules/contact-author/ContactAuthor';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ const Profile = () => {
             <Stack.Screen name='Edit Currency' component={EditCurrency} />
             <Stack.Screen name='Create Broker' component={CreateBroker} />
             <Stack.Screen name='Edit Broker' component={EditBroker} />
+            <Stack.Screen name='Send Email' component={ContactAuthor} />
         </Stack.Navigator>
     );
 };
