@@ -34,35 +34,39 @@ const AuthNav = () => {
                     name='Broker Actives'
                     component={BrokerActives}
                     options={{
-                        tabBarIcon: () => <BrokerIcon width={55} />,
+                        tabBarIcon: () => <BrokerIcon width={70} height={48} />,
                     }}
                 />
                 <Tab.Screen
                     name='Sold Stocks'
                     component={SoldStocks}
                     options={{
-                        tabBarIcon: () => <SoldIcon width={55} height={28} />,
+                        tabBarIcon: () => <SoldIcon width={70} height={26} />,
                     }}
                 />
                 <Tab.Screen
                     name='Other Actives'
                     component={OtherActives}
                     options={{
-                        tabBarIcon: () => <ActivesIcon width={55} />,
+                        tabBarIcon: () => (
+                            <ActivesIcon width={70} height={48} />
+                        ),
                     }}
                 />
                 <Tab.Screen
                     name='Statistics'
                     component={Statistic}
                     options={{
-                        tabBarIcon: () => <StatIcon width={55} />,
+                        tabBarIcon: () => <StatIcon width={70} height={48} />,
                     }}
                 />
                 <Tab.Screen
                     name='Profile'
                     component={Profile}
                     options={{
-                        tabBarIcon: () => <ProfileIcon width={55} />,
+                        tabBarIcon: () => (
+                            <ProfileIcon width={70} height={48} />
+                        ),
                     }}
                 />
             </Tab.Navigator>

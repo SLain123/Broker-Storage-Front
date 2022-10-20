@@ -1,26 +1,39 @@
 {
-    "expo": {
-        "name": "Broker-Storage-Front",
-        "slug": "Broker-Storage-Front",
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "userInterfaceStyle": "light",
-        "splash": {
-            "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
-        },
-        "updates": {
-            "fallbackToCacheTimeout": 0
-        },
-        "assetBundlePatterns": ["**/*"],
-        "ios": {
-            "supportsTablet": true
-        },
-        "android": {
-            "adaptiveIcon": {
-                "backgroundColor": "#FFFFFF"
-            }
-        },
-        "web": {}
+  "expo": {
+    "name": "UBA",
+    "slug": "unified_broker_account",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "icon": "./assets/icon512.png",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.uba",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "backgroundColor": "#000000",
+        "foregroundImage": "./assets/icon512.png"
+      }
+    },
+    "web": {
+      "favicon": "./assets/icon512.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "84882049-6d5a-4646-a41c-e44f5fd0b572"
+      }
     }
+  }
 }
