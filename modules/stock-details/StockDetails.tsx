@@ -49,22 +49,28 @@ const StockDetails: FC<IStockDetails> = ({ route }) => {
                 }
             >
                 <Text style={styles.title}>{data?.stock?.title}</Text>
-                <RowDetail
-                    description='Count of Stocks:'
-                    value={`${data?.stock?.restCount} unit`}
-                />
-                <RowDetail
-                    description='Total Price of Stock:'
-                    value={`${moneyFormater(
-                        data?.stock?.restCount * data?.stock?.deltaBuy,
-                    )} ${data?.stock?.currency?.ticker}`}
-                />
-                <RowDetail
-                    description='Delta of Buy Price per Unit:'
-                    value={`${moneyFormater(data?.stock?.deltaBuy)} ${
-                        data?.stock?.currency?.ticker
-                    }`}
-                />
+                {data?.stock?.restCount ? (
+                    <RowDetail
+                        description='Count of Stocks:'
+                        value={`${data?.stock?.restCount} unit`}
+                    />
+                ) : null}
+                {data?.stock?.deltaBuy ? (
+                    <RowDetail
+                        description='Total Price of Stock:'
+                        value={`${moneyFormater(
+                            data?.stock?.restCount * data?.stock?.deltaBuy,
+                        )} ${data?.stock?.currency?.ticker}`}
+                    />
+                ) : null}
+                {data?.stock?.deltaBuy ? (
+                    <RowDetail
+                        description='Delta of Buy Price per Unit:'
+                        value={`${moneyFormater(data?.stock?.deltaBuy)} ${
+                            data?.stock?.currency?.ticker
+                        }`}
+                    />
+                ) : null}
                 <RowDetail
                     description='Summary Broker Fee:'
                     value={`${moneyFormater(data?.stock?.fee)} ${
@@ -72,7 +78,11 @@ const StockDetails: FC<IStockDetails> = ({ route }) => {
                     }`}
                 />
                 <RowDetail
-                    description='Potential Profit at the moment:'
+                    description={
+                        data?.stock?.restCount > 0
+                            ? 'Potential Profit at the moment:'
+                            : 'Total Profit:'
+                    }
                     value={`${moneyFormater(data?.stock?.profit)} ${
                         data?.stock?.currency?.ticker
                     }`}

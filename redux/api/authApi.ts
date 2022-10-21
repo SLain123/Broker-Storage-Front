@@ -31,14 +31,19 @@ export const authApi = createApi({
             query: ({ email, password, nickName, defaultCurrencyId }) => ({
                 url: 'auth/register',
                 method: 'POST',
-                body: { email, password, nickName, defaultCurrencyId },
+                body: {
+                    email: email.toLowerCase(),
+                    password,
+                    nickName,
+                    defaultCurrencyId,
+                },
             }),
         }),
         makeLogin: builder.mutation<ILoginResponse, ILoginRequiest>({
             query: ({ email, password }) => ({
                 url: 'auth/login',
                 method: 'POST',
-                body: { email, password },
+                body: { email: email.toLowerCase(), password },
             }),
         }),
         checkAuth: builder.query<IValidationCheckResponse, void>({
