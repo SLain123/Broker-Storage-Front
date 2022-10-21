@@ -1,14 +1,13 @@
-import React, { FC, useEffect, useRef } from 'react';
-import { ScrollView, StyleSheet, RefreshControl } from 'react-native';
+import React, { FC, useEffect } from 'react';
+import { useWindowDimensions, StyleSheet, RefreshControl } from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { RouteProp } from '@react-navigation/native';
-import SelectDropdown from 'react-native-select-dropdown';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { FormBtn, FormInput } from 'components/ui';
 import { RequestErrorModal } from 'components/modals';
-import { ICurrency } from 'types/currencyTypes';
 import { ICreateBrokerReq, BrokerStatus } from 'types/brokerTypes';
 import { useEditBrokerMutation } from 'api/brokerApi';
 import { useGetUserProfileQuery } from 'api/profileApi';
@@ -21,7 +20,6 @@ export interface IEditBroker {
                 title: string;
                 status: BrokerStatus;
                 cash: number;
-                currency: ICurrency;
             };
         },
         'params'
@@ -30,9 +28,9 @@ export interface IEditBroker {
 
 const EditBroker: FC<IEditBroker> = ({ route }) => {
     const navigation = useNavigation<NavigationProp<any, any>>();
-    const dropdownRef = useRef<SelectDropdown>(null);
-    const { _id, title, status, cash, currency } = route.params;
+    const { _id, title, status, cash } = route.params;
 
+    const window = useWindowDimensions();
     const [editBroker, { isLoading, isError, isSuccess }] =
         useEditBrokerMutation();
     const { refetch } = useGetUserProfileQuery();
@@ -53,15 +51,13 @@ const EditBroker: FC<IEditBroker> = ({ route }) => {
         initialValues,
         validationSchema,
         onSubmit: ({ title, cash }) => {
-            status === 'active' &&
-                editBroker({ id: _id, title, cash });
+            status === 'active' && editBroker({ id: _id, title, cash });
         },
     });
     const { handleSubmit, resetForm } = formik;
 
     const resetAllForm = () => {
         resetForm();
-        dropdownRef.current.reset();
     };
 
     useEffect(() => {
@@ -72,12 +68,16 @@ const EditBroker: FC<IEditBroker> = ({ route }) => {
     }, [isSuccess]);
 
     return (
-        <ScrollView
-            contentContainerStyle={styles.container}
-            refreshControl={
-                <RefreshControl refreshing={false} onRefresh={resetAllForm} />
-            }
-        >
+        <KeyboardAwareScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+            ...styles.container,
+            paddingTop: window.height >= 700 ? '20%' : 10,
+        }}
+        refreshControl={
+            <RefreshControl refreshing={false} onRefresh={resetAllForm} />
+        }
+    >
             <FormInput
                 formik={formik}
                 field='title'
@@ -101,16 +101,16 @@ const EditBroker: FC<IEditBroker> = ({ route }) => {
                 visible={isError}
                 message='Broker has not been changed. Try to reboot the app and repeat changing'
             />
-        </ScrollView>
+        </KeyboardAwareScrollView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'black',
+        paddingBottom: 16,
     },
 });
 

@@ -7,7 +7,12 @@ const Stack = createNativeStackNavigator();
 
 const NoAuthNav = () => {
     return (
-        <NavigationContainer>
+        <NavigationContainer
+            theme={{
+                dark: true,
+                colors,
+            }}
+        >
             <Stack.Navigator
                 screenOptions={{
                     headerShown: false,
@@ -18,6 +23,15 @@ const NoAuthNav = () => {
             </Stack.Navigator>
         </NavigationContainer>
     );
+};
+
+const colors = {
+    primary: 'black',
+    background: 'black',
+    card: 'black',
+    text: 'grey',
+    border: '#2756B1',
+    notification: 'white',
 };
 
 export { NoAuthNav };

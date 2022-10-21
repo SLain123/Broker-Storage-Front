@@ -92,7 +92,7 @@ const StatProfit: FC = () => {
                             }}
                             isChecked={filters.plusInactiveBrokers}
                         />
-                        <Text style={styles.text}>
+                        <Text style={styles.checkboxText}>
                             {filters.plusInactiveBrokers
                                 ? 'With Inactive Brokers'
                                 : 'Only Active Brokers'}
@@ -132,6 +132,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     checkboxText: {
+        paddingTop: 16,
+        paddingBottom: 16,
         color: 'white',
     },
 });

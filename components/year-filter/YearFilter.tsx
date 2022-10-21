@@ -144,6 +144,8 @@ const styles = StyleSheet.create({
         padding: 16,
         width: '48%',
         marginLeft: '4%',
+        display: 'flex',
+        justifyContent: 'center',
     },
     input: {
         borderWidth: 1,

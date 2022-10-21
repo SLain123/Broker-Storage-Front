@@ -1,9 +1,15 @@
 import React, { useEffect, FC } from 'react';
-import { ScrollView, StyleSheet, Text, RefreshControl } from 'react-native';
+import {
+    useWindowDimensions,
+    StyleSheet,
+    Text,
+    RefreshControl,
+} from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { RouteProp } from '@react-navigation/native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import {
     FormInput,
@@ -30,6 +36,7 @@ const CreateDividendForm: FC<ICreateDividendForm> = ({ route }) => {
     const navigation = useNavigation<NavigationProp<any, any>>();
     const { stockId } = route.params;
 
+    const window = useWindowDimensions();
     const [createDiv, { isLoading, isSuccess, data, error }] =
         useCreateDivMutation();
     const { refetch } = useGetStockQuery({ id: stockId });
@@ -77,8 +84,12 @@ const CreateDividendForm: FC<ICreateDividendForm> = ({ route }) => {
     }, [isSuccess]);
 
     return (
-        <ScrollView
-            contentContainerStyle={styles.container}
+        <KeyboardAwareScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+                ...styles.container,
+                paddingTop: window.height >= 700 ? '20%' : 10,
+            }}
             refreshControl={
                 <RefreshControl refreshing={false} onRefresh={resetAllForm} />
             }
@@ -105,16 +116,16 @@ const CreateDividendForm: FC<ICreateDividendForm> = ({ route }) => {
                 isLoading={isLoading}
                 btnText='Add Dividend'
             />
-        </ScrollView>
+        </KeyboardAwareScrollView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'black',
+        paddingBottom: 16,
     },
     title: {
         fontSize: 20,

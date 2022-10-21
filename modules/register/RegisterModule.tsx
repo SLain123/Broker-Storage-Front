@@ -1,9 +1,15 @@
 import React, { useEffect, useRef, FC } from 'react';
-import { ScrollView, StyleSheet, Text, RefreshControl } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    RefreshControl,
+    useWindowDimensions,
+} from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import SelectDropdown from 'react-native-select-dropdown';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { IInitialValues } from './RegisterType';
 import { useMakeRegisterMutation } from 'api/authApi';
@@ -18,6 +24,8 @@ import {
 const RegisterModule: FC = () => {
     const navigation = useNavigation<NavigationProp<any, any>>();
     const dropdownRef = useRef<SelectDropdown>(null);
+
+    const window = useWindowDimensions();
     const [makeRegister, { isSuccess, isLoading, data, error }] =
         useMakeRegisterMutation();
 
@@ -76,8 +84,12 @@ const RegisterModule: FC = () => {
     }, [isSuccess]);
 
     return (
-        <ScrollView
-            contentContainerStyle={styles.container}
+        <KeyboardAwareScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+                ...styles.container,
+                paddingTop: window.height >= 700 ? '30%' : 10,
+            }}
             refreshControl={
                 <RefreshControl refreshing={false} onRefresh={resetAllForm} />
             }
@@ -128,16 +140,16 @@ const RegisterModule: FC = () => {
                 isLoading={isLoading}
                 btnText='Sign up'
             />
-        </ScrollView>
+        </KeyboardAwareScrollView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'black',
+        paddingBottom: 16,
     },
     title: {
         fontSize: 20,

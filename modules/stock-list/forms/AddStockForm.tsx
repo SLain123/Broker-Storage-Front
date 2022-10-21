@@ -1,10 +1,16 @@
 import React, { useEffect, FC, useRef, useMemo } from 'react';
-import { ScrollView, StyleSheet, Text, RefreshControl } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    RefreshControl,
+    useWindowDimensions,
+} from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { RouteProp } from '@react-navigation/native';
 import SelectDropdown from 'react-native-select-dropdown';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import {
     FormInput,
@@ -32,6 +38,7 @@ const AddStockForm: FC<IAddStockForm> = ({ route }) => {
     const navigation = useNavigation<NavigationProp<any, any>>();
     const { stockId } = route.params;
 
+    const window = useWindowDimensions();
     const [addStock, { isLoading, isSuccess, data, error }] =
         useAddStockMutation();
     const { refetch } = useGetBrokerListQuery();
@@ -94,8 +101,12 @@ const AddStockForm: FC<IAddStockForm> = ({ route }) => {
     }, [isSuccess]);
 
     return (
-        <ScrollView
-            contentContainerStyle={styles.container}
+        <KeyboardAwareScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+                ...styles.container,
+                paddingTop: window.height >= 700 ? '20%' : 10,
+            }}
             refreshControl={
                 <RefreshControl refreshing={false} onRefresh={resetAllForm} />
             }
@@ -143,16 +154,16 @@ const AddStockForm: FC<IAddStockForm> = ({ route }) => {
                 isLoading={isLoading}
                 btnText='Add Operation'
             />
-        </ScrollView>
+        </KeyboardAwareScrollView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'black',
+        paddingBottom: 16,
     },
     title: {
         fontSize: 20,

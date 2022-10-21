@@ -1,9 +1,15 @@
 import React, { useEffect, useRef, FC } from 'react';
-import { ScrollView, StyleSheet, Text, RefreshControl } from 'react-native';
+import {
+    useWindowDimensions,
+    StyleSheet,
+    Text,
+    RefreshControl,
+} from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import SelectDropdown from 'react-native-select-dropdown';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { ICreateBrokerReq } from 'types/brokerTypes';
 import { FormBtn, FormInput, CurrencySelect } from 'components/ui';
@@ -14,7 +20,8 @@ import { useCreateBrokerMutation } from 'api/brokerApi';
 const CreateBroker: FC = () => {
     const navigation = useNavigation<NavigationProp<any, any>>();
     const dropdownRef = useRef<SelectDropdown>(null);
-    
+
+    const window = useWindowDimensions();
     const { data, refetch } = useGetUserProfileQuery();
     const [createBroker, { isSuccess, isLoading, isError }] =
         useCreateBrokerMutation();
@@ -56,8 +63,12 @@ const CreateBroker: FC = () => {
     }, [isSuccess]);
 
     return (
-        <ScrollView
-            contentContainerStyle={styles.container}
+        <KeyboardAwareScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+                ...styles.container,
+                paddingTop: window.height >= 700 ? '20%' : 10,
+            }}
             refreshControl={
                 <RefreshControl refreshing={false} onRefresh={resetAllForm} />
             }
@@ -94,16 +105,16 @@ const CreateBroker: FC = () => {
                 visible={isError}
                 message="Broker wasn't create. Please, try to reboot the app."
             />
-        </ScrollView>
+        </KeyboardAwareScrollView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'black',
+        paddingBottom: 16,
     },
     title: {
         fontSize: 20,

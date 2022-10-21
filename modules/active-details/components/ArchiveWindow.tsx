@@ -29,7 +29,6 @@ const ArchiveWindow: FC<IArchiveWindow> = ({ id, closeModal }) => {
         editActive({
             id: activeData?.active._id,
             title: activeData.active.title,
-            currencyId: activeData.active.currency._id,
             cash: activeData.active.cash,
             status:
                 activeData.active.status === 'inactive' ? 'active' : 'inactive',
@@ -97,6 +96,8 @@ const styles = StyleSheet.create({
         width: '45%',
         marginTop: 8,
         borderRadius: 4,
+        display: 'flex',
+        justifyContent: 'center',
     },
     removeBtn: {
         backgroundColor: '#A30000',

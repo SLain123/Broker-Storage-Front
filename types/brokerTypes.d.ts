@@ -14,6 +14,7 @@ export interface IBroker {
 
 export interface ICreateBrokerReq {
     title: string;
+    currencyId: string;
     cash: string | number;
 }
 
