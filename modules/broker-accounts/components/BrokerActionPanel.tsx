@@ -9,7 +9,7 @@ import ActiveIcon from 'assets/icons/shutdown-blue.svg';
 import DeactiveIcon from 'assets/icons/shutdown-red.svg';
 
 export interface IBrokerActionPanel
-    extends Omit<IBroker, 'sumStocks' | 'sumBalance'> {
+    extends Omit<IBroker, 'sumStocks' | 'sumBalance' | 'currency'> {
     closeBottomModal: () => void;
     openChangeModal: () => void;
 }
@@ -19,20 +19,20 @@ const BrokerActionPanel: FC<IBrokerActionPanel> = ({
     title,
     status,
     cash,
-    currency,
     closeBottomModal,
     openChangeModal,
 }) => {
     const navigation = useNavigation<NavigationProp<any, any>>();
 
-    const changeBrokerData = () =>
+    const changeBrokerData = () => {
+        closeBottomModal();
         navigation.navigate('Edit Broker', {
             _id,
             title,
             status,
-            currency,
             cash,
         });
+    };
 
     return (
         <View style={styles.container}>

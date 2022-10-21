@@ -59,7 +59,6 @@ const BrokerAccountItem: FC<IBrokerAccountItem> = ({
                     title={title}
                     status={status}
                     cash={cash}
-                    currency={currency}
                     closeBottomModal={closeBottomModal}
                     openChangeModal={openChangeModal}
                 />
