@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { ScrollView, StyleSheet, Text, RefreshControl } from 'react-native';
+import { ScrollView, StyleSheet, RefreshControl } from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigation, NavigationProp } from '@react-navigation/native';

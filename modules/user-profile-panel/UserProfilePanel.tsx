@@ -15,6 +15,7 @@ import At from 'assets/icons/at.svg';
 import Person from 'assets/icons/person.svg';
 import Currency from 'assets/icons/currency.svg';
 import Message from 'assets/icons/message.svg';
+import Pin from 'assets/icons/pin.svg';
 import Exit from 'assets/icons/exit.svg';
 
 const UserProfilePanel: FC = () => {
@@ -68,6 +69,12 @@ const UserProfilePanel: FC = () => {
                 icon={<Currency width={32} height={32} />}
                 title={`${data.user.defaultCurrency.title} ${data.user.defaultCurrency.ticker}`}
                 desc='You can change your default currency'
+            />
+            <InteractiveStringLink
+                onPress={() => navigation.navigate('Edit Pin')}
+                icon={<Pin width={32} height={28} />}
+                title='PIN Code'
+                desc="Create or change your PIN code"
             />
 
             <BrokerAccountList brokerAccounts={data.user.brokerAccounts} />
