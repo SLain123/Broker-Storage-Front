@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 8,
+        width: "100%"
     },
     filterBtn: {
         marginLeft: 'auto',
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
         marginTop: 8,
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-between',
     },
     btn: {
         backgroundColor: '#2756B1',

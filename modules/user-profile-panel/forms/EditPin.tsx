@@ -1,7 +1,8 @@
 import React, { FC, useState, useEffect, useCallback } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import SimplePin from 'react-native-simple-pin';
+import Toast from 'react-native-root-toast';
 
 import { saveToStore, getValueFromStore } from 'utils/secureStoreFuncs';
 import { ActionPinPanel } from '../components/ActionPinPanel';
@@ -14,14 +15,11 @@ const EditPin: FC = () => {
     const currentPin = getValueFromStore('pin');
     const navigation = useNavigation<NavigationProp<any, any>>();
 
-    const messageStyle =
-        resultMessage === 'PIN Code Saved' ? styles.success : styles.error;
-
     const savePin = (pin: number[]) => {
         saveToStore('pin', pin.join(''));
         setPin(pin);
         setResultMessage('PIN code saved');
-        setTimeout(() => navigation.goBack(), 1500);
+        setTimeout(() => navigation.goBack(), 10);
     };
 
     const errorPin = () => {
@@ -55,7 +53,14 @@ const EditPin: FC = () => {
     }, []);
 
     useEffect(() => {
-        resultMessage && setTimeout(() => setResultMessage(''), 2000);
+        resultMessage &&
+            Toast.show(resultMessage, {
+                duration: Toast.durations.SHORT,
+                position: Toast.positions.CENTER,
+                animation: true,
+                backgroundColor:
+                    resultMessage === 'PIN code saved' ? '#2756B1' : '#A30000',
+            });
     }, [resultMessage]);
 
     if (displayChangePanel) {
@@ -65,35 +70,19 @@ const EditPin: FC = () => {
     }
 
     return (
-        <>
-            {resultMessage && (
-                <Text style={{ ...styles.result, ...messageStyle }}>
-                    {resultMessage}
-                </Text>
-            )}
-            <SimplePin
-                pin={pin.length ? pin : 4}
-                title={pin.length ? 'Type Your Current PIN' : 'Type New PIN'}
-                onSuccess={pin.length ? cleanPin : savePin}
-                onFailure={errorPin}
-                titleStyle={styles.title}
-                numpadTextStyle={styles.numPad}
-                bulletStyle={styles.bullet}
-            />
-        </>
+        <SimplePin
+            pin={pin.length ? pin : 4}
+            title={pin.length ? 'Type Your Current PIN' : 'Type New PIN'}
+            onSuccess={pin.length ? cleanPin : savePin}
+            onFailure={errorPin}
+            titleStyle={styles.title}
+            numpadTextStyle={styles.numPad}
+            bulletStyle={styles.bullet}
+        />
     );
 };
 
 const styles = StyleSheet.create({
-    result: {
-        position: 'relative',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        top: '45%',
-        fontSize: 26,
-    },
-    success: { color: 'green' },
-    error: { color: '#A30000' },
     title: {
         fontSize: 20,
         color: 'white',

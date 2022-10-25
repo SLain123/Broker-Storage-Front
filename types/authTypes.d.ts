@@ -24,6 +24,7 @@ export interface IUserData {
 
 export interface IAuthStore {
     isAuth: boolean | 'not_verified';
+    pin: number[];
 }
 
 export interface ILoginResponse extends IUserData {

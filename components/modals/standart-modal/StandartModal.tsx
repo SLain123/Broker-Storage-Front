@@ -1,5 +1,6 @@
 import React, { FC, ReactElement } from 'react';
-import { View, StyleSheet, Modal, TouchableOpacity } from 'react-native';
+import { StyleSheet } from 'react-native';
+import Overlay from 'react-native-modal-overlay';
 
 export interface IStandartModal {
     visible: boolean;
@@ -13,33 +14,21 @@ const StandartModal: FC<IStandartModal> = ({
     children,
 }) => {
     return (
-        <Modal animationType='fade' transparent visible={visible}>
-            <TouchableOpacity style={styles.blanket} onPress={closeModal} />
-            <View style={styles.content}>{children}</View>
-        </Modal>
+        <Overlay
+            visible={visible}
+            onClose={closeModal}
+            closeOnTouchOutside
+            childrenWrapperStyle={styles.window}
+            containerStyle={styles.overlay}
+        >
+            {children}
+        </Overlay>
     );
 };
 
 const styles = StyleSheet.create({
-    blanket: {
-        position: 'absolute',
-        zIndex: 9,
-        left: 0,
-        top: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(255,255,255, 0.4)',
-    },
-    content: {
-        padding: 16,
-        backgroundColor: 'white',
-        borderRadius: 4,
-        zIndex: 10,
-        position: 'absolute',
-        top: '40%',
-        left: '5%',
-        width: '90%',
-    },
+    overlay: { backgroundColor: 'rgba(255, 255, 255, 0.7)' },
+    window: { borderRadius: 4 },
 });
 
 export { StandartModal };

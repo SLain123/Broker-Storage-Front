@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 8,
+        width: "100%"
     },
     selectBody: {
         backgroundColor: 'black',
