@@ -19,12 +19,12 @@ const ControlPanel: FC<IControlPanel> = ({ id, title, status }) => {
     const [isVisibleArchiveWindow, setVisibleArchiveWindow] = useState(false);
     const [isVisibleRemoveWindow, setVisibleRemoveWindow] = useState(false);
 
-    const toggleArchiveWindow = useCallback(() => {
-        setVisibleArchiveWindow((prev) => !prev);
+    const closeArchiveWindow = useCallback(() => {
+        setVisibleArchiveWindow(false);
     }, []);
 
-    const toggleRemoveWindow = useCallback(() => {
-        setVisibleRemoveWindow((prev) => !prev);
+    const closeRemoveWindow = useCallback(() => {
+        setVisibleRemoveWindow(false);
     }, []);
 
     return (
@@ -54,7 +54,7 @@ const ControlPanel: FC<IControlPanel> = ({ id, title, status }) => {
             <TouchableOpacity
                 activeOpacity={0.5}
                 style={status === 'active' ? styles.redBtn : styles.btn}
-                onPress={toggleArchiveWindow}
+                onPress={() => setVisibleArchiveWindow(true)}
             >
                 <Text style={styles.btnText}>
                     {status === 'active'
@@ -65,7 +65,7 @@ const ControlPanel: FC<IControlPanel> = ({ id, title, status }) => {
             <TouchableOpacity
                 activeOpacity={0.5}
                 style={styles.redBtn}
-                onPress={toggleRemoveWindow}
+                onPress={() => setVisibleRemoveWindow(true)}
             >
                 <Text style={styles.btnText}>Remove Active</Text>
             </TouchableOpacity>
@@ -73,18 +73,18 @@ const ControlPanel: FC<IControlPanel> = ({ id, title, status }) => {
             {/* Windows */}
             <StandartModal
                 visible={isVisibleArchiveWindow}
-                closeModal={toggleArchiveWindow}
+                closeModal={closeArchiveWindow}
             >
-                <ArchiveWindow id={id} closeModal={toggleArchiveWindow} />
+                <ArchiveWindow id={id} closeModal={closeArchiveWindow} />
             </StandartModal>
             <StandartModal
                 visible={isVisibleRemoveWindow}
-                closeModal={toggleRemoveWindow}
+                closeModal={closeRemoveWindow}
             >
                 <RemoveWindow
                     id={id}
                     title={title}
-                    closeModal={toggleRemoveWindow}
+                    closeModal={closeRemoveWindow}
                 />
             </StandartModal>
         </>

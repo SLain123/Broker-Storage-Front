@@ -23,8 +23,8 @@ const DividendItem: FC<IDividendItem> = ({
 }) => {
     const [isVisbleRemoveModal, setVisibleRemoveModal] = useState(false);
 
-    const toggleModal = useCallback(() => {
-        setVisibleRemoveModal((prev) => !prev);
+    const closeModal = useCallback(() => {
+        setVisibleRemoveModal(false);
     }, []);
 
     return (
@@ -42,7 +42,7 @@ const DividendItem: FC<IDividendItem> = ({
                 <TouchableOpacity
                     style={styles.btn}
                     activeOpacity={0.5}
-                    onPress={toggleModal}
+                    onPress={() => setVisibleRemoveModal(true)}
                 >
                     <RemoveIcon width={22} height={35} />
                 </TouchableOpacity>
@@ -50,11 +50,11 @@ const DividendItem: FC<IDividendItem> = ({
 
             <StandartModal
                 visible={isVisbleRemoveModal}
-                closeModal={toggleModal}
+                closeModal={closeModal}
             >
                 <RemoveDiv
                     id={_id}
-                    closeModal={toggleModal}
+                    closeModal={closeModal}
                     payId={payId}
                     type={type}
                 />

@@ -26,9 +26,9 @@ const YearFilter: FC<IYearFilter> & IComponentActions = ({
         defaultYear ? `Filter by ${defaultYear} year` : 'Add filter by Year',
     );
 
-    const toggleInputModal = useCallback(() => {
+    const closeInputModal = useCallback(() => {
         setError(false);
-        setVisibleInputModal((prev) => !prev);
+        setVisibleInputModal(false);
     }, []);
 
     const checkYear = () => {
@@ -60,7 +60,7 @@ const YearFilter: FC<IYearFilter> & IComponentActions = ({
         <>
             <TouchableOpacity
                 activeOpacity={0.5}
-                onPress={toggleInputModal}
+                onPress={() => setVisibleInputModal(true)}
                 style={styles.filterBtn}
             >
                 <Text style={styles.filterText}>{title}</Text>
@@ -68,7 +68,7 @@ const YearFilter: FC<IYearFilter> & IComponentActions = ({
 
             <StandartModal
                 visible={isVisibleInputModal}
-                closeModal={toggleInputModal}
+                closeModal={closeInputModal}
             >
                 <View style={styles.container}>
                     <TextInput
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 8,
-        width: "100%"
+        width: '100%',
     },
     filterBtn: {
         marginLeft: 'auto',

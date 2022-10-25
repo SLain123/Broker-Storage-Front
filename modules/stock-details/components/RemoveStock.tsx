@@ -40,7 +40,7 @@ const RemoveStock: FC<IRemoveStock> = ({ id, closeModal, isLast }) => {
     }
 
     return (
-        <>
+        <View>
             <Text style={styles.title}>
                 Are you sure you want to remove the operation/stock?
             </Text>
@@ -66,7 +66,7 @@ const RemoveStock: FC<IRemoveStock> = ({ id, closeModal, isLast }) => {
                     <Text style={styles.text}>Cancel</Text>
                 </TouchableOpacity>
             </View>
-        </>
+        </View>
     );
 };
 
@@ -82,14 +82,14 @@ const styles = StyleSheet.create({
     standartBtn: {
         backgroundColor: '#2756B1',
         padding: 12,
-        width: '45%',
+        width: '48%',
         marginTop: 8,
         borderRadius: 4,
     },
     removeBtn: {
         backgroundColor: '#A30000',
         padding: 12,
-        width: '45%',
+        width: '48%',
         marginTop: 8,
         borderRadius: 4,
     },

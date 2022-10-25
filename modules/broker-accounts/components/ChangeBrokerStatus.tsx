@@ -81,48 +81,52 @@ const ChangeBrokerStatus: FC<IChangeBrokerStatus> = ({
             visible={isVisibleChangeModal}
             closeModal={closeChangeModal}
         >
-            <Text style={styles.title}>
-                {status === 'active'
-                    ? 'Are you sure you want to deactivate the selected broker?'
-                    : 'Are you sure you want to reactivate the selected broker?'}
-            </Text>
+            <View>
+                <Text style={styles.title}>
+                    {status === 'active'
+                        ? 'Are you sure you want to deactivate the selected broker?'
+                        : 'Are you sure you want to reactivate the selected broker?'}
+                </Text>
 
-            {status === 'active' && (
-                <View>
-                    <Text style={styles.bold}>{title}</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Type name of Broker to activate the button'
-                        value={checkInputValue}
-                        onChangeText={(text) => {
-                            setCheckInputValue(text);
-                        }}
-                    />
+                {status === 'active' && (
+                    <View>
+                        <Text style={styles.bold}>{title}</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder='Type name of Broker to activate the button'
+                            value={checkInputValue}
+                            onChangeText={(text) => {
+                                setCheckInputValue(text);
+                            }}
+                        />
+                    </View>
+                )}
+
+                <View style={styles.btnBlock}>
+                    <TouchableOpacity
+                        activeOpacity={0.5}
+                        style={mainBtnStyle}
+                        onPress={changeBrokerStatus}
+                        disabled={isDisabledBtn || isLoading}
+                    >
+                        {isLoading ? (
+                            <ActivityIndicator size='small' color='black' />
+                        ) : (
+                            <Text style={styles.text}>
+                                {status === 'active'
+                                    ? 'Deactivate'
+                                    : 'Activate'}
+                            </Text>
+                        )}
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        activeOpacity={0.5}
+                        style={styles.standartBtn}
+                        onPress={cleanFunc}
+                    >
+                        <Text style={styles.text}>Cancel</Text>
+                    </TouchableOpacity>
                 </View>
-            )}
-
-            <View style={styles.btnBlock}>
-                <TouchableOpacity
-                    activeOpacity={0.5}
-                    style={mainBtnStyle}
-                    onPress={changeBrokerStatus}
-                    disabled={isDisabledBtn || isLoading}
-                >
-                    {isLoading ? (
-                        <ActivityIndicator size='small' color='black' />
-                    ) : (
-                        <Text style={styles.text}>
-                            {status === 'active' ? 'Deactivate' : 'Activate'}
-                        </Text>
-                    )}
-                </TouchableOpacity>
-                <TouchableOpacity
-                    activeOpacity={0.5}
-                    style={styles.standartBtn}
-                    onPress={cleanFunc}
-                >
-                    <Text style={styles.text}>Cancel</Text>
-                </TouchableOpacity>
             </View>
 
             <RequestErrorModal
@@ -141,7 +145,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginTop: 'auto',
-        width: '85%'
     },
     deactBtn: {
         backgroundColor: '#A30000',

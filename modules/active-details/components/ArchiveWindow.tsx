@@ -41,36 +41,38 @@ const ArchiveWindow: FC<IArchiveWindow> = ({ id, closeModal }) => {
 
     return (
         <>
-            <Text style={styles.title}>
-                {activeData.active.status === 'active'
-                    ? 'Are you sure you want to send this Active to Archive?'
-                    : 'Are you sure you want to return this Active from Archive?'}
-            </Text>
+            <View>
+                <Text style={styles.title}>
+                    {activeData.active.status === 'active'
+                        ? 'Are you sure you want to send this Active to Archive?'
+                        : 'Are you sure you want to return this Active from Archive?'}
+                </Text>
 
-            <View style={styles.btnBlock}>
-                <TouchableOpacity
-                    activeOpacity={0.5}
-                    style={styles.removeBtn}
-                    onPress={changeActiveStatus}
-                    disabled={isSuccess || isLoading}
-                >
-                    {isLoading ? (
-                        <ActivityIndicator size='small' color='black' />
-                    ) : (
-                        <Text style={styles.text}>
-                            {activeData.active.status === 'active'
-                                ? 'Send to Archive'
-                                : 'Return from Archive'}
-                        </Text>
-                    )}
-                </TouchableOpacity>
-                <TouchableOpacity
-                    activeOpacity={0.5}
-                    style={styles.standartBtn}
-                    onPress={closeModal}
-                >
-                    <Text style={styles.text}>Cancel</Text>
-                </TouchableOpacity>
+                <View style={styles.btnBlock}>
+                    <TouchableOpacity
+                        activeOpacity={0.5}
+                        style={styles.removeBtn}
+                        onPress={changeActiveStatus}
+                        disabled={isSuccess || isLoading}
+                    >
+                        {isLoading ? (
+                            <ActivityIndicator size='small' color='black' />
+                        ) : (
+                            <Text style={styles.text}>
+                                {activeData.active.status === 'active'
+                                    ? 'Send to Archive'
+                                    : 'Return from Archive'}
+                            </Text>
+                        )}
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        activeOpacity={0.5}
+                        style={styles.standartBtn}
+                        onPress={closeModal}
+                    >
+                        <Text style={styles.text}>Cancel</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
 
             <RequestErrorModal
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
     standartBtn: {
         backgroundColor: '#2756B1',
         padding: 12,
-        width: '45%',
+        width: '48%',
         marginTop: 8,
         borderRadius: 4,
         display: 'flex',
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
     removeBtn: {
         backgroundColor: '#A30000',
         padding: 12,
-        width: '45%',
+        width: '48%',
         marginTop: 8,
         borderRadius: 4,
     },

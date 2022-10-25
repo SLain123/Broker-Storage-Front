@@ -37,14 +37,14 @@ const BrokerFilter: FC<IBrokerFilter> & IComponentActions = ({
         [isLoading, isError, brokerList],
     );
 
-    const toggleModal = useCallback(() => {
-        setVisibleModal((prev) => !prev);
+    const closeModal = useCallback(() => {
+        setVisibleModal(false);
     }, []);
 
     const changeBroker = (index: number) => {
         setTitle(`Filter by ${brokerList.brokerAccounts[index].title}`);
         saveBrokerFunc(brokerList.brokerAccounts[index]._id);
-        toggleModal();
+        setVisibleModal(false);
     };
 
     const reset = () => {
@@ -61,13 +61,13 @@ const BrokerFilter: FC<IBrokerFilter> & IComponentActions = ({
         <>
             <TouchableOpacity
                 activeOpacity={0.5}
-                onPress={toggleModal}
+                onPress={() => setVisibleModal(true)}
                 style={styles.filterBtn}
             >
                 <Text style={styles.filterText}>{title}</Text>
             </TouchableOpacity>
 
-            <StandartModal visible={isVisibleModal} closeModal={toggleModal}>
+            <StandartModal visible={isVisibleModal} closeModal={closeModal}>
                 <View style={styles.container}>
                     <SelectDropdown
                         ref={dropdownRef}
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 8,
-        width: "100%"
+        width: '100%',
     },
     selectBody: {
         backgroundColor: 'black',

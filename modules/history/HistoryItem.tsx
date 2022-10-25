@@ -27,8 +27,8 @@ const HistoryItem: FC<IHistoryItem> = ({
 
     const actionStyle = action === 'buy' ? styles.buy : styles.sell;
 
-    const toggleModal = useCallback(() => {
-        setVisibleRemoveModal((prev) => !prev);
+    const closeModal = useCallback(() => {
+        setVisibleRemoveModal(false);
     }, []);
 
     return (
@@ -46,7 +46,7 @@ const HistoryItem: FC<IHistoryItem> = ({
                 <TouchableOpacity
                     style={styles.btn}
                     activeOpacity={0.5}
-                    onPress={toggleModal}
+                    onPress={() => setVisibleRemoveModal(true)}
                     disabled={isFirst}
                 >
                     {!isFirst && <RemoveIcon width={22} height={35} />}
@@ -55,13 +55,9 @@ const HistoryItem: FC<IHistoryItem> = ({
 
             <StandartModal
                 visible={isVisbleRemoveModal}
-                closeModal={toggleModal}
+                closeModal={closeModal}
             >
-                <RemoveStock
-                    id={_id}
-                    closeModal={toggleModal}
-                    isLast={isLast}
-                />
+                <RemoveStock id={_id} closeModal={closeModal} isLast={isLast} />
             </StandartModal>
         </>
     );
