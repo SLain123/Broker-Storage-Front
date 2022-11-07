@@ -1,5 +1,10 @@
 import React, { useEffect, FC } from 'react';
-import { useWindowDimensions, StyleSheet, Text, RefreshControl } from 'react-native';
+import {
+    useWindowDimensions,
+    StyleSheet,
+    Text,
+    RefreshControl,
+} from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -40,12 +45,15 @@ const EditActiveForm: FC<IEditActiveForm> = ({ route }) => {
     const initialValues: IEditActiveReq = {
         id,
         title: activeData.active.title,
-        cash: String(activeData.active.cash),
+        cash: String(Math.round(activeData.active.cash)),
         status: activeData.active.status,
     };
     const validationSchema = Yup.object().shape({
         title: Yup.string().required('Name of stock is Required'),
         cash: Yup.number()
+            .typeError(
+                'Cash must be a number, use a dot for fractional numbers',
+            )
             .min(0, 'Specify Amount of Cash, min 0')
             .max(999999999999, 'Amount is Too Large'),
     });

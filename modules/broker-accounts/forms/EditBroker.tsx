@@ -38,11 +38,14 @@ const EditBroker: FC<IEditBroker> = ({ route }) => {
     const isDisabled = isSuccess || isLoading;
     const initialValues: ICreateBrokerReq = {
         title,
-        cash: String(cash),
+        cash: String(Math.round(cash)),
     };
     const validationSchema = Yup.object().shape({
         title: Yup.string().required('Broker Name is Required'),
         cash: Yup.number()
+            .typeError(
+                'Cash must be a number, use a dot for fractional numbers',
+            )
             .min(0, 'Specify Amount of Cash, min 0')
             .max(999999999999, 'Amount is Too Large'),
     });
@@ -69,15 +72,15 @@ const EditBroker: FC<IEditBroker> = ({ route }) => {
 
     return (
         <KeyboardAwareScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-            ...styles.container,
-            paddingTop: window.height >= 700 ? '20%' : 10,
-        }}
-        refreshControl={
-            <RefreshControl refreshing={false} onRefresh={resetAllForm} />
-        }
-    >
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+                ...styles.container,
+                paddingTop: window.height >= 700 ? '20%' : 10,
+            }}
+            refreshControl={
+                <RefreshControl refreshing={false} onRefresh={resetAllForm} />
+            }
+        >
             <FormInput
                 formik={formik}
                 field='title'

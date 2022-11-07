@@ -9,6 +9,7 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+pc-api-6815288101490781312-898-73fb453e570c.json
 
 # macOS
 .DS_Store

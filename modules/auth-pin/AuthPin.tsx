@@ -26,6 +26,7 @@ const AuthPin: FC = () => {
 
     const exitFromAccount = () => {
         saveToStore('token', '');
+        saveToStore('pin', '');
         dispatch(setAuthStatus(false));
         dispatch(setPin([]));
     };

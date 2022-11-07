@@ -60,12 +60,17 @@ const AddStockForm: FC<IAddStockForm> = ({ route }) => {
         action: Yup.string().required('Chose operation type'),
         date: Yup.string().required('Transaction Date is Required'),
         count: Yup.number()
+            .typeError('Count of stock must be a number')
             .min(1, 'Specify count of stock, min 1')
             .max(999999999999, 'Amount is Too Large'),
         pricePerSingle: Yup.number()
+            .typeError(
+                'Price must be a number, use a dot for fractional numbers',
+            )
             .min(0, 'Specify price of stock, min 0')
             .max(999999999999, 'Amount is Too Large'),
         fee: Yup.number()
+            .typeError('Fee must be a number, use a dot for fractional numbers')
             .min(0, 'Specify fee of stock, min 0')
             .max(999999999999, 'Amount is Too Large'),
     });

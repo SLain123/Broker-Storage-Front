@@ -47,6 +47,9 @@ const CreateActiveForm: FC = () => {
         title: Yup.string().required('Name of stock is Required'),
         currencyId: Yup.string().required('Broker Currency is Required'),
         cash: Yup.number()
+            .typeError(
+                'Cash must be a number, use a dot for fractional numbers',
+            )
             .min(0, 'Specify Amount of Cash, min 0')
             .max(999999999999, 'Amount is Too Large'),
     });

@@ -51,6 +51,9 @@ const CreateDividendForm: FC<ICreateDividendForm> = ({ route }) => {
     const validationSchema = Yup.object().shape({
         date: Yup.string().required('Transaction Date is Required'),
         payment: Yup.number()
+            .typeError(
+                'Payment must be a number, use a dot for fractional numbers',
+            )
             .min(1, 'Specify sum of payment, min 1')
             .max(999999999999, 'Amount is Too Large'),
     });

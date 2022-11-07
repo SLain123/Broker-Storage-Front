@@ -8,7 +8,7 @@ import { RequestErrorModal } from 'components/modals';
 import { BrokerAccountList } from '../broker-accounts/BrokerAccountList';
 import { saveToStore } from 'utils/secureStoreFuncs';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { setAuthStatus, getAuthStatus } from 'slice/authSlice';
+import { setAuthStatus, getAuthStatus, setPin } from 'slice/authSlice';
 import { LoadingPreview } from 'components/loading-preview/LoadingPreview';
 
 import At from 'assets/icons/at.svg';
@@ -26,7 +26,9 @@ const UserProfilePanel: FC = () => {
 
     const exitFromAccount = () => {
         saveToStore('token', '');
+        saveToStore('pin', '');
         dispatch(setAuthStatus(false));
+        dispatch(setPin([]));
     };
 
     useEffect(() => {
@@ -74,7 +76,7 @@ const UserProfilePanel: FC = () => {
                 onPress={() => navigation.navigate('Edit Pin')}
                 icon={<Pin width={32} height={28} />}
                 title='PIN Code'
-                desc="Create or change your PIN code"
+                desc='Create or change your PIN code'
             />
 
             <BrokerAccountList brokerAccounts={data.user.brokerAccounts} />

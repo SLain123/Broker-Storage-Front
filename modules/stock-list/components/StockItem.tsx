@@ -55,7 +55,7 @@ const StockItem: FC<IStockItem> = ({
             <View style={styles.bodyBlock}>
                 <Text style={styles.infoText}>Total Price of the Stocks:</Text>
                 <Text style={styles.infoValue}>
-                    {moneyFormater(deltaBuy * restCount + fee)}{' '}
+                    {moneyFormater(deltaBuy * restCount)}{' '}
                     {currency.ticker}
                 </Text>
             </View>

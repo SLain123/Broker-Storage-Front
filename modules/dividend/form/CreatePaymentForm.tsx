@@ -1,5 +1,10 @@
 import React, { useEffect, FC } from 'react';
-import { useWindowDimensions, StyleSheet, Text, RefreshControl } from 'react-native';
+import {
+    useWindowDimensions,
+    StyleSheet,
+    Text,
+    RefreshControl,
+} from 'react-native';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { RouteProp } from '@react-navigation/native';
@@ -46,6 +51,9 @@ const CreatePaymentForm: FC<ICreateDividendForm> = ({ route }) => {
     const validationSchema = Yup.object().shape({
         date: Yup.string().required('Transaction Date is Required'),
         payment: Yup.number()
+            .typeError(
+                'Payment must be a number, use a dot for fractional numbers',
+            )
             .min(1, 'Specify sum of payment, min 1')
             .max(999999999999, 'Amount is Too Large'),
     });

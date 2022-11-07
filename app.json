@@ -2,7 +2,7 @@
     "expo": {
         "name": "UBA",
         "slug": "unified_broker_account",
-        "version": "1.0.0",
+        "version": "1.0.1",
         "orientation": "portrait",
         "userInterfaceStyle": "light",
         "icon": "./assets/icon512.png",
@@ -20,7 +20,7 @@
         },
         "android": {
             "package": "com.uba",
-            "versionCode": 1,
+            "versionCode": 2,
             "adaptiveIcon": {
                 "backgroundColor": "#000000",
                 "foregroundImage": "./assets/icon512.png"
