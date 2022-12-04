@@ -1,10 +1,11 @@
+import { baseUrl } from './base';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { ICurrencyResponse } from 'types/currencyTypes';
 
 export const currencyApi = createApi({
     reducerPath: 'currency',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://unified-broker.herokuapp.com/api/',
+        baseUrl,
     }),
     tagTypes: ['Currency'],
     endpoints: (builder) => ({

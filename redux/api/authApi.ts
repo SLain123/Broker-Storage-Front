@@ -1,3 +1,4 @@
+import { baseUrl } from './base';
 import {
     createApi,
     fetchBaseQuery,
@@ -16,7 +17,7 @@ import { getValueFromStore } from 'utils/secureStoreFuncs';
 export const authApi = createApi({
     reducerPath: 'authApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://unified-broker.herokuapp.com/api/',
+        baseUrl,
         prepareHeaders: async (headers) => {
             const token = await getValueFromStore('token');
             token && headers.set('Authorization', `Bearer ${token}`);
