@@ -1,38 +1,41 @@
 {
-    "expo": {
-        "name": "UBA",
-        "slug": "unified_broker_account",
-        "version": "1.0.2",
-        "orientation": "portrait",
-        "userInterfaceStyle": "light",
-        "icon": "./assets/icon512.png",
-        "splash": {
-            "resizeMode": "contain",
-            "backgroundColor": "#000000"
-        },
-        "updates": {
-            "fallbackToCacheTimeout": 0
-        },
-        "assetBundlePatterns": ["**/*"],
-        "ios": {
-            "supportsTablet": true,
-            "requireFullScreen": true
-        },
-        "android": {
-            "package": "com.uba",
-            "versionCode": 5,
-            "adaptiveIcon": {
-                "backgroundColor": "#000000",
-                "foregroundImage": "./assets/icon512.png"
-            }
-        },
-        "web": {
-            "favicon": "./assets/icon512.png"
-        },
-        "extra": {
-            "eas": {
-                "projectId": "84882049-6d5a-4646-a41c-e44f5fd0b572"
-            }
-        }
-    }
+  "expo": {
+    "name": "UBA",
+    "slug": "unifiedbrokeracc",
+    "version": "1.0.3",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "icon": "./assets/icon512.png",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "requireFullScreen": true
+    },
+    "android": {
+      "package": "com.uba",
+      "versionCode": 5,
+      "adaptiveIcon": {
+        "backgroundColor": "#000000",
+        "foregroundImage": "./assets/icon512.png"
+      }
+    },
+    "web": {
+      "favicon": "./assets/icon512.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a8deb48c-70a9-4f4c-aecd-3b469cb82f8a"
+      }
+    },
+    "owner": "slain123"
+  }
 }
